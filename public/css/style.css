@@ -1,0 +1,31 @@
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+}
+
+#arrowScroll {      
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    visibility: hidden;
+    transition: visibility 0.5s;
+
+    width: 1.5em;
+    height: 1.5em;
+
+    border: 3px solid #4c5760;
+    border-radius: 50%;
+    
+    background-color: #FFFFFF;
+    
+    color: #4c5760;
+    font-size: 2.5em;
+
+    cursor: pointer;
+}
