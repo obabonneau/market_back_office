@@ -42,7 +42,11 @@ export function addLivre(form) {
                                         <i class="bi bi-trash"></i>
                                     </a>
                                 </td>`;
-                tabLivre.insertBefore(tr, tabLivre.firstChild);        
+                tabLivre.insertBefore(tr, tabLivre.firstChild);
+                tr.classList.add("table-success", "border-3", "border-success");
+                setTimeout(() => {
+                    tr.classList.remove("table-success", "border-3", "border-success");
+                }, 5000);        
             }
         })
         .catch(error => {

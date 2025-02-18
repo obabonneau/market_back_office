@@ -88,6 +88,7 @@ titre.addEventListener("input", () => {
     }
 });
 
+
 // ECOUTEUR SUR LE CHAMP DE L'AUTEUR
 auteur.addEventListener("input", () => {
     if (auteur.value.length >= 3) {

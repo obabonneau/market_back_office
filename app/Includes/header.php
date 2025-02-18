@@ -111,16 +111,18 @@
             <!------------------------------------->
             <!-- POSSIBLE MESSAGE D'INFORMATIONS -->
             <!------------------------------------->
-            <?php if ($_GET["msgOK"] ?? null) : ?>
+            <?php if ($_SESSION["msgOK"] ?? null) : ?>
                 <div id="message" class="alert alert-success py-2" role="alert">
-                    <p class="mb-0"><?php echo htmlspecialchars($_GET["msgOK"], ENT_QUOTES, "UTF-8"); ?></p>
+                    <p class="mb-0"><?php echo htmlspecialchars($_SESSION["msgOK"], ENT_QUOTES, "UTF-8"); ?></p>
                 </div>
             <?php endif;
-            if ($_GET["msgKO"] ?? null) : ?>
+            unset($_SESSION["msgOK"]);
+            if ($_SESSION["msgKO"] ?? null) : ?>
                 <div id="message" class="alert alert-danger py-2" role="alert">
-                    <p class="mb-0"><?php echo htmlspecialchars($_GET["msgKO"], ENT_QUOTES, "UTF-8"); ?></p>
+                    <p class="mb-0"><?php echo htmlspecialchars($_SESSION["msgKO"], ENT_QUOTES, "UTF-8"); ?></p>
                 </div>
-            <?php endif; ?>
+            <?php endif;
+            unset($_SESSION["msgKO"]); ?>
 
             <!-- <script>
                 // Cacher le message après 5 secondes

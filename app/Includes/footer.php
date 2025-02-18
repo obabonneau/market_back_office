@@ -1,5 +1,3 @@
-        
-
             <!-- POPUP COOKIE -->
             <?php include "popUpCookie.php"; ?>
 
@@ -18,11 +16,12 @@
 
     <!-- SCRIPTS -->
     <script src="../public/js/main.js"></script>
-    <script src="../public/js/utilisateur/testMDP.js"></script>
-    <!-- <script src="../public/js/utilisateur/testEmail.js"></script> -->
-    <script type="module" src="../public/js/livre/testFormLivre.js"></script>
-    <script type="module" src="../public/js/livre/modules/addLivre.js"></script>
     <script type="module" src="../public/js/livre/createToken.js"></script>
+    <!-- <script src="../public/js/utilisateur/testMDP.js"></script> -->
+    <!-- <script src="../public/js/utilisateur/testEmail.js"></script> -->
+    <!-- <script type="module" src="../public/js/livre/testFormLivre.js"></script> -->
+    <!-- <script type="module" src="../public/js/livre/modules/addLivre.js"></script> -->
+
 </body>
 
 </html>

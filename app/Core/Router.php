@@ -21,51 +21,14 @@ class Router
     ////////////////////
     // METHODE ROUTES //
     ////////////////////
-    // public function routes()
-    // {
-    //     // RECUPERATION DE LA ROUTE (Par défaut, HomeControler->homeAction)
-    //     $this->controller = ($_GET["controller"] ?? "Home") . "Controller";
-    //     $this->action = $_GET["action"] ?? "home";
-
-    //     // VERIFICATION DE L'EXISTENCE DU CONTROLEUR
-    //     if (file_exists("../app/Controllers/" . $this->controller . ".php")) {
-
-    //         // UTILISATION DU CONTROLEUR
-    //         require_once "../app/Controllers/" . $this->controller . ".php";
-
-    //         // VERIFICATION DE L'EXISTANCE DE LA METHODE DANS LE CONTROLEUR
-    //         if (method_exists($this->controller, $this->action)) {
-
-    //             // INSTANCIATION D'UN OBJET "controller"
-    //             $controller = new $this->controller();
-
-    //             // UTILISATION D'UNE METHODE DE L'OBJET
-    //             $controller->{$this->action}();
-
-    //         } else {
-    //             // ERREUR DE METHODE
-    //             //echo "ERREUR DE PAGE : La méthode '" . $this->action . "' n'existe pas dans le contrôleur '" . $this->controller . "'.";
-    //             $this->redirectTo404();
-    //         }
-    //     } else {
-    //         // ERREUR DE CONTROLLER
-    //         //echo "ERREUR DE PAGE : Le contrôleur '" . $this->controller . "' n'existe pas.";
-    //        $this->redirectTo404();
-    //     }
-
     public function routes()
     {
         // RECUPERATION DE LA ROUTE (Par défaut, HomeControler->homeAction)
         $this->controller = ($_GET["controller"] ?? "Home") . "Controller";
-        $this->action = $_GET["action"] ?? "home";
-
-        
+        $this->action = $_GET["action"] ?? "home";       
 
         // VERIFICATION DE L'EXISTENCE DU FICHIER DU CONTROLEUR
         if (file_exists("../app/Controllers/" . $this->controller . ".php")) {
-
-            // UTILISATION DU FICHIER DU CONTROLEUR
-            require_once "../app/Controllers/" . $this->controller . ".php";
 
             // DEFINITION DU CHEMIN DE LA CLASSE (namespace)
             $controllerClass = "App\\Controllers\\" . $this->controller;
@@ -109,11 +72,12 @@ class Router
     private function redirectTo404()
     {
         if (file_exists("../app/Controllers/ErrorController.php")) {
-            require_once "../app/Controllers/ErrorController.php";
-            if (class_exists("ErrorController") && method_exists("ErrorController", "error404")) {
-                $errorController = new ErrorController();
-                $errorController->error404();
-                die();
+            if (class_exists("App\\Controllers\\ErrorController")) {
+                if (method_exists("App\\Controllers\\ErrorController", "error404")) {
+                    $errorController = new ErrorController();
+                    $errorController->error404();
+                    die();
+                }
             }
         }
         

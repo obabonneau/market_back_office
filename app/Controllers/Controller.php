@@ -30,10 +30,10 @@ abstract class Controller
     /////////////////////////////////////
     public function myHeader($controller, $action, $messageKey, $data = [])
     {
-        // CONSTUCTION DE L'URL
+        // CONSTRUCTION DE L'URL
         $location = "index.php?controller=" . $controller . "&action=" . $action;
 
-        // AJOUT D'UN PARAMETRE
+        // AJOUT D'UN PARAMETRE ID
         if (isset($data)) {
             $location .= "&" . key($data) . "=" . current($data);
         }
@@ -44,9 +44,9 @@ abstract class Controller
             $message = $messageModel->getMessage($messageKey);
 
             if (str_starts_with($messageKey, "success_")) {
-                $location .= "&msgOK=" . $message;
+                $_SESSION["msgOK"] = $message;
             } else {
-                $location .= "&msgKO=" . $message;
+                $_SESSION["msgKO"] = $message;
             }
         }
         
