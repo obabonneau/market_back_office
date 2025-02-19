@@ -98,17 +98,18 @@ class UtilisateurController extends Controller
     {
         // VERIFICATION DE LA METHODE POST
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
+            $input = json_decode(file_get_contents("php://input"), true);
 
             // VERIFICATION DU TOKEN
-            $token = $_POST["token"] ?? "";
-            if ((hash_equals($_SESSION["token"]["id"], $token)) && (time() < $_SESSION["token"]["token_expiration"])) {
+            $token = $input["token"] ?? "";
+            if ((hash_equals($_SESSION["tokenCSRF"]["id"], $token)) && (time() < $_SESSION["tokenCSRF"]["token_expiration"])) {
 
                 // SUPPRESSION DU TOKEN
                 unset($_SESSION["token"]);
 
                 // VERIFICATION DES CHAMPS
-                $email = $_POST["email"] ?? null;
-                $mdp = $_POST["mdp"] ?? null;
+                $email = $input["email"] ?? null;
+                $mdp = $input["mdp"] ?? null;
                 if ($email && $mdp) {
 
                     // LECTURE DE L'UTILISATEUR
@@ -131,29 +132,33 @@ class UtilisateurController extends Controller
                         ];        
 
                         // DEFINITION DES COOKIES UTILISATEUR
-                        if ($_COOKIE["ackCookie"] === "yes") {                                   
-                            foreach ($_SESSION["user"] as $name => $value) {
-                                setcookie($name, $value, time() + 86400, "/");
-                            }
-                        }
+                        //if ($_COOKIE["ackCookie"] === "yes") {                                   
+                        //    foreach ($_SESSION["user"] as $name => $value) {
+                        //        setcookie($name, $value, time() + 86400, "/");
+                        //    }
+                        //}
 
                         // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
-                        $this->myHeader("Home", "home", "success_login");
+                        //$this->myHeader("Home", "home", "success_login");
+                        echo json_encode(["success" => true, "messageOK" => "success_login"]);
                     
                     } else {
 
                         // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
-                        $this->myHeader("Utilisateur", "formLogon", "error_login");
+                        //$this->myHeader("Utilisateur", "formLogon", "error_login");
+                        echo json_encode(false);
                     }
                 } else {
 
                     // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
-                    $this->myHeader("Utilisateur", "formLogon", "error_input");
+                    //$this->myHeader("Utilisateur", "formLogon", "error_input");
+                    echo json_encode(false);
                 }    
             } else {
 
                 // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
-                $this->myHeader("Utilisateur", "formLogon", "error_token");
+                //$this->myHeader("Utilisateur", "formLogon", "error_token");
+                echo json_encode(false);
             }
         }    
     }

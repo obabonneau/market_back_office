@@ -1,18 +1,15 @@
 //////////////////////////////////
 // SCRIPT POUR GENERER UN TOKEN //
 //////////////////////////////////
-document.querySelector("#btnToken").addEventListener("click", () => {
-
-    fetch("index.php?controller=Livre&action=formCreate",
+fetch("index.php?controller=Token&action=create",
     {
         method: "GET",
     })
     .then((response) => response.json())
     .then((token) => 
     {
-        document.querySelector("#token").value = token; 
+        document.querySelector("#tokenCSRF").value = token.id; 
     })
     .catch(error => {
-        console.error("Erreur:", error);
+        //console.error("Erreur:", error);
     })
-});

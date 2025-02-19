@@ -18,6 +18,10 @@ class HomeController extends Controller
     ////////////////////////////////////////
     public function home()
     {
-        $this->render("home/home");
+        if (isset($_SESSION["user"]["id_utilisateur"])) {
+            $this->render("home/home");
+        } else {
+            header("Location: login.php");
+        }
     }
 }

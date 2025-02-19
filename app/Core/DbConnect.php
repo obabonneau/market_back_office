@@ -25,7 +25,7 @@ abstract class DbConnect
     const SERVER = "localhost";
     const USER = "root";
     const PASSWORD = "";
-    const BASE = "bibliotheque";
+    const BASE = "commerce";
 
     ////////////////////////////////////////////////
     // CONSTRUCTEUR POUR INITIALISER LA CONNEXION //

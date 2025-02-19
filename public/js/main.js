@@ -1,38 +1,3 @@
-///////////////////// 
-// MODE DARK/LIGHT //
-/////////////////////
-
-// SELECTION DES ELEMENTS DU DOM
-const btnModeDark = document.querySelector("#btnModeDark");
-const main = document.querySelector("main");
-const h1 = document.querySelector("h1");
-
-// RECUPERATION DU MODE DANS LE LOCALSTORAGE
-let darkMode = JSON.parse(localStorage.getItem("darkMode"));
-
-
-// INITIALISATION DU MODE
-if (darkMode) {
-    fctDarkMode();
-} 
-
-// CHANGEMENT DE MODE AU CLICK
-btnModeDark.addEventListener("click", () => {   
-    fctDarkMode();
-    localStorage.setItem("darkMode", JSON.stringify(!darkMode));
-});
-
-// FONCTION CHANGEMENT DE MODE
-function fctDarkMode() {
-    btnModeDark.classList.toggle("text-black");
-    btnModeDark.classList.toggle("text-warning");
-    main.classList.toggle("bg-secondary");
-    main.classList.toggle("bg-light");
-    h1.classList.toggle("text-white");
-    h1.classList.toggle("text-black");
-}
-
-
 //////////////////
 // POPUP COOKIE //
 //////////////////

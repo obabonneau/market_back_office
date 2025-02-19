@@ -1,27 +1,30 @@
-            <!-- POPUP COOKIE -->
-            <?php include "popUpCookie.php"; ?>
+                    </div>
+                    <!-- End of Content Row -->
+                
+                </main>
+                <!-- End of Page Content -->
 
-            <!-- SCROLL TO TOP BUTTON -->
-            <div id="arrowScroll" class="position-fixed bottom-0 end-0 m-4">
-                <i class="bi bi-arrow-up" title="Remonter en haut de la page"></i>
             </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Back Office 2025 ® Tous droits réservés.</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
         </div>
-    </main>
+        <!-- End of Content Wrapper -->
 
-    <footer class="border-top bg-secondary text-light text-center py-3">
-        <div class="container">
-            <p class="mb-0">© 2025 Ma Bibliothèque - Production interne - ® Tous droits réservés.</p>
-        </div>
-    </footer>
+    </div>
+    <!-- End of Page Wrapper -->
 
-    <!-- SCRIPTS -->
-    <script src="../public/js/main.js"></script>
-    <script type="module" src="../public/js/livre/createToken.js"></script>
-    <!-- <script src="../public/js/utilisateur/testMDP.js"></script> -->
-    <!-- <script src="../public/js/utilisateur/testEmail.js"></script> -->
-    <!-- <script type="module" src="../public/js/livre/testFormLivre.js"></script> -->
-    <!-- <script type="module" src="../public/js/livre/modules/addLivre.js"></script> -->
-
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
 </body>
-
-</html>

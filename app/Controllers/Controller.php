@@ -34,7 +34,7 @@ abstract class Controller
         $location = "index.php?controller=" . $controller . "&action=" . $action;
 
         // AJOUT D'UN PARAMETRE ID
-        if (isset($data)) {
+        if ($data ?? null) {
             $location .= "&" . key($data) . "=" . current($data);
         }
 

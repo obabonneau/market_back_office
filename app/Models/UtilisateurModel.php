@@ -22,7 +22,7 @@ class UtilisateurModel extends DbConnect
     {
         try {
             // PREPARATION DE LA REQUETE SQL
-            $this->request = $this->connection->prepare("SELECT * FROM utilisateur WHERE id_utilisateur = :id_utilisateur");
+            $this->request = $this->connection->prepare("SELECT * FROM com_utilisateur WHERE id_utilisateur = :id_utilisateur");
             $this->request->bindValue(":id_utilisateur", $readUtilisateur->getId_utilisateur(), PDO::PARAM_INT);
 
             // EXECUTION DE LA REQUETE SQL
@@ -47,7 +47,7 @@ class UtilisateurModel extends DbConnect
     {
         try {
             // PREPARATION DE LA REQUETE SQL
-            $this->request = $this->connection->prepare("SELECT * FROM utilisateur WHERE email = :email");
+            $this->request = $this->connection->prepare("SELECT * FROM com_utilisateur WHERE email = :email");
             $this->request->bindValue(":email", $readUtilisateur->getEmail(), PDO::PARAM_STR);
 
             // EXECUTION DE LA REQUETE SQL
@@ -72,7 +72,7 @@ class UtilisateurModel extends DbConnect
     {
         try {
             // PREPARATION DE LA REQUETE SQL
-            $this->request = $this->connection->prepare("SELECT * FROM utilisateur WHERE token = :token");
+            $this->request = $this->connection->prepare("SELECT * FROM com_utilisateur WHERE token = :token");
             $this->request->bindValue(":token", $readUtilisateur->getToken(), PDO::PARAM_STR);
 
             // EXECUTION DE LA REQUETE SQL
@@ -97,7 +97,7 @@ class UtilisateurModel extends DbConnect
     {
         try {
             // PREPARATION DE LA REQUETE SQL
-            $this->request = $this->connection->prepare("SELECT * FROM utilisateur ORDER BY prenom ASC");
+            $this->request = $this->connection->prepare("SELECT * FROM com_utilisateur ORDER BY prenom ASC");
 
             // EXECUTION DE LA REQUETE SQL
             $this->request->execute();
@@ -121,7 +121,7 @@ class UtilisateurModel extends DbConnect
     {
         try {
             // PREPARATION DE LA REQUETE SQL
-            $this->request = $this->connection->prepare("INSERT INTO utilisateur (prenom, nom, email, mdp, statut)
+            $this->request = $this->connection->prepare("INSERT INTO com_utilisateur (prenom, nom, email, mdp, statut)
                 VALUES (:prenom, :nom, :email, :mdp, :statut)");
             $this->request->bindValue(":prenom", $addUtilisateur->getPrenom(), PDO::PARAM_STR);
             $this->request->bindValue(":nom", $addUtilisateur->getNom(), PDO::PARAM_STR);
@@ -148,7 +148,7 @@ class UtilisateurModel extends DbConnect
     {
         try {
             // CONSTRUCTION DE LA REQUETE EN FONCTION DU MDP
-            $sql = "UPDATE utilisateur SET
+            $sql = "UPDATE com_utilisateur SET
                 prenom = :prenom,
                 nom = :nom,
                 email = :email,
@@ -195,7 +195,7 @@ class UtilisateurModel extends DbConnect
     {
         try {
             // PREPARATION DE LA REQUETE SQL
-            $this->request = $this->connection->prepare("UPDATE utilisateur SET
+            $this->request = $this->connection->prepare("UPDATE com_utilisateur SET
                 token = :token,
                 token_expire = :token_expire
                 WHERE email = :email");
@@ -221,7 +221,7 @@ class UtilisateurModel extends DbConnect
     {
         try {
             // PREPARATION DE LA REQUETE SQL
-            $this->request = $this->connection->prepare("UPDATE utilisateur SET
+            $this->request = $this->connection->prepare("UPDATE com_utilisateur SET
                 mdp = :mdp,
                 token = :token,
                 token_expire = :token_expire
@@ -242,35 +242,6 @@ class UtilisateurModel extends DbConnect
         }
     }
 
-    ////////////////////////////////////////////////////////////////
-    // METHODE POUR VERIFIER SI EMPRUNT EN COURS D'UN UTILISATEUR //
-    ////////////////////////////////////////////////////////////////
-    public function ctrlEmprunt(Utilisateur $readUtilisateur)
-    {
-        try {
-            // PREPARATION DE LA REQUETE SQL
-            $this->request = $this->connection->prepare("SELECT utilisateur.id_utilisateur, utilisateur.prenom, utilisateur.nom, utilisateur.email, utilisateur.statut, emprunt.fin
-                FROM utilisateur
-                INNER JOIN emprunt ON utilisateur.id_utilisateur = emprunt.id_utilisateur
-                WHERE utilisateur.id_utilisateur = :id_utilisateur AND emprunt.fin IS NULL");
-            $this->request->bindValue(":id_utilisateur", $readUtilisateur->getId_utilisateur(), PDO::PARAM_INT);
-
-            // EXECUTION DE LA REQUETE SQL
-            $execution = $this->request->execute();
-
-            // VERIFICATION DE L'EMPRUNT
-            if ($execution && $this->request->rowCount() > 0) {
-                return true;  // Emprunt en cours
-            } else {
-                return false; // Aucun emprunt trouvé ou erreur dans l'exécution
-            }
-            
-        } catch (PDOException $e) {
-            //echo $e->getMessage();
-            //die;
-        }
-    }
-
     ///////////////////////////////////////////
     // METHODE POUR SUPPRIMER UN UTILISATEUR //
     ///////////////////////////////////////////
@@ -278,7 +249,7 @@ class UtilisateurModel extends DbConnect
     {
         try {
             // PREPARATION DE LA REQUETE SQL
-            $this->request = $this->connection->prepare("DELETE FROM utilisateur WHERE id_utilisateur = :id_utilisateur");
+            $this->request = $this->connection->prepare("DELETE FROM com_utilisateur WHERE id_utilisateur = :id_utilisateur");
             $this->request->bindValue(":id_utilisateur", $delUtilisateur->getId_utilisateur(), PDO::PARAM_INT);
 
             // EXECUTION DE LA REQUETE SQL
