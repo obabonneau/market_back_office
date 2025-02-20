@@ -1,6 +1,3 @@
-                    </div>
-                    <!-- End of Content Row -->
-                
                 </main>
                 <!-- End of Page Content -->
 

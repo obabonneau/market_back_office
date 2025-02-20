@@ -57,20 +57,20 @@ class UtilisateurController extends Controller
     ////////////////////////////////////////////
     // METHODE POUR AFFICHER LES UTILISATEURS //
     ////////////////////////////////////////////
-    public function listAdmin()
+    public function list()
     {
         // VERIFICATION DES DROITS D'ACCES
         if (($_SESSION["user"]["statut"] ?? "") === "admin") {
 
             // CREATTION D'UN TOKEN CSRF
-            $this->generateToken();
+            //$this->generateToken();
 
             // LECTURE DE TOUS LES UTILISATEURS
             $readUtilisateurModel = new UtilisateurModel();        
             $utilisateurs = $readUtilisateurModel->readAll();
 
             // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR L'AFFICHAGE
-            $this->render("utilisateur/listAdmin", ["utilisateurs" => $utilisateurs]);
+            $this->render("utilisateur/list", ["utilisateurs" => $utilisateurs]);
 
         } else{
 
@@ -105,7 +105,7 @@ class UtilisateurController extends Controller
             if ((hash_equals($_SESSION["tokenCSRF"]["id"], $token)) && (time() < $_SESSION["tokenCSRF"]["token_expiration"])) {
 
                 // SUPPRESSION DU TOKEN
-                unset($_SESSION["token"]);
+                unset($_SESSION["tokenCSRF"]);
 
                 // VERIFICATION DES CHAMPS
                 $email = $input["email"] ?? null;
