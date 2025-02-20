@@ -1,6 +1,6 @@
-//////////////////////////////////////
-// SCRIPT POUR TESTER LE FORMULAIRE //
-//////////////////////////////////////
+////////////////////////////////////////////////////////
+// SCRIPT DE CONTROLES AVANT CONNEXION AU BACK OFFICE //
+////////////////////////////////////////////////////////
 
 // DEFINITION DES REGEX
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -12,6 +12,7 @@ const emailLogin = document.querySelector("#emailLogin");
 const mdpLogin = document.querySelector("#mdpLogin");
 const emailError = document.querySelector("#emailError");
 const mdpError = document.querySelector("#mdpError");
+const loginError = document.querySelector("#loginError");
 
 
 //-----------------------------------------------//
@@ -19,7 +20,7 @@ const mdpError = document.querySelector("#mdpError");
 //-----------------------------------------------//
 document.querySelector("#formLogin").addEventListener("submit", function(event) {
    
-    // EMPECHER L'ENVOI DU FORMULAIRE
+    // EMPECHER L'ENVOI CLASSIQUE DU FORMULAIRE
     event.preventDefault();
     let isValid = true;
 
@@ -46,24 +47,34 @@ document.querySelector("#formLogin").addEventListener("submit", function(event) 
 });
 
 
-//-----------------------------------------------//
-// VALIDATION DES CHAMPS DU FORMULAIRE EN ERREUR //
-//-----------------------------------------------//
-
-// ECOUTER SUR LE CHAMP DU TITRE
-emailLogin.addEventListener("input", () => {
-    if (emailRegex.test(emailLogin.value)) {
-        eraseError(emailError);
-    }
-});
-
-
-// ECOUTEUR SUR LE CHAMP DE L'AUTEUR
-mdpLogin.addEventListener("input", () => {
-    if (mdpRegex.test(mdpLogin.value)) {
-        eraseError(mdpError);
-    }
-});
+//
+// 
+//
+function ctrlUser(token, email, mdp) {
+    fetch("index.php?controller=Utilisateur&action=logon", {
+        method: "POST",
+        body: JSON.stringify({
+            token: token,
+            email: email,
+            mdp: mdp,
+        }),
+        headers: {
+            "Content-type": "application/json; charset=UTF-8",
+        },
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data);
+            if (data.success) {
+                window.location.href = "index.php?controller=Home&action=home";
+            } else {
+                showError(loginError, data.message);
+            }
+        })
+        .catch(error => {
+            //console.error("Erreur:", error);
+        });
+};
 
 
 //----------------------------------//
@@ -83,36 +94,22 @@ function eraseError(fieldError) {
 }
 
 
-//
-// 
-//
-function ctrlUser(token, email, mdp) {
-    fetch("index.php?controller=Utilisateur&action=logon", {
-        method: "POST",
-        body: JSON.stringify({
-            token: token,
-            email: email,
-            mdp: mdp,
-        }),
-        headers: {
-            "Content-type": "application/json; charset=UTF-8",
-        },
-    })
-        .then((response) => response.json())
-        .then((data) => {
-            console.log(data);
-            if (data.success === true) {
-                window.location.href = "index.php?controller=Home&action=home";
-            }
-        })
-        .catch(error => {
-            //console.error("Erreur:", error);
-        });
-};
+//-----------------------------------------------//
+// VALIDATION DES CHAMPS DU FORMULAIRE EN ERREUR //
+//-----------------------------------------------//
 
-// ul.innerHTML = "";
-// data.forEach(element => {
-//     const li = document.createElement("li");
-//     li.textContent = element.name + ": " + element.category;
-//     ul.appendChild(li);
-// });
+// ECOUTER SUR LE CHAMP DU TITRE
+emailLogin.addEventListener("input", () => {
+    eraseError(loginError);
+    if (emailRegex.test(emailLogin.value)) {
+        eraseError(emailError);
+    }
+});
+
+// ECOUTEUR SUR LE CHAMP DE L'AUTEUR
+mdpLogin.addEventListener("input", () => {
+    eraseError(loginError);
+    if (mdpRegex.test(mdpLogin.value)) {
+        eraseError(mdpError);
+    }
+});

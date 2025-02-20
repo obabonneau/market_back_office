@@ -140,25 +140,25 @@ class UtilisateurController extends Controller
 
                         // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
                         //$this->myHeader("Home", "home", "success_login");
-                        echo json_encode(["success" => true, "messageOK" => "success_login"]);
+                        //echo json_encode(["success" => true]);
                     
                     } else {
 
                         // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
                         //$this->myHeader("Utilisateur", "formLogon", "error_login");
-                        echo json_encode(false);
+                        $this->myJsonEncode(false, "error_login");
                     }
                 } else {
 
                     // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
                     //$this->myHeader("Utilisateur", "formLogon", "error_input");
-                    echo json_encode(false);
+                    $this->myJsonEncode(false, "error_input");
                 }    
             } else {
 
                 // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
                 //$this->myHeader("Utilisateur", "formLogon", "error_token");
-                echo json_encode(false);
+                $this->myJsonEncode(false, "error_token");
             }
         }    
     }

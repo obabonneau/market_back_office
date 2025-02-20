@@ -54,15 +54,26 @@ abstract class Controller
         //exit();  
     }
 
+    //////////////////////////////////////
+    // METHODE POUR LE RENDU DANS VIEWS //
+    //////////////////////////////////////
+    public function myJsonEncode($data, $messageKey)
+    {
+        $messageModel = new MessageModel();
+        $message = $messageModel->getMessage($messageKey);
+
+        echo json_encode(["data" => $data, "message" => $message]);
+    }
+
     ////////////////////////////////////////
     // METHODE POUR GENERER UN TOKEN CSRF //
     ////////////////////////////////////////
-    public function generateToken()
-    {
-        $token_expiration = time() + 900; // 15 minutes (900 secondes)
-        $_SESSION["token"] = [
-            "id" => bin2hex(random_bytes(32)),
-            "token_expiration" => $token_expiration
-        ];
-    }
+    // public function generateToken()
+    // {
+    //     $token_expiration = time() + 900; // 15 minutes (900 secondes)
+    //     $_SESSION["token"] = [
+    //         "id" => bin2hex(random_bytes(32)),
+    //         "token_expiration" => $token_expiration
+    //     ];
+    // }
 }

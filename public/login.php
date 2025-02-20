@@ -65,13 +65,12 @@
 
                                         <div class="d-grid">
                                             <button class="btn btn-primary btn-user btn-block" type="submit">Se connecter</button>
+                                            <small id="loginError" class="form-text text-danger text-center mt-1"></small>
                                         </div>
 
                                     </form>
 
-                                    <hr>
-
-                                    <div class="text-center">
+                                    <div class="text-center mt-3">
                                         <a class="small" href="forgot-password.html">Mot de passe oublié ?</a>
                                     </div>
                                 </div>
