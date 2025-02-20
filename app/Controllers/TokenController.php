@@ -15,10 +15,10 @@ class TokenController
     public function create()
     {
         $token_expiration = time() + 900; // 15 minutes (900 secondes)
-        $_SESSION["tokenCSRF"] = [
+        $_SESSION["token"] = [
             "id" => bin2hex(random_bytes(32)),
             "token_expiration" => $token_expiration
         ];
-        echo json_encode($_SESSION["tokenCSRF"]);
+        echo json_encode($_SESSION["token"]);
     }
 }

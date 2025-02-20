@@ -9,7 +9,7 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4 p-0">
         <div class="card-header py-3">
-            <a class="m-0 fw-bold text-primary text-decoration-none" href="index.php">Créer un nouvel utilisateur</a>
+            <button id="btnToken" type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalFormCreate">Créer un nouvel utilisateur</button>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -103,3 +103,6 @@
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<?php include "formCreate.php"; ?>

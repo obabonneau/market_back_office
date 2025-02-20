@@ -20,8 +20,9 @@
     <!-- ADMIN -->
 
     <!-- CUSTOM -->
-    <script src="../public/js/login/login.js" defer></script>
-    <script src="../public/js/createTokenCSRF.js" defer></script>
+    <script src="../public/js/tokenCreate.js" defer></script>
+    <script type="module" src="../public/js/module/errorForm.js" defer></script>
+    <script type="module" src="../public/js/user/userLogin.js" defer></script>
 </head>
 
 <body class="bg-gradient-primary">
@@ -48,18 +49,18 @@
                                     </div>
                                     <form id="formLogin" class="user" method="post" action="index.php?controller=Utilisateur&action=logon" novalidate>
 
-                                        <!-- TOKEN CSRF -->
-                                        <input id="tokenCSRF" type="hidden" name="token" value="">
+                                        <!-- TOKEN -->
+                                        <input id="token" type="hidden" name="token" value="">
 
                                         <div class="form-group">
-                                            <label for="emailLogin" hidden></label>
-                                            <input id="emailLogin" class="form-control form-control-user" type="email"  name="email" placeholder="Votre adresse email">
+                                            <label for="email" hidden></label>
+                                            <input id="email" class="form-control form-control-user" type="email"  name="email" placeholder="Votre adresse email">
                                             <small id="emailError" class="form-text text-danger"></small>
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="mdpLogin" hidden></label>
-                                            <input id="mdpLogin" class="form-control form-control-user" type="password" name="mdp"  placeholder="Votre mot de passe">
+                                            <label for="password" hidden></label>
+                                            <input id="password" class="form-control form-control-user" type="password" name="password" placeholder="Votre mot de passe">
                                             <small id="mdpError" class="form-text text-danger"></small>
                                         </div>
 

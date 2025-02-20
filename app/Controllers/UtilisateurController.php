@@ -102,15 +102,15 @@ class UtilisateurController extends Controller
 
             // VERIFICATION DU TOKEN
             $token = $input["token"] ?? "";
-            if ((hash_equals($_SESSION["tokenCSRF"]["id"], $token)) && (time() < $_SESSION["tokenCSRF"]["token_expiration"])) {
+            if ((hash_equals($_SESSION["token"]["id"], $token)) && (time() < $_SESSION["token"]["token_expiration"])) {
 
                 // SUPPRESSION DU TOKEN
-                unset($_SESSION["tokenCSRF"]);
+                unset($_SESSION["token"]);
 
                 // VERIFICATION DES CHAMPS
                 $email = $input["email"] ?? null;
-                $mdp = $input["mdp"] ?? null;
-                if ($email && $mdp) {
+                $password = $input["password"] ?? null;
+                if ($email && $password) {
 
                     // LECTURE DE L'UTILISATEUR
                     $readUtilisateur = new Utilisateur();
@@ -119,7 +119,7 @@ class UtilisateurController extends Controller
                     $utilisateur = $readUtilisateurModel->readByEmail($readUtilisateur);
 
                     // VERIFICATION DE L'EXISTENCE DE L'UTILISATEUR ET DU MDP
-                    if ($utilisateur && (password_verify($mdp, $utilisateur->mdp))) {
+                    if ($utilisateur && (password_verify($password, $utilisateur->mdp))) {
 
                         // CREATION D'UNE NOUVELLE SESSION
                         session_regenerate_id();
@@ -140,7 +140,7 @@ class UtilisateurController extends Controller
 
                         // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
                         //$this->myHeader("Home", "home", "success_login");
-                        //echo json_encode(["success" => true]);
+                        $this->myJsonEncode(true, "success_login");
                     
                     } else {
 
