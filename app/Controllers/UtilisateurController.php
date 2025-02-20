@@ -135,20 +135,21 @@ class UtilisateurController extends Controller
     /////////////////////////////////
     // METHODE POUR SE DECONNECTER //
     /////////////////////////////////
-    // public function logout()
-    // {
-    //     // DESTRUCTION DES COOKIES UTILISATEUR
-    //     foreach ($_SESSION["user"] as $name => $value) {
-    //         setcookie($name, "", time() - 3600, "/");
-    //     }
+    public function logout()
+    {
+        // DESTRUCTION DES COOKIES UTILISATEUR
+        //foreach ($_SESSION["user"] as $name => $value) {
+        //    setcookie($name, "", time() - 3600, "/");
+        //}
 
-    //     // DESTRUCTION DE LA SESSION UTILISATEUR
-    //     unset($_SESSION["user"]);
-    //     session_destroy();
+        // DESTRUCTION DE LA SESSION UTILISATEUR
+        unset($_SESSION["user"]);
+        session_destroy();
 
-    //     // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
-    //     $this->myHeader("Home", "home", "success_logout");
-    // }
+        // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
+        //$this->myHeader("Home", "home", "success_logout");
+        $this->myJsonEncode(true, "success_logout");
+    }
 
     /////////////////////////////////////////////////////////////
     // METHODE POUR AFFICHER UN FORMULAIRE DE REINISIALISATION //
