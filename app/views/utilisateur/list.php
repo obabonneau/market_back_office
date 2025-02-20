@@ -44,7 +44,7 @@
                     </thead>
                     <tbody id="tableBody">
                         <?php foreach ($utilisateurs as $utilisateur) : ?>
-                            <tr>
+                            <tr id="tr<?php echo htmlspecialchars($utilisateur->id_utilisateur, ENT_QUOTES, "UTF-8"); ?>">
                                 <td class="text-start ps-3"><?php echo htmlspecialchars($utilisateur->prenom, ENT_QUOTES, "UTF-8"); ?></td>
                                 <td class="text-start ps-3"><?php echo htmlspecialchars($utilisateur->nom, ENT_QUOTES, "UTF-8"); ?></td>
                                 <td class="text-start ps-3"><?php echo htmlspecialchars($utilisateur->email, ENT_QUOTES, "UTF-8"); ?></td>
@@ -52,14 +52,14 @@
                                     <span class="badge bg-secondary"><?php echo htmlspecialchars($utilisateur->statut, ENT_QUOTES, "UTF-8"); ?></span>
                                 </td>
                                 <td class="text-center p-2">
-                                    <a class="btn btn-sm btn-warning" href=""
+                                    <button class="btn btn-sm btn-warning"
                                         title="Modifier">
                                         <i class="bi bi-pencil-square"></i>
-                                    </a>
-                                    <a class="btn btn-sm btn-danger" href=""
+                                    </button>
+                                    <button id="btnDelete" class="btn btn-sm btn-danger" data-id = "<?php echo htmlspecialchars($utilisateur->id_utilisateur, ENT_QUOTES, "UTF-8"); ?>"
                                         title="Supprimer">
                                         <i class="bi bi-trash"></i>
-                                    </a>
+                                    </button>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -104,5 +104,8 @@
     </div>
 </div>
 
-<!-- Modal -->
-<?php include "formCreate.php"; ?>
+<!-- MODAL INCLUDE -->
+<?php
+include "formCreate.php";
+include "formDelete.php";
+?>

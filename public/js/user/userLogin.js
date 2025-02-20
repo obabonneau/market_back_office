@@ -53,7 +53,8 @@ document.querySelector("#formLogin").addEventListener("submit", function(event) 
 // CONTROLE DES IDENTIFIANTS DE CONNEXION //
 //----------------------------------------//
 function ctrlUser(token, email, password) {
-    fetch("index.php?controller=Utilisateur&action=logon", {
+    fetch("index.php?controller=Utilisateur&action=logon",
+    {
         method: "POST",
         body: JSON.stringify({
             token: token,

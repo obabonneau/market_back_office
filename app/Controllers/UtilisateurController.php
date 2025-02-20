@@ -498,57 +498,57 @@ class UtilisateurController extends Controller
     ///////////////////////////////////////////
     // METHODE POUR SUPPRIMER UN UTILISATEUR //
     ///////////////////////////////////////////
-    // public function delete()
-    // {
-    //     // VERIFICATION DES DROITS D'ACCES
-    //     if (($_SESSION["user"]["statut"] ?? "") === "admin") {
+    public function delete()
+    {
+        // VERIFICATION DES DROITS D'ACCES
+        if (($_SESSION["user"]["statut"] ?? "") === "admin") {
 
-    //         // VERIFICATION DU TOKEN
-    //         $token = $_GET["token"] ?? "";
-    //         if ((hash_equals($_SESSION["token"]["id"], $token)) && (time() < $_SESSION["token"]["token_expiration"])) {
+            // VERIFICATION DU TOKEN
+            $token = $_GET["token"] ?? "";
+            if ((hash_equals($_SESSION["token"]["id"], $token)) && (time() < $_SESSION["token"]["token_expiration"])) {
 
-    //             // SUPPRESSION DU TOKEN
-    //             unset($_SESSION["token"]);
+                // SUPPRESSION DU TOKEN
+                unset($_SESSION["token"]);
 
-    //             // VERIFICATION DU GET
-    //             if ($_GET["id_utilisateur"] ?? null) {
+                // VERIFICATION DU GET
+                if ($_GET["id_utilisateur"] ?? null) {
 
-    //                 // CONTROLE DE L'EXISTENCE D'UN EMPRUNT
-    //                 $delUtilisateur = new utilisateur();
-    //                 $delUtilisateur->setId_utilisateur($_GET["id_utilisateur"]);
-    //                 $delUtilisateurModel = new utilisateurModel();
-    //                 $success = $delUtilisateurModel->ctrlEmprunt($delUtilisateur);
+                    // CONTROLE DE L'EXISTENCE D'UN EMPRUNT
+                    $delUtilisateur = new utilisateur();
+                    $delUtilisateur->setId_utilisateur($_GET["id_utilisateur"]);
+                    $delUtilisateurModel = new utilisateurModel();
+                    $success = $delUtilisateurModel->ctrlEmprunt($delUtilisateur);
 
-    //                 // VERIFICATION DE L'ACCUSE DE TRAITEMENT
-    //                 if (!$success) {
+                    // VERIFICATION DE L'ACCUSE DE TRAITEMENT
+                    if (!$success) {
 
-    //                     // SUPPRESSION DU LIVRE
-    //                     $success = $delUtilisateurModel->delete($delUtilisateur);
+                        // SUPPRESSION DU LIVRE
+                        $success = $delUtilisateurModel->delete($delUtilisateur);
 
-    //                     // VERIFICATION DE L'ACCUSE DE TRAITEMENT
-    //                     // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
-    //                     $success
-    //                         ? $this->myHeader("Utilisateur", "listAdmin", "success_deleteUser")
-    //                         : $this->myHeader("Utilisateur", "listAdmin", "error_request");
-    //                 } else {
+                        // VERIFICATION DE L'ACCUSE DE TRAITEMENT
+                        // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
+                        $success
+                            ? $this->myHeader("Utilisateur", "listAdmin", "success_deleteUser")
+                            : $this->myHeader("Utilisateur", "listAdmin", "error_request");
+                    } else {
 
-    //                     // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
-    //                     $this->myHeader("Utilisateur", "listAdmin", "error_haveEmprunt");
-    //                 }
-    //             } else {
+                        // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
+                        $this->myHeader("Utilisateur", "listAdmin", "error_haveEmprunt");
+                    }
+                } else {
 
-    //                 // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
-    //                 $this->myHeader("Utilisateur", "listAdmin", "error_id");
-    //             }
-    //         } else {
+                    // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
+                    $this->myHeader("Utilisateur", "listAdmin", "error_id");
+                }
+            } else {
 
-    //             // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
-    //             $this->myHeader("Utilisateur", "listAdmin", "error_token");
-    //         }
-    //     } else {
+                // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
+                $this->myHeader("Utilisateur", "listAdmin", "error_token");
+            }
+        } else {
 
-    //         // DEFINITION DES DONNEES DE RECHARGEMENT
-    //         $this->myHeader("Home", "home", "error_rights");
-    //     }
-    // }        
+            // DEFINITION DES DONNEES DE RECHARGEMENT
+            $this->myHeader("Home", "home", "error_rights");
+        }
+    }        
 }

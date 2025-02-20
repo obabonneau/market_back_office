@@ -6,7 +6,6 @@
 // 
 //-----------------------------------------------//
 document.querySelector("#btnLogout").addEventListener("click", () => {
-    console.log("logout");
     fetch("index.php?controller=Utilisateur&action=logout")
         .then((response) => response.json())
         .then((data) => {

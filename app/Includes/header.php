@@ -28,11 +28,12 @@
     <!-- ADMIN -->
 
     <!-- SCRIPTS -->
-    <script src="../public/js/tokenCreate.js" defer></script>
+    <script type="module" src="../public/js/tokenCreate.js" defer></script>
     <script type="module" src="../public/js/module/errorForm.js" defer></script>
     <script type="module" src="../public/js/user/userFormCtrl.js" defer></script>
     <script type="module" src="../public/js/user/userAdd.js" defer></script>
-    <script type="module" src="../public/js/user/userLogout.js" defer></script>
+    <script type="module" src="../public/js/user/userDelete.js" defer></script>
+    <script src="../public/js/user/userLogout.js" defer></script>
 </head>
 
 <body id="page-top">
