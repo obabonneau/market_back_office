@@ -4,14 +4,14 @@
 
 // DEFINITION DES REGEX
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-const mdpRegex = /^.{4,}$/;
+const passwordRegex = /^.{4,}$/;
 
 // SELECTION DES ELEMENTS DU DOM
 const token = document.querySelector("#token");
 const email = document.querySelector("#email");
 const password = document.querySelector("#password");
 const emailError = document.querySelector("#emailError");
-const mdpError = document.querySelector("#mdpError");
+const passwordError = document.querySelector("#passwordError");
 const loginError = document.querySelector("#loginError");
 
 // IMPORT DES FONCTIONS DE GESTION DES ERREURS
@@ -35,11 +35,11 @@ document.querySelector("#formLogin").addEventListener("submit", function(event) 
     }
 
     // VALIDATION DU MOT DE PASSE
-    if (!mdpRegex.test(password.value)) {
-        showError(mdpError, "Le mdp doit contenir au moins 8 caractères.");
+    if (!passwordRegex.test(password.value)) {
+        showError(passwordError, "Le mdp doit contenir au moins 8 caractères.");
         isValid = false;
     }   else {
-        eraseError(mdpError);
+        eraseError(passwordError);
     }
 
     // SI LE FORMULAIRE EST VALIDE, ON LANCE LA VERIFICATION DU USER ET DU MDP
@@ -49,9 +49,9 @@ document.querySelector("#formLogin").addEventListener("submit", function(event) 
 });
 
 
-//
-// 
-//
+//----------------------------------------//
+// CONTROLE DES IDENTIFIANTS DE CONNEXION //
+//----------------------------------------//
 function ctrlUser(token, email, password) {
     fetch("index.php?controller=Utilisateur&action=logon", {
         method: "POST",
@@ -67,9 +67,9 @@ function ctrlUser(token, email, password) {
         .then((response) => response.json())
         .then((data) => {
             if (data.success) {
-                window.location.href = "index.php?controller=Home&action=home";
+                window.location.href = "index.php?controller=Home&action=home"; // REDIRECTION VERS LA PAGE D'ACCUEIL
             } else {
-                showError(loginError, data.message);
+                showError(loginError, data.message); // AFFICHAGE DU MESSAGE D'ERREUR
             }
         })
         .catch(error => {
@@ -82,7 +82,7 @@ function ctrlUser(token, email, password) {
 // VALIDATION DES CHAMPS DU FORMULAIRE EN ERREUR //
 //-----------------------------------------------//
 
-// ECOUTER SUR LE CHAMP DU TITRE
+// ECOUTEUR SUR LE CHAMP DE L'EMAIL
 email.addEventListener("input", () => {
     eraseError(loginError);
     if (emailRegex.test(email.value)) {
@@ -90,10 +90,10 @@ email.addEventListener("input", () => {
     }
 });
 
-// ECOUTEUR SUR LE CHAMP DE L'AUTEUR
+// ECOUTEUR SUR LE CHAMP DU MOT DE PASSE
 password.addEventListener("input", () => {
     eraseError(loginError);
-    if (mdpRegex.test(password.value)) {
-        eraseError(mdpError);
+    if (passwordRegex.test(password.value)) {
+        eraseError(passwordError);
     }
 });

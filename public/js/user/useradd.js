@@ -1,21 +1,21 @@
 /////////////////////////////////////////////////////////
 // FONCTION POUR AJOUTER UN LIVRE DANS LA BIBLIOTHEQUE //
 /////////////////////////////////////////////////////////
-export function addLivre(form) {
+export function userAdd(form) {
     
     // SELECTION DU TABLEAU
-    const tabLivre = document.querySelector("#tabLivre");
+    const tableBody = document.querySelector("#tableBody");
 
     // RECUPERATION DES DONNEES DU FORMULAIRE
     const formData = new FormData(form);
-    const titre = form.titre.value;
-    const auteur = form.auteur.value;
-    const genre = form.genre.value;
-    const annee = form.annee.value;
+    const prenom = form.prenom.value;
+    const nom = form.nom.value;
+    const email = form.email.value;
+    const statut = form.statut.value;
 
     // if (titre === "" || auteur === "" || genre === "" || annee === "")
 
-    fetch("index.php?controller=Livre&action=create",
+    fetch("index.php?controller=Utilisateur&action=create",
         {
             method: "POST",
             body: formData,
@@ -24,25 +24,27 @@ export function addLivre(form) {
         .then((data) =>
         {
             if (data) {
+                console.log(data);
 
                 // AJOUT DE LA NOUVELLE LIGNE DANS LE TABLEAU
                 const tr = document.createElement("tr");
-                tr.innerHTML = `<td class="text-start ps-3">${titre}</td>
-                                <td class="text-start ps-3">${auteur}</td>
-                                <td class="text-start ps-3">${genre}</td>
-                                <td>${annee}</td>
-                                <td><span class="badge bg-success">Disponible</span></td>
+                tr.innerHTML = `<td class="text-start ps-3">${prenom}</td>
+                                <td class="text-start ps-3">${nom}</td>
+                                <td class="text-start ps-3">${email}</td>
                                 <td>
-                                    <a class="btn btn-sm btn-warning text-white" href="index.php?controller=Evenement&action=formUpdate&id_evenement="
+                                    <span class="badge bg-secondary">${statut}</span>
+                                </td>
+                                <td class="text-center p-2">
+                                    <a class="btn btn-sm btn-warning text-white" href=""
                                         title="Modifier">
                                         <i class="bi bi-pencil-square"></i>
                                     </a>
-                                    <a class="btn btn-sm btn-danger text-white" href="index.php?controller=Evenement&action=delete&id_evenement="
-                                        title="Supprimer" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet évènement ?');">
+                                    <a class="btn btn-sm btn-danger text-white" href=""
+                                        title="Supprimer">
                                         <i class="bi bi-trash"></i>
                                     </a>
                                 </td>`;
-                tabLivre.insertBefore(tr, tabLivre.firstChild);
+                tableBody.insertBefore(tr, tableBody.firstChild);
                 tr.classList.add("table-success", "border-3", "border-success");
                 setTimeout(() => {
                     tr.classList.remove("table-success", "border-3", "border-success");
@@ -50,6 +52,6 @@ export function addLivre(form) {
             }
         })
         .catch(error => {
-            console.error("Erreur:", error);
+            //console.error("Erreur:", error);
         });
 }

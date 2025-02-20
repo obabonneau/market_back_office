@@ -39,10 +39,10 @@
                             <th scope="col">Nom</th>
                             <th scope="col">Email</th>
                             <th scope="col">Statut</th>
-                            <th scope="col">Actions</th>
+                            <th class="text-center" scope="col">Actions</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="tableBody">
                         <?php foreach ($utilisateurs as $utilisateur) : ?>
                             <tr>
                                 <td class="text-start ps-3"><?php echo htmlspecialchars($utilisateur->prenom, ENT_QUOTES, "UTF-8"); ?></td>
@@ -51,15 +51,15 @@
                                 <td>
                                     <span class="badge bg-secondary"><?php echo htmlspecialchars($utilisateur->statut, ENT_QUOTES, "UTF-8"); ?></span>
                                 </td>
-                                <td>
-                                    <!-- <a class="btn btn-sm btn-warning"href="index.php?controller=Utilisateur&action=formUpdate&id_utilisateur=<?php echo htmlspecialchars($utilisateur->id_utilisateur, ENT_QUOTES, "UTF-8"); ?>"
-                        title="Modifier">
-                        <i class="bi bi-pencil-square"></i>
-                    </a>
-                    <a class="btn btn-sm btn-danger" href="index.php?controller=Utilisateur&action=delete&id_utilisateur=<?php echo htmlspecialchars($utilisateur->id_utilisateur, ENT_QUOTES, "UTF-8"); ?>&token=<?php echo $_SESSION["token"]["id"]; ?>"
-                        title="Supprimer" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');">
-                        <i class="bi bi-trash"></i>
-                    </a> -->
+                                <td class="text-center p-2">
+                                    <a class="btn btn-sm btn-warning" href=""
+                                        title="Modifier">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </a>
+                                    <a class="btn btn-sm btn-danger" href=""
+                                        title="Supprimer">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

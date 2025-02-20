@@ -61,7 +61,7 @@
                                         <div class="form-group">
                                             <label for="password" hidden></label>
                                             <input id="password" class="form-control form-control-user" type="password" name="password" placeholder="Votre mot de passe">
-                                            <small id="mdpError" class="form-text text-danger"></small>
+                                            <small id="passwordError" class="form-text text-danger"></small>
                                         </div>
 
                                         <div class="d-grid">

@@ -30,8 +30,11 @@ const statutError = document.querySelector("#statutError");
 const passwordShow = document.querySelector("#passwordShow");
 const menuCheck = document.querySelector("#menuCheck");
 
+const modalFormulaire = new bootstrap.Modal(document.querySelector("#modalFormCreate"));
+
 // IMPORT DES FONCTIONS DE GESTION DES ERREURS
 import { showError, eraseError } from "../module/errorForm.js";
+import { userAdd } from "./useradd.js";
 
 
 //-----------------------------------------------//
@@ -85,7 +88,16 @@ document.querySelector("#formCreate").addEventListener("submit", function(event)
 
     // SI LE FORMULAIRE EST VALIDE, ON LANCE LA VERIFICATION DU USER ET DU MDP
     if (isValid) {
-        //
+
+        // ENVOI DU FORMULAIRE
+        console.log("Envoi du formulaire");
+        userAdd(this);
+
+        // RESET DU FORMULAIRE
+        this.reset();
+
+        // FERMETURE DE LA MODALE
+        modalFormulaire.hide();
     }
 });
 

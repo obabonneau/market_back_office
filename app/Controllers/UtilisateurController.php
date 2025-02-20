@@ -19,40 +19,28 @@ class UtilisateurController extends Controller
     ///////////////////////////////////////////////////////////
     // METHODE POUR CONTROLER L'EXISTENCE D'UN COOKIE "RGPD" //
     ///////////////////////////////////////////////////////////
-    public function ctrlCookie()
-    {
-        // RETOUR VERS LE FETCH
-        echo json_encode(isset($_COOKIE["ackCookie"]));
-    }
+    // public function ctrlCookie()
+    // {
+    //     // RETOUR VERS LE FETCH
+    //     echo json_encode(isset($_COOKIE["ackCookie"]));
+    // }
 
     //////////////////////////////////////////////////
     // METHODE POUR DEFINIR l'ETAT DU COOKIE "RGPD" //
     //////////////////////////////////////////////////
-    public function validCookie()
-    {
-        // VERIFICATION DU GET
-        $valid = $_GET["cookie"] ?? "";
-        if ($valid === "accept") {
-            setcookie("ackCookie", "yes", time() + 365 * 24 * 3600, "/"); // Expire dans 1 an
-        } else {
-            setcookie("ackCookie", "no", time() + 365 * 24 * 3600, "/"); // Expire dans 1 an sans acceptation
-        }
+    // public function validCookie()
+    // {
+    //     // VERIFICATION DU GET
+    //     $valid = $_GET["cookie"] ?? "";
+    //     if ($valid === "accept") {
+    //         setcookie("ackCookie", "yes", time() + 365 * 24 * 3600, "/"); // Expire dans 1 an
+    //     } else {
+    //         setcookie("ackCookie", "no", time() + 365 * 24 * 3600, "/"); // Expire dans 1 an sans acceptation
+    //     }
 
-        // RETOUR VERS LE FETCH
-        echo json_encode(true);
-    }
-
-    /////////////////////////////////////////
-    // METHODE POUR AFFICHER LE MENU ADMIN //
-    /////////////////////////////////////////
-    public function menuAdmin()
-    {
-        // VERIFICATION DES DROITS D'ACCES
-        // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR L'AFFICHAGE OU LE RECHARGEMENT
-        ($_SESSION["user"]["statut"] ?? "") === "admin"
-        ? $this->render("utilisateur/menuAdmin")
-        : $this->myHeader("Home", "home", "error_rights");
-    }
+    //     // RETOUR VERS LE FETCH
+    //     echo json_encode(true);
+    // }
 
     ////////////////////////////////////////////
     // METHODE POUR AFFICHER LES UTILISATEURS //
@@ -61,9 +49,6 @@ class UtilisateurController extends Controller
     {
         // VERIFICATION DES DROITS D'ACCES
         if (($_SESSION["user"]["statut"] ?? "") === "admin") {
-
-            // CREATTION D'UN TOKEN CSRF
-            //$this->generateToken();
 
             // LECTURE DE TOUS LES UTILISATEURS
             $readUtilisateurModel = new UtilisateurModel();        
@@ -77,18 +62,6 @@ class UtilisateurController extends Controller
             // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
             $this->myHeader("Home", "home", "error_rights");
         }
-    }
-
-    //////////////////////////////////////////////////////
-    // METHODE POUR AFFICHER UN FORMULAIRE DE CONNEXION //
-    //////////////////////////////////////////////////////
-    public function formLogon()
-    {
-        // CREATTION D'UN TOKEN CSRF
-        $this->generateToken();
-
-        // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR L'AFFICHAGE
-        $this->render("utilisateur/formLogon");
     }
 
     ///////////////////////////////
@@ -138,26 +111,22 @@ class UtilisateurController extends Controller
                         //    }
                         //}
 
-                        // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
-                        //$this->myHeader("Home", "home", "success_login");
+                        // ENVOI VERS LE CONTROLEUR PRINCIPAL "ASYNCHRONE"
                         $this->myJsonEncode(true, "success_login");
                     
                     } else {
 
-                        // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
-                        //$this->myHeader("Utilisateur", "formLogon", "error_login");
+                        // ENVOI VERS LE CONTROLEUR PRINCIPAL "ASYNCHRONE"
                         $this->myJsonEncode(false, "error_login");
                     }
                 } else {
 
-                    // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
-                    //$this->myHeader("Utilisateur", "formLogon", "error_input");
+                    // ENVOI VERS LE CONTROLEUR PRINCIPAL "ASYNCHRONE"
                     $this->myJsonEncode(false, "error_input");
                 }    
             } else {
 
-                // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
-                //$this->myHeader("Utilisateur", "formLogon", "error_token");
+                // ENVOI VERS LE CONTROLEUR PRINCIPAL "ASYNCHRONE"
                 $this->myJsonEncode(false, "error_token");
             }
         }    
@@ -166,200 +135,188 @@ class UtilisateurController extends Controller
     /////////////////////////////////
     // METHODE POUR SE DECONNECTER //
     /////////////////////////////////
-    public function logout()
-    {
-        // DESTRUCTION DES COOKIES UTILISATEUR
-        foreach ($_SESSION["user"] as $name => $value) {
-            setcookie($name, "", time() - 3600, "/");
-        }
+    // public function logout()
+    // {
+    //     // DESTRUCTION DES COOKIES UTILISATEUR
+    //     foreach ($_SESSION["user"] as $name => $value) {
+    //         setcookie($name, "", time() - 3600, "/");
+    //     }
 
-        // DESTRUCTION DE LA SESSION UTILISATEUR
-        unset($_SESSION["user"]);
-        session_destroy();
+    //     // DESTRUCTION DE LA SESSION UTILISATEUR
+    //     unset($_SESSION["user"]);
+    //     session_destroy();
 
-        // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
-        $this->myHeader("Home", "home", "success_logout");
-    }
+    //     // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
+    //     $this->myHeader("Home", "home", "success_logout");
+    // }
 
     /////////////////////////////////////////////////////////////
     // METHODE POUR AFFICHER UN FORMULAIRE DE REINISIALISATION //
     /////////////////////////////////////////////////////////////
-    public function formForgetMdp()
-    {
-        // CREATION D'UN TOKEN CSRF
-        $this->generateToken();
+    // public function formForgetMdp()
+    // {
+    //     // CREATION D'UN TOKEN CSRF
+    //     $this->generateToken();
 
-        // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR L'AFFICHAGE
-        $this->render("utilisateur/formForgetMdp");
-    }
+    //     // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR L'AFFICHAGE
+    //     $this->render("utilisateur/formForgetMdp");
+    // }
 
     //////////////////////////////////////////
     // METHODE POUR REINITIALISATION UN MDP //
     //////////////////////////////////////////
-    public function forgetMdp()
-    {
-        // VERIFICATION DE LA METHODE POST
-        if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    // public function forgetMdp()
+    // {
+    //     // VERIFICATION DE LA METHODE POST
+    //     if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-            // VERIFICATION DU TOKEN
-            $token = $_POST["token"] ?? "";
-            if ((hash_equals($_SESSION["token"]["id"], $token)) && (time() < $_SESSION["token"]["token_expiration"])) {
+    //         // VERIFICATION DU TOKEN
+    //         $token = $_POST["token"] ?? "";
+    //         if ((hash_equals($_SESSION["token"]["id"], $token)) && (time() < $_SESSION["token"]["token_expiration"])) {
 
-                // SUPPRESSION DU TOKEN
-                unset($_SESSION["token"]);
+    //             // SUPPRESSION DU TOKEN
+    //             unset($_SESSION["token"]);
 
-                // VERIFICATION DU CHAMP EMAIL
-                if ($_POST["email"] ?? null) {
+    //             // VERIFICATION DU CHAMP EMAIL
+    //             if ($_POST["email"] ?? null) {
 
-                    // LECTURE DE L'UTILISATEUR
-                    $majUtilisateur = new Utilisateur();
-                    $majUtilisateur->setEmail($_POST["email"]);
-                    $majUtilisateurModel = new UtilisateurModel();
-                    $utilisateur = $majUtilisateurModel->readByEmail($majUtilisateur);
+    //                 // LECTURE DE L'UTILISATEUR
+    //                 $majUtilisateur = new Utilisateur();
+    //                 $majUtilisateur->setEmail($_POST["email"]);
+    //                 $majUtilisateurModel = new UtilisateurModel();
+    //                 $utilisateur = $majUtilisateurModel->readByEmail($majUtilisateur);
 
-                    if ($utilisateur) {
+    //                 if ($utilisateur) {
 
-                        // GENERATION D'UN TOKEN ET D'UNE DATE D'EXPIRATION
-                        $token = bin2hex(random_bytes(32)); // 64 caractères
-                        $date = date("Y-m-d H:i:s", strtotime("+1 hour"));
+    //                     // GENERATION D'UN TOKEN ET D'UNE DATE D'EXPIRATION
+    //                     $token = bin2hex(random_bytes(32)); // 64 caractères
+    //                     $date = date("Y-m-d H:i:s", strtotime("+1 hour"));
 
-                        // MISE A JOUR DE L'UTILISATEUR AVEC LE TOKEN ET LA DATE D'EXPIRATION
-                        $majUtilisateur->setToken($token);
-                        $majUtilisateur->setToken_expire($date);
-                        $success1 = $majUtilisateurModel->updateToken($majUtilisateur);
+    //                     // MISE A JOUR DE L'UTILISATEUR AVEC LE TOKEN ET LA DATE D'EXPIRATION
+    //                     $majUtilisateur->setToken($token);
+    //                     $majUtilisateur->setToken_expire($date);
+    //                     $success1 = $majUtilisateurModel->updateToken($majUtilisateur);
 
-                        // ENVOI D'UN MAIL DE REINITIALISATION
-                        $majMdpMail = new Mail();
-                        $majMdpMail->setPrenom($utilisateur->prenom);
-                        $majMdpMail->setNom($utilisateur->nom);
-                        $majMdpMail->setEmail($utilisateur->email);
-                        $majMdpMail->setToken($token);
-                        $majMdpMailModel = new MailModel();
-                        $success2 = $majMdpMailModel->mdpForget($majMdpMail);
+    //                     // ENVOI D'UN MAIL DE REINITIALISATION
+    //                     $majMdpMail = new Mail();
+    //                     $majMdpMail->setPrenom($utilisateur->prenom);
+    //                     $majMdpMail->setNom($utilisateur->nom);
+    //                     $majMdpMail->setEmail($utilisateur->email);
+    //                     $majMdpMail->setToken($token);
+    //                     $majMdpMailModel = new MailModel();
+    //                     $success2 = $majMdpMailModel->mdpForget($majMdpMail);
 
-                        // VERIFICATION DES ACCUSES DE TRAITEMENT
-                        // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
-                        $success1 && $success2
-                        ? $this->myHeader("Home", "home", "success_email")
-                        : $this->myHeader("Utilisateur", "formForgetMdp", "error_email");
+    //                     // VERIFICATION DES ACCUSES DE TRAITEMENT
+    //                     // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
+    //                     $success1 && $success2
+    //                     ? $this->myHeader("Home", "home", "success_email")
+    //                     : $this->myHeader("Utilisateur", "formForgetMdp", "error_email");
 
-                    } else {
+    //                 } else {
 
-                        // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
-                        $this->myHeader("Utilisateur", "formCreate", "error_noEmail");
-                    }
-                } else {
+    //                     // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
+    //                     $this->myHeader("Utilisateur", "formCreate", "error_noEmail");
+    //                 }
+    //             } else {
 
-                    // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
-                    $this->myHeader("Utilisateur", "formForgetMdp", "error_inputEmail");
-                }
-            } else {
+    //                 // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
+    //                 $this->myHeader("Utilisateur", "formForgetMdp", "error_inputEmail");
+    //             }
+    //         } else {
             
-            // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
-            $this->myHeader("Utilisateur", "formForgetMdp", "error_token");          
-            }
-        }
-    }
+    //         // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
+    //         $this->myHeader("Utilisateur", "formForgetMdp", "error_token");          
+    //         }
+    //     }
+    // }
 
     /////////////////////////////////////////////////////////////
     // METHODE POUR AFFICHER UN FORMULAIRE DE REINITIALISATION //
     /////////////////////////////////////////////////////////////
-    public function formUpdateMdp()
-    {
-        // VERIFICATION DU GET
-        if ($_GET["token"] ?? null) {
+    // public function formUpdateMdp()
+    // {
+    //     // VERIFICATION DU GET
+    //     if ($_GET["token"] ?? null) {
 
-            // CREATION D'UN TOKEN CSRF
-            $this->generateToken();
+    //         // CREATION D'UN TOKEN CSRF
+    //         $this->generateToken();
 
-            // LECTURE DE L'UTILISATEUR AVEC LE TOKEN
-            $readUtilisateur = new Utilisateur();
-            $readUtilisateur->setToken($_GET["token"]);
-            $readUtilisateurModel = new UtilisateurModel();
-            $utilisateur = $readUtilisateurModel->readByToken($readUtilisateur);
-            if ($utilisateur && ($_GET["token"] === $utilisateur->token)) {
+    //         // LECTURE DE L'UTILISATEUR AVEC LE TOKEN
+    //         $readUtilisateur = new Utilisateur();
+    //         $readUtilisateur->setToken($_GET["token"]);
+    //         $readUtilisateurModel = new UtilisateurModel();
+    //         $utilisateur = $readUtilisateurModel->readByToken($readUtilisateur);
+    //         if ($utilisateur && ($_GET["token"] === $utilisateur->token)) {
 
-                // VERIFICATION DE LA DATE D'EXPIRATION
-                // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR L'AFFICHAGE OU LE RECHARGEMENT
-                strtotime($utilisateur->token_expire) > time()
-                ? $this->render("utilisateur/formUpdateMdp")
-                : $this->myHeader("Utilisateur", "formForgetMdp", "error_expire");
+    //             // VERIFICATION DE LA DATE D'EXPIRATION
+    //             // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR L'AFFICHAGE OU LE RECHARGEMENT
+    //             strtotime($utilisateur->token_expire) > time()
+    //             ? $this->render("utilisateur/formUpdateMdp")
+    //             : $this->myHeader("Utilisateur", "formForgetMdp", "error_expire");
 
-            } else {
+    //         } else {
 
-                // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
-                $this->myHeader("Utilisateur", "formForgetMdp", "error_link");
-            }
-        } else {
+    //             // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
+    //             $this->myHeader("Utilisateur", "formForgetMdp", "error_link");
+    //         }
+    //     } else {
 
-            // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
-            $this->myHeader("Home", "home", "error_id");
-        }
-    }
+    //         // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
+    //         $this->myHeader("Home", "home", "error_id");
+    //     }
+    // }
 
     ////////////////////////////////// A OPTIMISER //////////////////////////////////
     // METHODE POUR MODIFIER LE MDP //
     //////////////////////////////////
-    public function updateMdp()
-    {
-        // VERIFICATION DE LA METHODE POST
-        if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    // public function updateMdp()
+    // {
+    //     // VERIFICATION DE LA METHODE POST
+    //     if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-            // VERIFICATION DU TOKEN
-            $token = $_POST["token"] ?? "";
-            if ((hash_equals($_SESSION["token"]["id"], $token)) && (time() < $_SESSION["token"]["token_expiration"])) {
+    //         // VERIFICATION DU TOKEN
+    //         $token = $_POST["token"] ?? "";
+    //         if ((hash_equals($_SESSION["token"]["id"], $token)) && (time() < $_SESSION["token"]["token_expiration"])) {
 
-                // SUPPRESSION DU TOKEN
-                unset($_SESSION["token"]);
+    //             // SUPPRESSION DU TOKEN
+    //             unset($_SESSION["token"]);
 
-                // VERIFICATION DES CHAMPS
-                $token = $_POST["token"] ?? null;
-                $mdp = $_POST["mdp"] ?? null;
-                if ($token && $mdp) {
+    //             // VERIFICATION DES CHAMPS
+    //             $token = $_POST["token"] ?? null;
+    //             $mdp = $_POST["mdp"] ?? null;
+    //             if ($token && $mdp) {
 
-                    // LECTURE DE L'UTILISATEUR AVEC LE TOKEN
-                    $majUtilisateur = new Utilisateur();
-                    $majUtilisateur->setToken($token);
-                    $majUtilisateurModel = new UtilisateurModel();
-                    $utilisateur = $majUtilisateurModel->readByToken($majUtilisateur);
+    //                 // LECTURE DE L'UTILISATEUR AVEC LE TOKEN
+    //                 $majUtilisateur = new Utilisateur();
+    //                 $majUtilisateur->setToken($token);
+    //                 $majUtilisateurModel = new UtilisateurModel();
+    //                 $utilisateur = $majUtilisateurModel->readByToken($majUtilisateur);
 
-                    // MISE A JOUR DU MDP
-                    $majUtilisateur->setEmail($utilisateur->email);
-                    $majUtilisateur->setMdp($mdp);
-                    $majUtilisateur->setToken(null); // Réinitialisation du token
-                    $majUtilisateur->setToken_expire(null); // Réinitialisation de la date d'expiration
-                    $success = $majUtilisateurModel->updateMdp($majUtilisateur);
+    //                 // MISE A JOUR DU MDP
+    //                 $majUtilisateur->setEmail($utilisateur->email);
+    //                 $majUtilisateur->setMdp($mdp);
+    //                 $majUtilisateur->setToken(null); // Réinitialisation du token
+    //                 $majUtilisateur->setToken_expire(null); // Réinitialisation de la date d'expiration
+    //                 $success = $majUtilisateurModel->updateMdp($majUtilisateur);
 
-                    // VERIFICATION DE L'ACCUSE DE TRAITEMENT
-                    // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
-                    $success
-                    ? $this->myHeader("Utilisateur", "formLogon", "success_updateMdp")
-                    : $this->myHeader("Utilisateur", "formUpdateMdp", "error_request");
+    //                 // VERIFICATION DE L'ACCUSE DE TRAITEMENT
+    //                 // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
+    //                 $success
+    //                 ? $this->myHeader("Utilisateur", "formLogon", "success_updateMdp")
+    //                 : $this->myHeader("Utilisateur", "formUpdateMdp", "error_request");
 
-                } else {
+    //             } else {
 
-                    // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
-                    $this->myHeader("Utilisateur", "formUpdateMdp", "error_input");
-                }
-            } else {
+    //                 // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
+    //                 $this->myHeader("Utilisateur", "formUpdateMdp", "error_input");
+    //             }
+    //         } else {
 
-                // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
-                $this->myHeader("Utilisateur", "formUpdateMdp", "error_token");
-            }
-        }
-    }
-
-    /////////////////////////////////////////////////////
-    // METHODE POUR AFFICHER UN FORMULAIRE DE CREATION //
-    /////////////////////////////////////////////////////
-    public function formCreate()
-    {
-        // CREATION D'UN TOKEN CSRF
-        $this->generateToken();
-
-        // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR L'AFFICHAGE
-        $this->render("utilisateur/formCreate");
-    }
+    //             // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
+    //             $this->myHeader("Utilisateur", "formUpdateMdp", "error_token");
+    //         }
+    //     }
+    // }
 
     ///////////////////////////////////////
     // METHODE POUR CREER UN UTILISATEUR //
@@ -397,32 +354,29 @@ class UtilisateurController extends Controller
                     // VERIFICATION DE L'ACCUSE DE TRAITEMENT
                     if ($success === true) {
 
-                        // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
-                        ($_SESSION["user"]["statut"] ?? "") === "admin"
-                        ? $this->myHeader("Utilisateur", "listAdmin", "success_createUserByAdmin")
-                        : $this->myHeader("Utilisateur", "formLogon", "success_createUserByUser");
+                        // ENVOI VERS LE CONTROLEUR PRINCIPAL "ASYNCHRONE"
+                        $this->myJsonEncode(true, "success_createUserByAdmin");
 
                         // VERIFICATION DE L'EXISTENCE DE L'EMAIL
                     } elseif ($success === "emailExistant") {
 
-                        // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
-                        ($_SESSION["user"]["statut"] ?? "") === "admin"
-                        ? $this->myHeader("Utilisateur", "listAdmin", "error_adminFound")
-                        : $this->myHeader("Utilisateur", "formLogon", "error_userFound");
+                        // ENVOI VERS LE CONTROLEUR PRINCIPAL "ASYNCHRONE"
+                        $this->myJsonEncode(false, "error_adminFound");
+
                     } else {
 
-                        // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
-                        $this->myHeader("Utilisateur", "formCreate", "error_request");
+                        // ENVOI VERS LE CONTROLEUR PRINCIPAL "ASYNCHRONE"
+                        $this->myJsonEncode(false, "error_request");
                     }
                 } else {
 
-                    // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
-                    $this->myHeader("Utilisateur", "formCreate", "error_input");
+                    // ENVOI VERS LE CONTROLEUR PRINCIPAL "ASYNCHRONE"
+                    $this->myJsonEncode(false, "error_input");
                 }
             } else {
 
-                // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
-                $this->myHeader("Utilisateur", "formCreate", "error_token");
+                // ENVOI VERS LE CONTROLEUR PRINCIPAL "ASYNCHRONE"
+                $this->myJsonEncode(false, "error_token");
             }
         }
     }
@@ -430,170 +384,170 @@ class UtilisateurController extends Controller
     ////////////////////////////////////////////////////////
     // METHODE POUR AFFICHER UN FORMULAIRE DE MISE A JOUR //
     ////////////////////////////////////////////////////////
-    public function formUpdate()
-    {
-        // VERIFICATION DES DROITS D'ACCES
-        if (isset($_SESSION["user"]["id_utilisateur"])) {
+    // public function formUpdate()
+    // {
+    //     // VERIFICATION DES DROITS D'ACCES
+    //     if (isset($_SESSION["user"]["id_utilisateur"])) {
 
-            // VERIFICATION DU GET
-            if ($_GET["id_utilisateur"] ?? null) {
+    //         // VERIFICATION DU GET
+    //         if ($_GET["id_utilisateur"] ?? null) {
 
-                // CREATION D'UN TOKEN CSRF
-                $this->generateToken();
+    //             // CREATION D'UN TOKEN CSRF
+    //             $this->generateToken();
 
-                // LECTURE DE L'UTILISATEUR
-                $readUtilisateur = new Utilisateur();
-                $readUtilisateur->setId_utilisateur($_GET["id_utilisateur"]);
-                $readUtilisateurModel = new UtilisateurModel();
-                $utilisateur = $readUtilisateurModel->readById($readUtilisateur);
+    //             // LECTURE DE L'UTILISATEUR
+    //             $readUtilisateur = new Utilisateur();
+    //             $readUtilisateur->setId_utilisateur($_GET["id_utilisateur"]);
+    //             $readUtilisateurModel = new UtilisateurModel();
+    //             $utilisateur = $readUtilisateurModel->readById($readUtilisateur);
 
-                // VERIFICATION DE L'EXISTENCE DE L'UTILISATEUR
-                if ($utilisateur) {
+    //             // VERIFICATION DE L'EXISTENCE DE L'UTILISATEUR
+    //             if ($utilisateur) {
 
-                    // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR L'AFFICHAGE
-                    $this->render("utilisateur/formUpdate", ["utilisateur" => $utilisateur]);
-                } else {
+    //                 // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR L'AFFICHAGE
+    //                 $this->render("utilisateur/formUpdate", ["utilisateur" => $utilisateur]);
+    //             } else {
 
-                    // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
-                    $_SESSION["user"]["statut"] === "admin"
-                    ? $this->myHeader("Utilisateur", "listAdmin", "error_request")
-                    : $this->myHeader("Home", "home", "error_request");
-                }
-            } else {
+    //                 // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
+    //                 $_SESSION["user"]["statut"] === "admin"
+    //                 ? $this->myHeader("Utilisateur", "listAdmin", "error_request")
+    //                 : $this->myHeader("Home", "home", "error_request");
+    //             }
+    //         } else {
 
-                // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
-                $_SESSION["user"]["statut"] === "admin"
-                ? $this->myHeader("Utilisateur", "listAdmin", "error_id")
-                : $this->myHeader("Home", "home", "error_id");
-            }
-        } else {
+    //             // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
+    //             $_SESSION["user"]["statut"] === "admin"
+    //             ? $this->myHeader("Utilisateur", "listAdmin", "error_id")
+    //             : $this->myHeader("Home", "home", "error_id");
+    //         }
+    //     } else {
 
-            // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
-            $this->myHeader("Home", "home", "error_rights");
-        }
-    }
+    //         // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
+    //         $this->myHeader("Home", "home", "error_rights");
+    //     }
+    // }
 
     //////////////////////////////////////////
     // METHODE POUR MODIFIER UN UTILISATEUR //
     //////////////////////////////////////////
-    public function update()
-    {
-        // VERIFICATION DES DROITS D'ACCES
-        if (isset($_SESSION["user"]["id_utilisateur"])) {
+    // public function update()
+    // {
+    //     // VERIFICATION DES DROITS D'ACCES
+    //     if (isset($_SESSION["user"]["id_utilisateur"])) {
 
-            // VERIFICATION DE LA METHODE POST
-            if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    //         // VERIFICATION DE LA METHODE POST
+    //         if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-                // VERIFICATION DU TOKEN
-                $token = $_POST["token"] ?? "";
-                if ((hash_equals($_SESSION["token"]["id"], $token)) && (time() < $_SESSION["token"]["token_expiration"])) {
+    //             // VERIFICATION DU TOKEN
+    //             $token = $_POST["token"] ?? "";
+    //             if ((hash_equals($_SESSION["token"]["id"], $token)) && (time() < $_SESSION["token"]["token_expiration"])) {
 
-                    // SUPPRESSION DU TOKEN
-                    unset($_SESSION["token"]);
+    //                 // SUPPRESSION DU TOKEN
+    //                 unset($_SESSION["token"]);
 
-                    // VERIFICATION DES CHAMPS
-                    $id_utilisateur = $_POST["id_utilisateur"] ?? null;
-                    $prenom = $_POST["prenom"] ?? null;
-                    $nom = $_POST["nom"] ?? null;
-                    $email = $_POST["email"] ?? null;
-                    $mdp = $_POST["mdp"] ?? ""; // Le mot de passe peut être nul.
-                    $statut = $_POST["statut"] ?? "user"; // Statut user minimum
-                    if ($id_utilisateur && $prenom && $nom && $email) {
+    //                 // VERIFICATION DES CHAMPS
+    //                 $id_utilisateur = $_POST["id_utilisateur"] ?? null;
+    //                 $prenom = $_POST["prenom"] ?? null;
+    //                 $nom = $_POST["nom"] ?? null;
+    //                 $email = $_POST["email"] ?? null;
+    //                 $mdp = $_POST["mdp"] ?? ""; // Le mot de passe peut être nul.
+    //                 $statut = $_POST["statut"] ?? "user"; // Statut user minimum
+    //                 if ($id_utilisateur && $prenom && $nom && $email) {
 
-                        // MISE A JOUR DE L'UTILISATEUR
-                        $majUtilisateur = new Utilisateur();
-                        $majUtilisateur->setId_utilisateur($id_utilisateur);
-                        $majUtilisateur->setPrenom($prenom);
-                        $majUtilisateur->setNom($nom);
-                        $majUtilisateur->setEmail($email);
-                        $majUtilisateur->setMdp($mdp);
-                        $majUtilisateur->setStatut($statut);
+    //                     // MISE A JOUR DE L'UTILISATEUR
+    //                     $majUtilisateur = new Utilisateur();
+    //                     $majUtilisateur->setId_utilisateur($id_utilisateur);
+    //                     $majUtilisateur->setPrenom($prenom);
+    //                     $majUtilisateur->setNom($nom);
+    //                     $majUtilisateur->setEmail($email);
+    //                     $majUtilisateur->setMdp($mdp);
+    //                     $majUtilisateur->setStatut($statut);
 
-                        $majUtilisateurModel = new UtilisateurModel();
-                        $success = $majUtilisateurModel->update($majUtilisateur);
+    //                     $majUtilisateurModel = new UtilisateurModel();
+    //                     $success = $majUtilisateurModel->update($majUtilisateur);
 
-                        // VERIFICATION DE L'ACCUSE DE TRAITEMENT
-                        // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
-                        if ($success) {
-                            $_SESSION["user"]["statut"] === "admin"
-                            ? $this->myHeader("Utilisateur", "listAdmin", "success_updateUserByAdmin")
-                            : $this->myHeader("Home", "home", "success_userUpdateUserByUser");
+    //                     // VERIFICATION DE L'ACCUSE DE TRAITEMENT
+    //                     // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
+    //                     if ($success) {
+    //                         $_SESSION["user"]["statut"] === "admin"
+    //                         ? $this->myHeader("Utilisateur", "listAdmin", "success_updateUserByAdmin")
+    //                         : $this->myHeader("Home", "home", "success_userUpdateUserByUser");
 
-                        } else {
-                            $this->myHeader("Utilisateur", "formUpdate", "error_request", ["id_utilisateur" => $id_utilisateur]);
-                        }
-                    } else {
+    //                     } else {
+    //                         $this->myHeader("Utilisateur", "formUpdate", "error_request", ["id_utilisateur" => $id_utilisateur]);
+    //                     }
+    //                 } else {
 
-                        // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
-                        $this->myHeader("Utilisateur", "formUpdate", "error_input", ["id_utilisateur" => $id_utilisateur]);
-                    }
-                } else {
+    //                     // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
+    //                     $this->myHeader("Utilisateur", "formUpdate", "error_input", ["id_utilisateur" => $id_utilisateur]);
+    //                 }
+    //             } else {
 
-                    // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
-                    $this->myHeader("Utilisateur", "formUpdate", "error_token");
-                }
-            }
-        } else {
+    //                 // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
+    //                 $this->myHeader("Utilisateur", "formUpdate", "error_token");
+    //             }
+    //         }
+    //     } else {
 
-            // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
-            $this->myHeader("Home", "home", "error_rights");
-        }
-    }
+    //         // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
+    //         $this->myHeader("Home", "home", "error_rights");
+    //     }
+    // }
 
     ///////////////////////////////////////////
     // METHODE POUR SUPPRIMER UN UTILISATEUR //
     ///////////////////////////////////////////
-    public function delete()
-    {
-        // VERIFICATION DES DROITS D'ACCES
-        if (($_SESSION["user"]["statut"] ?? "") === "admin") {
+    // public function delete()
+    // {
+    //     // VERIFICATION DES DROITS D'ACCES
+    //     if (($_SESSION["user"]["statut"] ?? "") === "admin") {
 
-            // VERIFICATION DU TOKEN
-            $token = $_GET["token"] ?? "";
-            if ((hash_equals($_SESSION["token"]["id"], $token)) && (time() < $_SESSION["token"]["token_expiration"])) {
+    //         // VERIFICATION DU TOKEN
+    //         $token = $_GET["token"] ?? "";
+    //         if ((hash_equals($_SESSION["token"]["id"], $token)) && (time() < $_SESSION["token"]["token_expiration"])) {
 
-                // SUPPRESSION DU TOKEN
-                unset($_SESSION["token"]);
+    //             // SUPPRESSION DU TOKEN
+    //             unset($_SESSION["token"]);
 
-                // VERIFICATION DU GET
-                if ($_GET["id_utilisateur"] ?? null) {
+    //             // VERIFICATION DU GET
+    //             if ($_GET["id_utilisateur"] ?? null) {
 
-                    // CONTROLE DE L'EXISTENCE D'UN EMPRUNT
-                    $delUtilisateur = new utilisateur();
-                    $delUtilisateur->setId_utilisateur($_GET["id_utilisateur"]);
-                    $delUtilisateurModel = new utilisateurModel();
-                    $success = $delUtilisateurModel->ctrlEmprunt($delUtilisateur);
+    //                 // CONTROLE DE L'EXISTENCE D'UN EMPRUNT
+    //                 $delUtilisateur = new utilisateur();
+    //                 $delUtilisateur->setId_utilisateur($_GET["id_utilisateur"]);
+    //                 $delUtilisateurModel = new utilisateurModel();
+    //                 $success = $delUtilisateurModel->ctrlEmprunt($delUtilisateur);
 
-                    // VERIFICATION DE L'ACCUSE DE TRAITEMENT
-                    if (!$success) {
+    //                 // VERIFICATION DE L'ACCUSE DE TRAITEMENT
+    //                 if (!$success) {
 
-                        // SUPPRESSION DU LIVRE
-                        $success = $delUtilisateurModel->delete($delUtilisateur);
+    //                     // SUPPRESSION DU LIVRE
+    //                     $success = $delUtilisateurModel->delete($delUtilisateur);
 
-                        // VERIFICATION DE L'ACCUSE DE TRAITEMENT
-                        // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
-                        $success
-                            ? $this->myHeader("Utilisateur", "listAdmin", "success_deleteUser")
-                            : $this->myHeader("Utilisateur", "listAdmin", "error_request");
-                    } else {
+    //                     // VERIFICATION DE L'ACCUSE DE TRAITEMENT
+    //                     // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
+    //                     $success
+    //                         ? $this->myHeader("Utilisateur", "listAdmin", "success_deleteUser")
+    //                         : $this->myHeader("Utilisateur", "listAdmin", "error_request");
+    //                 } else {
 
-                        // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
-                        $this->myHeader("Utilisateur", "listAdmin", "error_haveEmprunt");
-                    }
-                } else {
+    //                     // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
+    //                     $this->myHeader("Utilisateur", "listAdmin", "error_haveEmprunt");
+    //                 }
+    //             } else {
 
-                    // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
-                    $this->myHeader("Utilisateur", "listAdmin", "error_id");
-                }
-            } else {
+    //                 // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
+    //                 $this->myHeader("Utilisateur", "listAdmin", "error_id");
+    //             }
+    //         } else {
 
-                // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
-                $this->myHeader("Utilisateur", "listAdmin", "error_token");
-            }
-        } else {
+    //             // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
+    //             $this->myHeader("Utilisateur", "listAdmin", "error_token");
+    //         }
+    //     } else {
 
-            // DEFINITION DES DONNEES DE RECHARGEMENT
-            $this->myHeader("Home", "home", "error_rights");
-        }
-    }        
+    //         // DEFINITION DES DONNEES DE RECHARGEMENT
+    //         $this->myHeader("Home", "home", "error_rights");
+    //     }
+    // }        
 }
