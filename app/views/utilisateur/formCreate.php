@@ -82,7 +82,7 @@
 
                     <!-- CHAMP STATUT -->
                     <?php if (($_SESSION["user"]["statut"] ?? null) == "admin") : ?>
-                        <div class="mb-2">
+                        <div class="mb-3">
                             <label for="statut" class="form-label fw-light"><strong>Statut</strong></label>
                             <select id="statut" class="form-select form-select-sm" name="statut">
                                 <option value="admin">admin</option>

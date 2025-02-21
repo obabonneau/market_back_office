@@ -502,53 +502,43 @@ class UtilisateurController extends Controller
     {
         // VERIFICATION DES DROITS D'ACCES
         if (($_SESSION["user"]["statut"] ?? "") === "admin") {
+            $input = json_decode(file_get_contents("php://input"), true);
 
             // VERIFICATION DU TOKEN
-            $token = $_GET["token"] ?? "";
+            $token = $input["token"] ?? "";
             if ((hash_equals($_SESSION["token"]["id"], $token)) && (time() < $_SESSION["token"]["token_expiration"])) {
 
                 // SUPPRESSION DU TOKEN
                 unset($_SESSION["token"]);
 
                 // VERIFICATION DU GET
-                if ($_GET["id_utilisateur"] ?? null) {
+                if ($input["id"] ?? null) {
 
                     // CONTROLE DE L'EXISTENCE D'UN EMPRUNT
                     $delUtilisateur = new utilisateur();
-                    $delUtilisateur->setId_utilisateur($_GET["id_utilisateur"]);
+                    $delUtilisateur->setId_utilisateur($input["id"]);
                     $delUtilisateurModel = new utilisateurModel();
-                    $success = $delUtilisateurModel->ctrlEmprunt($delUtilisateur);
+                    $success = $delUtilisateurModel->delete($delUtilisateur);
 
                     // VERIFICATION DE L'ACCUSE DE TRAITEMENT
-                    if (!$success) {
-
-                        // SUPPRESSION DU LIVRE
-                        $success = $delUtilisateurModel->delete($delUtilisateur);
-
-                        // VERIFICATION DE L'ACCUSE DE TRAITEMENT
-                        // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
-                        $success
-                            ? $this->myHeader("Utilisateur", "listAdmin", "success_deleteUser")
-                            : $this->myHeader("Utilisateur", "listAdmin", "error_request");
-                    } else {
-
-                        // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
-                        $this->myHeader("Utilisateur", "listAdmin", "error_haveEmprunt");
-                    }
+                    // ENVOI VERS LE CONTROLEUR PRINCIPAL "ASYNCHRONE"
+                    $success
+                        ? $this->myJsonEncode(true, "success_deleteUser")
+                        : $this->myJsonEncode(false, "error_request");
                 } else {
 
-                    // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
-                    $this->myHeader("Utilisateur", "listAdmin", "error_id");
+                    // ENVOI VERS LE CONTROLEUR PRINCIPAL "POUR LE RECHARGEMENT"
+                    $this->myJsonEncode(false, "error_id");
                 }
             } else {
 
                 // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
-                $this->myHeader("Utilisateur", "listAdmin", "error_token");
+                $this->myJsonEncode(false, "error_token");
             }
         } else {
 
             // DEFINITION DES DONNEES DE RECHARGEMENT
-            $this->myHeader("Home", "home", "error_rights");
+            $this->myJsonEncode(false, "error_rights");
         }
     }        
 }

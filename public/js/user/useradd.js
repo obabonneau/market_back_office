@@ -23,8 +23,7 @@ export function userAdd(form) {
         .then((response) => response.json())
         .then((data) =>
         {
-            if (data) {
-                console.log(data);
+            if (data.success) {
 
                 // AJOUT DE LA NOUVELLE LIGNE DANS LE TABLEAU
                 const tr = document.createElement("tr");
@@ -48,7 +47,7 @@ export function userAdd(form) {
                 tr.classList.add("table-success", "border-3", "border-success");
                 setTimeout(() => {
                     tr.classList.remove("table-success", "border-3", "border-success");
-                }, 5000);        
+                }, 4000);        
             }
         })
         .catch(error => {

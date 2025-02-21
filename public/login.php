@@ -20,7 +20,7 @@
     <!-- ADMIN -->
 
     <!-- CUSTOM -->
-    <script src="../public/js/tokenCreate.js" defer></script>
+    <script type="module" src="../public/js/tokenCreate.js" defer></script>
     <script type="module" src="../public/js/module/errorForm.js" defer></script>
     <script type="module" src="../public/js/user/userLogin.js" defer></script>
 </head>

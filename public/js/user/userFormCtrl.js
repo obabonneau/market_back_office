@@ -90,7 +90,6 @@ document.querySelector("#formCreate").addEventListener("submit", function(event)
     if (isValid) {
 
         // ENVOI DU FORMULAIRE
-        console.log("Envoi du formulaire");
         userAdd(this);
 
         // RESET DU FORMULAIRE

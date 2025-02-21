@@ -44,7 +44,7 @@
                     </thead>
                     <tbody id="tableBody">
                         <?php foreach ($utilisateurs as $utilisateur) : ?>
-                            <tr id="tr<?php echo htmlspecialchars($utilisateur->id_utilisateur, ENT_QUOTES, "UTF-8"); ?>">
+                            <tr id="trList<?php echo htmlspecialchars($utilisateur->id_utilisateur, ENT_QUOTES, "UTF-8"); ?>">
                                 <td class="text-start ps-3"><?php echo htmlspecialchars($utilisateur->prenom, ENT_QUOTES, "UTF-8"); ?></td>
                                 <td class="text-start ps-3"><?php echo htmlspecialchars($utilisateur->nom, ENT_QUOTES, "UTF-8"); ?></td>
                                 <td class="text-start ps-3"><?php echo htmlspecialchars($utilisateur->email, ENT_QUOTES, "UTF-8"); ?></td>
@@ -56,7 +56,7 @@
                                         title="Modifier">
                                         <i class="bi bi-pencil-square"></i>
                                     </button>
-                                    <button id="btnDelete" class="btn btn-sm btn-danger" data-id = "<?php echo htmlspecialchars($utilisateur->id_utilisateur, ENT_QUOTES, "UTF-8"); ?>"
+                                    <button id="btnListDelete" class="btn btn-sm btn-danger" data-id = "<?php echo htmlspecialchars($utilisateur->id_utilisateur, ENT_QUOTES, "UTF-8"); ?>"
                                         title="Supprimer">
                                         <i class="bi bi-trash"></i>
                                     </button>
