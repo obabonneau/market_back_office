@@ -1,7 +1,34 @@
 /////////////////////////////////////////////////////////
-// FONCTION POUR AJOUTER UN LIVRE DANS LA BIBLIOTHEQUE //
+// SCRIPT POUR L'AJOUT D'UN UTILISATEUR DANS LA LISTE //
 /////////////////////////////////////////////////////////
-export function userAdd(form) {
+
+// IMPORTATION DES MODULES
+import { modalForm, modalFormTitle, modalFormToken } from "../module/modalForm.js";
+import { tokenCreate } from "../module/tokenCreate.js";
+
+
+//-------------------------------------------------------//
+// AFFICHAGE DE LA MODAL DE SUPPRESSION D'UN UTILISATEUR //
+//-------------------------------------------------------//
+document.querySelector("#btnListCreate").addEventListener("click", () => {
+
+        // MODIFICATION DU TITRE DE LA MODAL
+        modalFormTitle.textContent = "Créer un utilisateur";
+
+        // CREATION DU TOKEN ET AFFICHAGE DANS LA MODAL
+        tokenCreate().then((token) => {        
+            modalFormToken.value = token;
+        });
+
+        // AFFICHAGE DE LA MODAL
+        modalForm.show();
+});
+
+
+//-----------------------------------------//
+// CREATION D'UN UTILISATEUR EN ASYNCHRONE //
+//-----------------------------------------//
+export function userCreate(form) {
     
     // SELECTION DU TABLEAU
     const tableBody = document.querySelector("#tableBody");
@@ -13,17 +40,16 @@ export function userAdd(form) {
     const email = form.email.value;
     const statut = form.statut.value;
 
-    // if (titre === "" || auteur === "" || genre === "" || annee === "")
-
-    fetch("index.php?controller=Utilisateur&action=create",
+    // REQUETE DE CREATION
+    fetch("index.php?controller=Admin&action=createUser",
         {
             method: "POST",
             body: formData,
         })
         .then((response) => response.json())
-        .then((data) =>
+        .then((result) =>
         {
-            if (data.success) {
+            if (result.data) {
 
                 // AJOUT DE LA NOUVELLE LIGNE DANS LE TABLEAU
                 const tr = document.createElement("tr");
@@ -47,7 +73,7 @@ export function userAdd(form) {
                 tr.classList.add("table-success", "border-3", "border-success");
                 setTimeout(() => {
                     tr.classList.remove("table-success", "border-3", "border-success");
-                }, 4000);        
+                }, 2000); 
             }
         })
         .catch(error => {

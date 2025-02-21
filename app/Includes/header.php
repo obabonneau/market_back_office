@@ -29,12 +29,14 @@
 
     <!-- SCRIPTS -->
     <script src="../public/js/main.js" defer></script>
-    <script type="module" src="../public/js/tokenCreate.js" defer></script>
+    <script src="../public/js/user/userLogout.js" defer></script>
+    <script type="module" src="../public/js/module/modalForm.js" defer></script>
+    <script type="module" src="../public/js/module/tokenCreate.js" defer></script>
     <script type="module" src="../public/js/module/errorForm.js" defer></script>
     <script type="module" src="../public/js/user/userFormCtrl.js" defer></script>
-    <script type="module" src="../public/js/user/userAdd.js" defer></script>
+    <script type="module" src="../public/js/user/userCreate.js" defer></script>
+    <script type="module" src="../public/js/user/userUpdate.js" defer></script>
     <script type="module" src="../public/js/user/userDelete.js" defer></script>
-    <script src="../public/js/user/userLogout.js" defer></script>
 </head>
 
 <body id="page-top">
@@ -74,7 +76,7 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="index.php?controller=Utilisateur&action=list">
+                <a class="nav-link" href="index.php?controller=Admin&action=list">
                     <i id="sidebarLogo" class="fas fa-solid fa-user"></i>
                     <span id="sidebarLabel">Utilisateurs</span>
                 </a>

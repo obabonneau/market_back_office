@@ -9,7 +9,7 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4 p-0">
         <div class="card-header py-3">
-            <button id="btnToken" type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalFormCreate">Créer un nouvel utilisateur</button>
+            <button id="btnListCreate" type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalForm">Créer un nouvel utilisateur</button>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -44,22 +44,27 @@
                     </thead>
                     <tbody id="tableBody">
                         <?php foreach ($utilisateurs as $utilisateur) : ?>
-                            <tr id="trList<?php echo htmlspecialchars($utilisateur->id_utilisateur, ENT_QUOTES, "UTF-8"); ?>">
-                                <td class="text-start ps-3"><?php echo htmlspecialchars($utilisateur->prenom, ENT_QUOTES, "UTF-8"); ?></td>
-                                <td class="text-start ps-3"><?php echo htmlspecialchars($utilisateur->nom, ENT_QUOTES, "UTF-8"); ?></td>
-                                <td class="text-start ps-3"><?php echo htmlspecialchars($utilisateur->email, ENT_QUOTES, "UTF-8"); ?></td>
-                                <td>
+                            <tr id="trUser<?php echo htmlspecialchars($utilisateur->id_utilisateur, ENT_QUOTES, "UTF-8"); ?>">
+                                <td id="tdPrenom" class="text-start ps-3">
+                                    <?php echo htmlspecialchars($utilisateur->prenom, ENT_QUOTES, "UTF-8"); ?>
+                                </td>
+                                <td id="tdNom" class="text-start ps-3">
+                                    <?php echo htmlspecialchars($utilisateur->nom, ENT_QUOTES, "UTF-8"); ?>
+                                </td>
+                                <td id="tdEmail" class="text-start ps-3">
+                                    <?php echo htmlspecialchars($utilisateur->email, ENT_QUOTES, "UTF-8"); ?></td>
+                                <td id="tdStatut">
                                     <span class="badge bg-secondary"><?php echo htmlspecialchars($utilisateur->statut, ENT_QUOTES, "UTF-8"); ?></span>
                                 </td>
                                 <td class="text-center p-2">
-                                    <button class="btn btn-sm btn-warning"
+                                    <button id="btnListUpdate" class="btn btn-sm btn-warning" data-id="<?php echo htmlspecialchars($utilisateur->id_utilisateur, ENT_QUOTES, "UTF-8"); ?>"
                                         title="Modifier">
                                         <i class="bi bi-pencil-square"></i>
                                     </button>
-                                    <button id="btnListDelete" class="btn btn-sm btn-danger" data-id = "<?php echo htmlspecialchars($utilisateur->id_utilisateur, ENT_QUOTES, "UTF-8"); ?>"
+                                    <a id="btnListDelete" class="btn btn-sm btn-danger" data-id="<?php echo htmlspecialchars($utilisateur->id_utilisateur, ENT_QUOTES, "UTF-8"); ?>"   
                                         title="Supprimer">
                                         <i class="bi bi-trash"></i>
-                                    </button>
+                                    </a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -106,6 +111,6 @@
 
 <!-- MODAL INCLUDE -->
 <?php
-include "formCreate.php";
-include "formDelete.php";
+include "modalForm.php";
+include "modalDelete.php";
 ?>

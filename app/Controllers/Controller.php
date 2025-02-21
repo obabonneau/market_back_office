@@ -62,7 +62,7 @@ abstract class Controller
         $messageModel = new MessageModel();
         $message = $messageModel->getMessage($messageKey);
 
-        echo json_encode(["success" => $data, "message" => $message]);
+        echo json_encode(["data" => $data, "message" => $message]);
     }
 
     ////////////////////////////////////////

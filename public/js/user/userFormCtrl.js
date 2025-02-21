@@ -1,6 +1,6 @@
-////////////////////////////////////////////////////////////
-// 
-////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////
+// SCRIPT POUR LE TEST DU FORMULAIRE UTILISATEUR //
+///////////////////////////////////////////////////
 
 // DEFINITION DES REGEX
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -14,7 +14,6 @@ const requirements = {
 };
 
 // SELECTION DES ELEMENTS DU DOM
-const token = document.querySelector("#token");
 const prenom = document.querySelector("#prenom");
 const nom = document.querySelector("#nom");
 const email = document.querySelector("#email");
@@ -30,17 +29,16 @@ const statutError = document.querySelector("#statutError");
 const passwordShow = document.querySelector("#passwordShow");
 const menuCheck = document.querySelector("#menuCheck");
 
-const modalFormulaire = new bootstrap.Modal(document.querySelector("#modalFormCreate"));
-
-// IMPORT DES FONCTIONS DE GESTION DES ERREURS
+// IMPORT DES FONCTIONS
+import { modalForm } from "../module/modalForm.js";
 import { showError, eraseError } from "../module/errorForm.js";
-import { userAdd } from "./useradd.js";
+import { userCreate } from "./userCreate.js";
 
 
 //-----------------------------------------------//
 // VALIDATION DES CHAMPS DU FORMULAIRE AU SUBMIT //
 //-----------------------------------------------//
-document.querySelector("#formCreate").addEventListener("submit", function(event) {
+document.querySelector("#form").addEventListener("submit", function(event) {
    
     // EMPECHER L'ENVOI CLASSIQUE DU FORMULAIRE
     event.preventDefault();
@@ -90,13 +88,15 @@ document.querySelector("#formCreate").addEventListener("submit", function(event)
     if (isValid) {
 
         // ENVOI DU FORMULAIRE
-        userAdd(this);
+        if (modalFormId.value === "") {
+            userCreate(this);
+        }
 
         // RESET DU FORMULAIRE
         this.reset();
 
         // FERMETURE DE LA MODALE
-        modalFormulaire.hide();
+        modalForm.hide();
     }
 });
 
@@ -105,27 +105,28 @@ document.querySelector("#formCreate").addEventListener("submit", function(event)
 // VALIDATION DES CHAMPS DU FORMULAIRE EN ERREUR //
 //-----------------------------------------------//
 
-//
+// VALIDATION DU PRENOM
 prenom.addEventListener("input", () => {
     if (prenom.value.length >= 2) {
         eraseError(prenomError);
     }
 });
 
-//
+// VALIDATION DU NOM
 nom.addEventListener("input", () => {
     if (nom.value.length >= 2) {
         eraseError(nomError);
     }
 });
 
-//
+// VALIDATION DE L'EMAIL
 email.addEventListener("input", () => {
     if (emailRegex.test(email.value)) {
         eraseError(emailError);
     }
 });
 
+// VALIDATION DU MOT DE PASSE
 password.addEventListener("input", () => {
     if (passwordRegex.test(password.value)) {
         eraseError(passwordError);
@@ -133,12 +134,13 @@ password.addEventListener("input", () => {
     }
 });
 
-//
+// VALIDATION DU STATUT
 statut.addEventListener("input", () => {
     if (statut.value !== "") {
         eraseError(statutError);
     }
 });
+
 
 //------------------------------------//
 // AFFICHAGE DU MOT DE PASSE EN CLAIR //

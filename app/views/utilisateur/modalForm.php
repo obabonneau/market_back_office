@@ -1,22 +1,25 @@
 <!---------------------------->
 <!-- FORMULAIRE DE CREATION -->
 <!---------------------------->
-<div class="modal fade" id="modalFormCreate" tabindex="-1" aria-labelledby="modalFormCreate" aria-hidden="true">>
+<div class="modal fade" id="modalForm" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
 
             <!-- ENTETE DU FORMULAIRE -->
             <div class="modal-header">
-                <h2 class="flex-grow-1 text-center fs-3 fst-italic">Créer un utilisateur</h2>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h2 id="modalFormTitle" class="flex-grow-1 text-center fs-3 fst-italic">Créer un utilisateur</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 
             <!-- CORPS DU FORMULAIRE -->
             <div class="modal-body">
-                <form id="formCreate" method="post" novalidate>
+                <form id="form" method="post" novalidate>
 
-                    <!-- TOKEN CSRF -->
-                    <input id="token" type="hidden" name="token" value="">
+                    <!-- TOKEN -->
+                    <input id="modalFormToken" type="hidden" name="token" value="">
+
+                    <!-- ID -->
+                    <input id="modalFormId" type="hidden" name="id_utilisateur" value="">
 
                     <!-- CHAMP PRENOM -->
                     <div class="mb-2">
@@ -85,8 +88,8 @@
                         <div class="mb-3">
                             <label for="statut" class="form-label fw-light"><strong>Statut</strong></label>
                             <select id="statut" class="form-select form-select-sm" name="statut">
+                                <option value="user">user</option>
                                 <option value="admin">admin</option>
-                                <option value="user" selected>user</option>
                             </select>
                             <small id="statutError" class="form-text text-danger"></small>
                         </div>
