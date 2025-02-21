@@ -30,7 +30,7 @@ const passwordShow = document.querySelector("#passwordShow");
 const menuCheck = document.querySelector("#menuCheck");
 
 // IMPORT DES FONCTIONS
-import { modalForm } from "../module/modalForm.js";
+import { modalForm, modalFormId } from "../module/modalForm.js";
 import { showError, eraseError } from "../module/errorForm.js";
 import { userCreate } from "./userCreate.js";
 
@@ -69,7 +69,7 @@ document.querySelector("#form").addEventListener("submit", function(event) {
     }
 
     // VALIDATION DU MOT DE PASSE
-    if (!passwordRegex.test(password.value)) {
+    if (((!passwordRegex.test(password.value)) && ((modalFormId.value === ""))) || (((!passwordRegex.test(password.value)) && (password.value !== "") && (modalFormId.value !== "")))) {
         showError(passwordError, "Le mdp n'est pas valide.");
         isValid = false;
     }   else {
@@ -88,7 +88,7 @@ document.querySelector("#form").addEventListener("submit", function(event) {
     if (isValid) {
 
         // ENVOI DU FORMULAIRE
-        if (modalFormId.value === "") {
+        if (modalFormId.value !== "") {
             userCreate(this);
         }
 

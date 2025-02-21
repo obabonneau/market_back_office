@@ -66,8 +66,8 @@ function ctrlUser(token, email, password) {
         },
     })
         .then((response) => response.json())
-        .then((data) => {
-            if (data.success) {
+        .then((result) => {
+            if (result.data) {
                 window.location.href = "index.php?controller=Home&action=home"; // REDIRECTION VERS LA PAGE D'ACCUEIL
             } else {
                 showError(loginError, data.message); // AFFICHAGE DU MESSAGE D'ERREUR

@@ -1,7 +1,3 @@
 var modalElement = document.getElementById('exampleModal'); // Remplacez par l'ID de votre modal
 
 // Attachez un gestionnaire d'événements à l'événement "hidden.bs.modal"
-modalElement.addEventListener('hidden.bs.modal', function () {
-    // Vider le formulaire lorsque le modal est fermé
-    document.getElementById('userForm').reset();  // Réinitialise le formulaire
-});

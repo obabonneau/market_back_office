@@ -60,9 +60,9 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.php">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span id="sidebarLogo" id="sidebarLabel">Tableau de bord</span>
+                <a class="nav-link" href="index.php" title="Tableau de bord">
+                    <i id="sidebarLogo" class="bi bi-speedometer2"></i>
+                    <span id="sidebarLabel">Tableau de bord</span>
                 </a>
             </li>
 
@@ -76,8 +76,8 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="index.php?controller=Admin&action=list">
-                    <i id="sidebarLogo" class="fas fa-solid fa-user"></i>
+                <a class="nav-link" href="index.php?controller=Admin&action=list" title="Menu utilisateur">
+                    <i id="sidebarLogo" class="bi bi-people"></i>
                     <span id="sidebarLabel">Utilisateurs</span>
                 </a>
             </li>

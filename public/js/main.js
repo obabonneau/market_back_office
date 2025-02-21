@@ -6,7 +6,16 @@ const sidebarToggleIcon = sidebarToggle.querySelector("i");
 const sidebarLabel = document.querySelectorAll("#sidebarLabel");
 const sidebarLogo = document.querySelectorAll("#sidebarLogo");
 
-sidebarToggle.addEventListener("click", () => {
+// RECUPERATION DU MODE DANS LE LOCALSTORAGE
+let sidebar = localStorage.getItem("sidebar");
+
+// INITIALISATION DU MODE
+if (sidebar) {
+    fctSidebar();
+} 
+
+// TOGGLE DU SIDEBAR
+function fctSidebar() {
     document.querySelector("#accordionSidebar").classList.toggle("toggled");
     sidebarToggleIcon.classList.toggle("bi-caret-left-fill");
     sidebarToggleIcon.classList.toggle("bi-caret-right-fill");
@@ -14,8 +23,14 @@ sidebarToggle.addEventListener("click", () => {
         label.classList.toggle("d-none");
     });
     sidebarLogo.forEach(logo => {
-        logo.classList.toggle("fa-2x");
+        logo.classList.toggle("fs-4");
     });
+    localStorage.setItem("sidebar", sidebar);
+}
+
+sidebarToggle.addEventListener("click", () => {
+    fctSidebar();
+    localStorage.setItem("sidebar", !sidebar);
 });
 
 
@@ -89,13 +104,4 @@ window.addEventListener("scroll", () => {
 //     .catch(error => {
 //         console.error("Erreur:", error);
 //     });
-// });
-
-
-
-////////////////////////////////////////
-// AFFICHAGE DES CALENDRIERS AU CLICK //
-////////////////////////////////////////
-// jour.addEventListener("focus", () => {
-//    jour.showPicker();
 // });

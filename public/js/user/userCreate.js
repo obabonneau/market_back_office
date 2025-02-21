@@ -6,7 +6,6 @@
 import { modalForm, modalFormTitle, modalFormToken } from "../module/modalForm.js";
 import { tokenCreate } from "../module/tokenCreate.js";
 
-
 //-------------------------------------------------------//
 // AFFICHAGE DE LA MODAL DE SUPPRESSION D'UN UTILISATEUR //
 //-------------------------------------------------------//

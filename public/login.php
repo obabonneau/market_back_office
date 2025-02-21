@@ -20,7 +20,6 @@
     <!-- ADMIN -->
 
     <!-- CUSTOM -->
-    <script type="module" src="../public/js/module/tokenCreate.js" defer></script>
     <script type="module" src="../public/js/module/errorForm.js" defer></script>
     <script type="module" src="../public/js/user/userLogin.js" defer></script>
 </head>
@@ -82,6 +81,14 @@
             </div>
         </div>
     </main>
+    <script type="module">
+        import { tokenCreate } from "../public/js/module/tokenCreate.js";
+        document.addEventListener("DOMContentLoaded", () => {
+            tokenCreate().then((token) => {        
+                document.querySelector("#token").value = token;
+            });
+        });
+    </script>
 </body>
 
 </html>
