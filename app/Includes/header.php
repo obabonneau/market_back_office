@@ -28,6 +28,7 @@
     <!-- ADMIN -->
 
     <!-- SCRIPTS -->
+    <script src="../public/js/main.js" defer></script>
     <script type="module" src="../public/js/tokenCreate.js" defer></script>
     <script type="module" src="../public/js/module/errorForm.js" defer></script>
     <script type="module" src="../public/js/user/userFormCtrl.js" defer></script>
@@ -46,8 +47,8 @@
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <!-- Vierge -->
+                <div class="sidebar-brand-icon">
+                    <i class="bi bi-clipboard-data"></i>
                 </div>
                 <div class="sidebar-brand-text mx-3">BACK OFFICE</div>
             </a>
@@ -59,7 +60,8 @@
             <li class="nav-item active">
                 <a class="nav-link" href="index.php">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Tableau de bord</span></a>
+                    <span id="sidebarLogo" id="sidebarLabel">Tableau de bord</span>
+                </a>
             </li>
 
             <!-- Divider -->
@@ -67,14 +69,15 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                <span class="text-light">ADMINISTRATION</span>
+                <span class="text-light">ADMIN</span>
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link" href="index.php?controller=Utilisateur&action=list">
-                    <i class="fas fa-solid fa-user"></i>
-                    <span>Utilisateurs</span></a>
+                    <i id="sidebarLogo" class="fas fa-solid fa-user"></i>
+                    <span id="sidebarLabel">Utilisateurs</span>
+                </a>
             </li>
 
             <!-- Divider -->
@@ -88,22 +91,25 @@
             <!-- Nav Item - Charts -->
             <li class="nav-item">
                 <a class="nav-link" href="charts.html">
-                    <i class="fas fa-cube"></i>
-                    <span>Produits</span></a>
+                    <i id="sidebarLogo" class="fas fa-cube"></i>
+                    <span id="sidebarLabel">Produits</span>
+                </a>
             </li>
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
                 <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Categories</span></a>
+                    <i id="sidebarLogo" class="fas fa-fw fa-table"></i>
+                    <span id="sidebarLabel">Categories</span>
+                </a>
             </li>
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
                 <a class="nav-link" href="tables.html">
-                    <i class="fas fa-clock"></i>
-                    <span>Statuts</span></a>
+                    <i id="sidebarLogo" class="fas fa-clock"></i>
+                    <span id="sidebarLabel">Statuts</span>
+                </a>
             </li>
 
             <!-- Divider -->
@@ -117,31 +123,26 @@
             <!-- Nav Item - Tables -->
             <li class="nav-item">
                 <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Nouvelles</span></a>
+                    <i id="sidebarLogo" class="fas fa-fw fa-table"></i>
+                    <span id="sidebarLabel">Nouvelles</span>
+                </a>
             </li>
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
                 <a class="nav-link" href="tables.html">
-                    <i class="fas fa-clock"></i>
-                    <span>En cours</span></a>
+                    <i id="sidebarLogo" class="fas fa-clock"></i>
+                    <span id="sidebarLabel">En cours</span>
+                </a>
             </li>
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
                 <a class="nav-link" href="tables.html">
-                    <i class="fas fa-clock"></i>
-                    <span>Historique</span></a>
+                    <i id="sidebarLogo" class="fas fa-clock"></i>
+                    <span id="sidebarLabel">Historique</span>
+                </a>
             </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
 
         </ul>
         <!-- End of Sidebar -->
@@ -155,10 +156,11 @@
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-                    <!-- Sidebar Toggle (Topbar) -->
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars"></i>
+                <div class="text-center d-none d-md-inline">
+                    <button class="btn btn-secondary btn-sm rounded-circle border-0" id="sidebarToggle">
+                        <i class="bi bi-caret-left-fill"></i> <!-- Icône de la sidebar -->
                     </button>
+                </div>
 
                     <!-- Topbar Search -->
                     <form
@@ -167,7 +169,7 @@
                             <input type="text" class="form-control bg-light border-0 small" placeholder="Rechercher..."
                                 aria-label="Search" aria-describedby="basic-addon2">
                             <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
+                                <button class="btn btn-secondary" type="button">
                                     <i class="fas fa-search fa-sm"></i>
                                 </button>
                             </div>
