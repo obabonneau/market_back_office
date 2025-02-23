@@ -76,7 +76,7 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="index.php?controller=Admin&action=list" title="Menu utilisateur">
+                <a class="nav-link" href="index.php?controller=Admin&action=listUser" title="Menu utilisateur">
                     <i id="sidebarLogo" class="bi bi-people"></i>
                     <span id="sidebarLabel">Utilisateurs</span>
                 </a>
@@ -159,7 +159,7 @@
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
                 <div class="text-center d-none d-md-inline">
-                    <button class="btn btn-secondary btn-sm rounded-circle border-0" id="sidebarToggle">
+                    <button class="btn btn-secondary btn-sm rounded-circle border-0" id="sidebarBtn">
                         <i class="bi bi-caret-left-fill"></i> <!-- Icône de la sidebar -->
                     </button>
                 </div>
@@ -226,7 +226,7 @@
                                     Profil
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#logoutModal">
+                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalLogout">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Déconnexion
                                 </a>

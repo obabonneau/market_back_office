@@ -3,9 +3,11 @@
 //////////////////////////////////////////
 
 // SELECTION DES ELEMENTS DU DOM
+const listBtnsDelete = document.querySelectorAll("#listBtnDelete");
 const modalDelete = new bootstrap.Modal(document.querySelector("#modalDelete"));
 const modalDeleteToken = document.querySelector("#modalDeleteToken");
 const modalDeleteId = document.querySelector("#modalDeleteId");
+const modalDeleteBtn = document.querySelector("#modalDeleteBtn");
 
 // IMPORTATION DES MODULES
 import { tokenCreate } from "../module/tokenCreate.js";
@@ -14,11 +16,11 @@ import { tokenCreate } from "../module/tokenCreate.js";
 //-------------------------------------------------------//
 // AFFICHAGE DE LA MODAL DE SUPPRESSION D'UN UTILISATEUR //
 //-------------------------------------------------------//
-document.querySelectorAll("#btnListDelete").forEach((btn) => {
-    btn.addEventListener("click", (event) => {
+listBtnsDelete.forEach((listBtnDelete) => {
+    listBtnDelete.addEventListener("click", () => {
 
         // RECUPERATION DE L'ID ET AFFICHAGE DANS LA MODAL
-        const id = btn.getAttribute("data-id");
+        const id = listBtnDelete.getAttribute("data-id");
         modalDeleteId.value = id;
 
         // CREATION DU TOKEN ET AFFICHAGE DANS LA MODAL
@@ -35,7 +37,7 @@ document.querySelectorAll("#btnListDelete").forEach((btn) => {
 //--------------------------------------------//
 // SUPPRESSION D'UN UTILISATEUR EN ASYNCHRONE //
 //--------------------------------------------//
-document.querySelector("#modalDeleteBtn").addEventListener("click", () => {
+modalDeleteBtn.addEventListener("click", () => {
 
     // RECUPERATION DES DONNEES DANS LA MODAL
     const token = modalDeleteToken.value;
@@ -55,10 +57,10 @@ document.querySelector("#modalDeleteBtn").addEventListener("click", () => {
         })
         .then((response) => response.json())
         .then((result) => {
-            if (result.data) {
+            if (result.data) { // Si la requête est true
 
                 // SUPPRESSION DE LA LIGNE DU TABLEAU
-                const tr = document.querySelector("#trUser" + id);
+                const tr = document.querySelector("#listTr" + id);
                 tr.classList.add("table-danger", "border-3", "border-danger");
                 setTimeout(() => {
                     tr.remove();

@@ -1,12 +1,13 @@
-////////////////////////////////////////////////////////
-// SCRIPT DE CONTROLES AVANT CONNEXION AU BACK OFFICE //
-////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////
+// SCRIPT DE CONTROLE AVANT CONNEXION AU BACK OFFICE //
+///////////////////////////////////////////////////////
 
 // DEFINITION DES REGEX
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const passwordRegex = /^.{4,}$/;
 
 // SELECTION DES ELEMENTS DU DOM
+const formLogin = document.querySelector("#formLogin");
 const token = document.querySelector("#token");
 const email = document.querySelector("#email");
 const password = document.querySelector("#password");
@@ -14,13 +15,14 @@ const emailError = document.querySelector("#emailError");
 const passwordError = document.querySelector("#passwordError");
 const loginError = document.querySelector("#loginError");
 
-// IMPORT DES FONCTIONS DE GESTION DES ERREURS
+// IMPORT DES MODULES
 import { showError, eraseError } from "../module/errorForm.js";
+
 
 //-----------------------------------------------//
 // VALIDATION DES CHAMPS DU FORMULAIRE AU SUBMIT //
 //-----------------------------------------------//
-document.querySelector("#formLogin").addEventListener("submit", function(event) {
+formLogin.addEventListener("submit", function(event) {
    
     // EMPECHER L'ENVOI CLASSIQUE DU FORMULAIRE
     event.preventDefault();
@@ -53,6 +55,8 @@ document.querySelector("#formLogin").addEventListener("submit", function(event) 
 // CONTROLE DES IDENTIFIANTS DE CONNEXION //
 //----------------------------------------//
 function ctrlUser(token, email, password) {
+
+    // REQUETE POUR LA CONNEXION DE L'UTILISATEUR
     fetch("index.php?controller=Utilisateur&action=logon",
     {
         method: "POST",
@@ -68,9 +72,13 @@ function ctrlUser(token, email, password) {
         .then((response) => response.json())
         .then((result) => {
             if (result.data) {
+
+                // REDIRECTION VERS LA PAGE D'ACCUEIL
                 window.location.href = "index.php?controller=Home&action=home"; // REDIRECTION VERS LA PAGE D'ACCUEIL
             } else {
-                showError(loginError, data.message); // AFFICHAGE DU MESSAGE D'ERREUR
+
+                // AFFICHAGE DU MESSAGE D'ERREUR
+                showError(loginError, data.message);
             }
         })
         .catch(error => {
@@ -83,7 +91,7 @@ function ctrlUser(token, email, password) {
 // VALIDATION DES CHAMPS DU FORMULAIRE EN ERREUR //
 //-----------------------------------------------//
 
-// ECOUTEUR SUR LE CHAMP DE L'EMAIL
+// VALIDATION DE L'EMAIL
 email.addEventListener("input", () => {
     eraseError(loginError);
     if (emailRegex.test(email.value)) {
@@ -91,7 +99,7 @@ email.addEventListener("input", () => {
     }
 });
 
-// ECOUTEUR SUR LE CHAMP DU MOT DE PASSE
+// VALIDATION DU MOT DE PASSE
 password.addEventListener("input", () => {
     eraseError(loginError);
     if (passwordRegex.test(password.value)) {

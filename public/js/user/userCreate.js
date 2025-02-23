@@ -1,15 +1,20 @@
-/////////////////////////////////////////////////////////
-// SCRIPT POUR L'AJOUT D'UN UTILISATEUR DANS LA LISTE //
-/////////////////////////////////////////////////////////
+//////////////////////////////////////////////
+// SCRIPT POUR LA CREATION D'UN UTILISATEUR //
+//////////////////////////////////////////////
 
 // IMPORTATION DES MODULES
-import { modalForm, modalFormTitle, modalFormToken } from "../module/modalForm.js";
 import { tokenCreate } from "../module/tokenCreate.js";
+import { modalForm, modalFormTitle, modalFormToken } from "../module/modalForm.js";
 
-//-------------------------------------------------------//
-// AFFICHAGE DE LA MODAL DE SUPPRESSION D'UN UTILISATEUR //
-//-------------------------------------------------------//
-document.querySelector("#btnListCreate").addEventListener("click", () => {
+
+// SELECTION DES ELEMENTS DU DOM
+const listBtnCreate = document.querySelector("#listBtnCreate");
+
+
+//----------------------------------------------------//
+// AFFICHAGE DE LA MODAL DE CREATION D'UN UTILISATEUR //
+//----------------------------------------------------//
+listBtnCreate.addEventListener("click", () => {
 
         // MODIFICATION DU TITRE DE LA MODAL
         modalFormTitle.textContent = "Créer un utilisateur";
@@ -59,14 +64,14 @@ export function userCreate(form) {
                                     <span class="badge bg-secondary">${statut}</span>
                                 </td>
                                 <td class="text-center p-2">
-                                    <a class="btn btn-sm btn-warning text-white" href=""
+                                    <button id="listBtnUpdate" class="btn btn-sm btn-warning text-white" data-id=""
                                         title="Modifier">
                                         <i class="bi bi-pencil-square"></i>
-                                    </a>
-                                    <a class="btn btn-sm btn-danger text-white" href=""
+                                    </button>
+                                    <button id="listBtnDelete" class="btn btn-sm btn-danger text-white" data-id=""
                                         title="Supprimer">
                                         <i class="bi bi-trash"></i>
-                                    </a>
+                                    </button>
                                 </td>`;
                 tableBody.insertBefore(tr, tableBody.firstChild);
                 tr.classList.add("table-success", "border-3", "border-success");

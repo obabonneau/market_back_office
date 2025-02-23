@@ -121,12 +121,12 @@ class UtilisateurModel extends DbConnect
     {
         try {
             // PREPARATION DE LA REQUETE SQL
-            $this->request = $this->connection->prepare("INSERT INTO com_utilisateur (prenom, nom, email, mdp, statut)
-                VALUES (:prenom, :nom, :email, :mdp, :statut)");
+            $this->request = $this->connection->prepare("INSERT INTO com_utilisateur (prenom, nom, email, password, statut)
+                VALUES (:prenom, :nom, :email, :password, :statut)");
             $this->request->bindValue(":prenom", $addUtilisateur->getPrenom(), PDO::PARAM_STR);
             $this->request->bindValue(":nom", $addUtilisateur->getNom(), PDO::PARAM_STR);
             $this->request->bindValue(":email", $addUtilisateur->getEmail(), PDO::PARAM_STR);
-            $this->request->bindValue(":mdp", password_hash($addUtilisateur->getMdp(), PASSWORD_DEFAULT), PDO::PARAM_STR);
+            $this->request->bindValue(":password", password_hash($addUtilisateur->getPassword(), PASSWORD_DEFAULT), PDO::PARAM_STR);
             $this->request->bindValue(":statut", $addUtilisateur->getStatut(), PDO::PARAM_STR);
 
             // EXECUTION DE LA REQUETE SQL ET RETOUR DE L'EXECUTION
@@ -147,15 +147,15 @@ class UtilisateurModel extends DbConnect
     public function update(Utilisateur $majUtilisateur)
     {
         try {
-            // CONSTRUCTION DE LA REQUETE EN FONCTION DU MDP
+            // CONSTRUCTION DE LA REQUETE EN FONCTION DU PASSWORD
             $sql = "UPDATE com_utilisateur SET
                 prenom = :prenom,
                 nom = :nom,
                 email = :email,
                 statut = :statut";
 
-            if ($majUtilisateur->getMdp() != "") {
-                $sql .= ", mdp = :mdp";
+            if ($majUtilisateur->getPassword() != "") {
+                $sql .= ", password = :password";
             }
 
             $sql .= " WHERE id_utilisateur = :id_utilisateur";
@@ -168,8 +168,8 @@ class UtilisateurModel extends DbConnect
             $this->request->bindValue(":email", $majUtilisateur->getEmail(), PDO::PARAM_STR);
             $this->request->bindValue(":statut", $majUtilisateur->getStatut(), PDO::PARAM_STR);
 
-            if ($majUtilisateur->getMdp() != "") {
-                $this->request->bindValue(":mdp", password_hash($majUtilisateur->getMdp(), PASSWORD_DEFAULT), PDO::PARAM_STR);
+            if ($majUtilisateur->getPassword() != "") {
+                $this->request->bindValue(":password", password_hash($majUtilisateur->getPassword(), PASSWORD_DEFAULT), PDO::PARAM_STR);
             }
 
             // EXECUTION DE LA REQUETE SQL
@@ -177,20 +177,20 @@ class UtilisateurModel extends DbConnect
 
             // VERIFICATION DE L'UPDATE
             if ($execution && $this->request->rowCount() > 0) {
-                return true;  // Suppression réussie
+                return true;  // MAJ réussie
             } else {
                 return false; // Aucun utilisateur trouvé ou erreur dans l'exécution
             }
             
         } catch (PDOException $e) {
-            //echo $e->getMessage();
-            //die;
+            echo $e->getMessage();
+            die;
         }
     }
 
-    //////////////////////////////////
-    // METHODE POUR MODIFIER UN MDP //
-    //////////////////////////////////
+    ///////////////////////////////////////
+    // METHODE POUR MODIFIER UN PASSWORD //
+    ///////////////////////////////////////
     public function updateToken(Utilisateur $majUtilisateur)
     {
         try {
@@ -215,21 +215,21 @@ class UtilisateurModel extends DbConnect
     }
 
     //////////////////////////////////
-    // METHODE POUR MODIFIER UN MDP //
+    // METHODE POUR MODIFIER UN password //
     //////////////////////////////////
-    public function updateMdp(Utilisateur $majUtilisateur)
+    public function updatePassword(Utilisateur $majUtilisateur)
     {
         try {
             // PREPARATION DE LA REQUETE SQL
             $this->request = $this->connection->prepare("UPDATE com_utilisateur SET
-                mdp = :mdp,
+                password = :password,
                 token = :token,
                 token_expire = :token_expire
                 WHERE email = :email");
 
             // PREPARATION DE LA REQUETE SQL
             $this->request->bindValue(":email", $majUtilisateur->getEmail(), PDO::PARAM_STR);
-            $this->request->bindValue(":mdp", password_hash($majUtilisateur->getMdp(), PASSWORD_DEFAULT), PDO::PARAM_STR);
+            $this->request->bindValue(":password", password_hash($majUtilisateur->getPassword(), PASSWORD_DEFAULT), PDO::PARAM_STR);
             $this->request->bindValue(":token", $majUtilisateur->getToken(), PDO::PARAM_STR);
             $this->request->bindValue(":token_expire", $majUtilisateur->getToken_expire(), PDO::PARAM_STR);
 

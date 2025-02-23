@@ -16,7 +16,7 @@ class Utilisateur
     private $prenom;
     private $nom;
     private $email;
-    private $mdp;
+    private $password;
     private $statut;
     private $token;
     private $token_expire;
@@ -72,14 +72,14 @@ class Utilisateur
         return $this;
     }
 
-    public function getMdp()
+    public function getPassword()
     {
-        return $this->mdp;
+        return $this->password;
     }
 
-    public function setMdp($mdp)
+    public function setPassword($password)
     {
-        $this->mdp = $mdp;
+        $this->password = $password;
 
         return $this;
     }

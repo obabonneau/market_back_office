@@ -1,5 +1,5 @@
 <!-- MODAL LOGOUT -->
-<div id="logoutModal" class="modal fade" tabindex="-1">
+<div id="modalLogout" class="modal fade" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
 
@@ -16,7 +16,7 @@
 
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Annuler</button>
-                <button id="btnLogout" class="btn btn-primary">Valider</button>
+                <button id="modalLogoutBtn" class="btn btn-primary">Valider</button>
             </div>
         </div>
     </div>

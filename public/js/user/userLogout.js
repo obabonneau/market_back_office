@@ -1,16 +1,24 @@
-////////////////////////////////////////////////////////
-// 
-////////////////////////////////////////////////////////
+/////////////////////////////////////////////////
+// SCRIPT POUR LA DECONNEXION DE L'UTILISATEUR //
+/////////////////////////////////////////////////
 
-//-----------------------------------------------//
-// 
-//-----------------------------------------------//
-document.querySelector("#btnLogout").addEventListener("click", () => {
+// SELECTION DE L'ELEMENT DU DOM
+const modalLogoutBtn = document.querySelector("#modalLogoutBtn");
+
+
+//---------------------------------------//
+// DECONNEXION DE L'UTILISATEUR AU CLICK //
+//---------------------------------------//
+modalLogoutBtn.addEventListener("click", () => {
+
+    // REQUETE POUR LA DECONNEXION DE L'UTILISATEUR
     fetch("index.php?controller=Utilisateur&action=logout")
         .then((response) => response.json())
-        .then((data) => {
-            if (data.success) {
-                window.location.href = "index.php";
+        .then((result) => {
+            if (result.data) { // Si la requête est true
+
+                // REDIRECTION VERS LA PAGE D'ACCUEIL
+                window.location.href = "index.php"; 
             }
         })
         .catch(error => {

@@ -1,37 +1,42 @@
 ////////////////////
 // SIDEBAR TOGGLE //
 ////////////////////
-const sidebarToggle = document.querySelector("#sidebarToggle");
-const sidebarToggleIcon = sidebarToggle.querySelector("i");
-const sidebarLabel = document.querySelectorAll("#sidebarLabel");
-const sidebarLogo = document.querySelectorAll("#sidebarLogo");
 
-// RECUPERATION DU MODE DANS LE LOCALSTORAGE
-let sidebar = localStorage.getItem("sidebar");
+// SELECTION DES ELEMENTS DU DOM
+const sidebarBtn = document.querySelector("#sidebarBtn");
+const sidebar = document.querySelector("#accordionSidebar");
+const sidebarIcon = document.querySelector("#sidebarBtn i");
+const sidebarLabels = document.querySelectorAll("#sidebarLabel");
+const sidebarLogos = document.querySelectorAll("#sidebarLogo");
 
-// INITIALISATION DU MODE
-if (sidebar) {
+// INITIALISATION DU DERNIER ETAT
+let sidebarStatus = JSON.parse(localStorage.getItem("sidebar"));
+if (sidebarStatus) {
     fctSidebar();
-} 
-
-// TOGGLE DU SIDEBAR
-function fctSidebar() {
-    document.querySelector("#accordionSidebar").classList.toggle("toggled");
-    sidebarToggleIcon.classList.toggle("bi-caret-left-fill");
-    sidebarToggleIcon.classList.toggle("bi-caret-right-fill");
-    sidebarLabel.forEach(label => {
-        label.classList.toggle("d-none");
-    });
-    sidebarLogo.forEach(logo => {
-        logo.classList.toggle("fs-4");
-    });
-    localStorage.setItem("sidebar", sidebar);
 }
 
-sidebarToggle.addEventListener("click", () => {
+//------------------------------------//
+// BASCULEMENT DE LA SIDEBAR AU CLICK //
+//------------------------------------//
+sidebarBtn.addEventListener("click", () => {
     fctSidebar();
-    localStorage.setItem("sidebar", !sidebar);
+    localStorage.setItem("sidebar", JSON.parse(!sidebarStatus));
 });
+
+//------------------------//
+// FONTION DE BASCULEMENT //
+//------------------------//
+function fctSidebar() {
+    sidebar.classList.toggle("toggled");
+    sidebarIcon.classList.toggle("bi-caret-left-fill");
+    sidebarIcon.classList.toggle("bi-caret-right-fill");
+    sidebarLabels.forEach(sidebarLabel => {
+        sidebarLabel.classList.toggle("d-none");
+    });
+    sidebarLogos.forEach(sidebarLogo => {
+        sidebarLogo.classList.toggle("fs-4");
+    });
+}
 
 
 ////////////////////
@@ -43,7 +48,7 @@ const arrowScroll = document.querySelector("#arrowScroll");
 
 // AFFICHAGE DE LA FLECHE AU SCROLL
 window.addEventListener("scroll", () => {   
-    if (window.scrollY > 10) {
+    if (window.scrollY > 100) {
         arrowScroll.style.display = "inline";
     } else {
         arrowScroll.style.display = "none";

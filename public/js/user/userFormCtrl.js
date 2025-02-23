@@ -29,10 +29,11 @@ const statutError = document.querySelector("#statutError");
 const passwordShow = document.querySelector("#passwordShow");
 const menuCheck = document.querySelector("#menuCheck");
 
-// IMPORT DES FONCTIONS
+// IMPORT DES MODULES
 import { modalForm, modalFormId } from "../module/modalForm.js";
 import { showError, eraseError } from "../module/errorForm.js";
 import { userCreate } from "./userCreate.js";
+import { userUpdate } from "./userUpdate.js";
 
 
 //-----------------------------------------------//
@@ -88,8 +89,10 @@ document.querySelector("#form").addEventListener("submit", function(event) {
     if (isValid) {
 
         // ENVOI DU FORMULAIRE
-        if (modalFormId.value !== "") {
+        if (modalFormId.value === "") {
             userCreate(this);
+        } else {
+            userUpdate(this);
         }
 
         // RESET DU FORMULAIRE

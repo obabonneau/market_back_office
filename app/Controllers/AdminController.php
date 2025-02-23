@@ -20,7 +20,7 @@ class AdminController extends Controller
     ////////////////////////////////////////////
     // METHODE POUR AFFICHER LES UTILISATEURS //
     ////////////////////////////////////////////
-    public function list()
+    public function listUser()
     {
         // VERIFICATION DES DROITS D'ACCES
         if (($_SESSION["user"]["statut"] ?? "") === "admin") {
@@ -110,7 +110,7 @@ class AdminController extends Controller
                         $addUtilisateur->setPrenom($prenom);
                         $addUtilisateur->setNom($nom);
                         $addUtilisateur->setEmail($email);
-                        $addUtilisateur->setMdp($password);
+                        $addUtilisateur->setPassword($password);
                         $addUtilisateur->setStatut($statut);
                         $addUtilisateurModel = new UtilisateurModel();
                         $success = $addUtilisateurModel->create($addUtilisateur);
@@ -172,7 +172,7 @@ class AdminController extends Controller
                     $prenom = $_POST["prenom"] ?? null;
                     $nom = $_POST["nom"] ?? null;
                     $email = $_POST["email"] ?? null;
-                    $mdp = $_POST["mdp"] ?? ""; // Le mot de passe peut être nul.
+                    $password = $_POST["password"] ?? ""; // Le mot de passe peut être nul.
                     $statut = $_POST["statut"] ?? "user"; // Statut user minimum
                     if ($id_utilisateur && $prenom && $nom && $email) {
 
@@ -182,7 +182,7 @@ class AdminController extends Controller
                         $majUtilisateur->setPrenom($prenom);
                         $majUtilisateur->setNom($nom);
                         $majUtilisateur->setEmail($email);
-                        $majUtilisateur->setMdp($mdp);
+                        $majUtilisateur->setPassword($password);
                         $majUtilisateur->setStatut($statut);
 
                         $majUtilisateurModel = new UtilisateurModel();
