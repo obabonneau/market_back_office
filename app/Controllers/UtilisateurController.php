@@ -55,9 +55,6 @@ class UtilisateurController extends Controller
             $token = $input["token"] ?? "";
             if ((hash_equals($_SESSION["token"]["id"], $token)) && (time() < $_SESSION["token"]["token_expiration"])) {
 
-                // SUPPRESSION DU TOKEN
-                unset($_SESSION["token"]);
-
                 // VERIFICATION DES CHAMPS
                 $email = $input["email"] ?? null;
                 $password = $input["password"] ?? null;
@@ -69,10 +66,12 @@ class UtilisateurController extends Controller
                     $readUtilisateurModel = new UtilisateurModel();
                     $utilisateur = $readUtilisateurModel->readByEmail($readUtilisateur);
 
-                    // VERIFICATION DE L'EXISTENCE DE L'UTILISATEUR ET DU MDP
-                    if ($utilisateur && (password_verify($password, $utilisateur->mdp))) {
+                    // VERIFICATION DE L'EXISTENCE DE L'UTILISATEUR ET DU PASSWORD
+                    if ($utilisateur && (password_verify($password, $utilisateur->password))) {
 
+                        // SUPPRESSION DU TOKEN
                         // CREATION D'UNE NOUVELLE SESSION
+                        unset($_SESSION["token"]);
                         session_regenerate_id();
 
                         // DEFINITION DE LA SESSION UTILISATEUR
