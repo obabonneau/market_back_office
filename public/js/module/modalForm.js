@@ -4,7 +4,9 @@ export const modalFormId = document.querySelector("#modalFormId");
 export const modalFormTitle = document.querySelector("#modalFormTitle");
 
 const modalElement = document.querySelector("#modalForm");
-export const modalForm = new bootstrap.Modal(modalElement);
+export const modalForm = new bootstrap.Modal(modalElement, {
+    backdrop: "static" // ou 'true'/'false'
+});
 
 modalElement.addEventListener('hidden.bs.modal', () => {
     // Vider le formulaire lorsque le modal est fermé

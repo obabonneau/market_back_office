@@ -4,7 +4,7 @@
 
 // DEFINITION DES REGEX
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-const passwordRegex = /^.{4,}$/;
+const passwordRegex = /^.{8,}$/;
 
 // SELECTION DES ELEMENTS DU DOM
 const formLogin = document.querySelector("#formLogin");
@@ -78,7 +78,7 @@ function ctrlUser(token, email, password) {
             } else {
 
                 // AFFICHAGE DU MESSAGE D'ERREUR
-                showError(loginError, data.message);
+                showError(loginError, result.message);
             }
         })
         .catch(error => {
