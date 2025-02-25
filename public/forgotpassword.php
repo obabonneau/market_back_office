@@ -76,11 +76,12 @@
                                         </div>
 
                                     <?php else :
-                                        $url = "http://app.local/CEFii_Market/market_back_office/public/index.php?controller=Utilisateur&action=forgotPasswordCtrl&token=" . $_GET["token"];
+                                        //$url = "http://app.local/CEFii_Market/market_back_office/public/index.php?controller=Utilisateur&action=forgotPasswordCtrl&token=" . $_GET["token"];
+                                        $url = "https://www.cefii-developpements.fr/olivier1422/cefii_market/market_back_office/public/index.php?controller=Utilisateur&action=forgotPasswordCtrl&token=" . $_GET["token"];
                                         $result = json_decode(file_get_contents($url));
 
                                         if ($result->data) : ?>
-                                            <form id="formForgotPassword" class="user" method="post" novalidate>
+                                            <form id="formForgotPassword<?php isset($_GET["token"]) ? "Active" : "" ?>" class="user" method="post" novalidate>
 
                                                 <!-- TOKEN -->
                                                 <input id="token" type="hidden" name="token" value="">

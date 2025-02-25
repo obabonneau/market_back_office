@@ -7,7 +7,7 @@
     <title>BACK OFFICE - <?php echo htmlspecialchars($title, ENT_QUOTES, "UTF-8"); ?></title>
     
     <!--FAVICON -->
-    <link rel="icon" type="image/png" href="/public/img/favicon.png">
+    <link rel="icon" type="image/png" href="../public/img/favicon.png">
 
     <!-- CSS Bootstrap -->
     <link rel="stylesheet" href="../public/css/bootstrap.min.css">

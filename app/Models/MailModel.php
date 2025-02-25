@@ -10,7 +10,7 @@ use App\Entities\Mail;
 
 require "PHPMailer/src/Exception.php";
 require "PHPMailer/src/PHPMailer.php";
-require "PHPMailer/src/SMTP.php";
+//require "PHPMailer/src/SMTP.php";
 
 
 //////////////////////////
@@ -30,16 +30,15 @@ class MailModel
             // PARAMETRE DU MAIL
             $mail->isHTML(true); // Email en format HTML
             $mail->CharSet = "UTF-8"; // Définit l'encodage en UTF-8
-            //$mail->Encoding = "base64"; // Encodage en base64
 
             // PARAMETRE DU SERVEUR SMTP (MailTrap)
-            $mail->isSMTP(); // Utilisation du serveur SMTP
-            $mail->Host = "sandbox.smtp.mailtrap.io"; // Hôte SMTP de MailTrap
-            $mail->SMTPAuth = true; // Activation de l'authentification SMTP
-            $mail->Username = "eee6221abfc8ee"; // Votre nom d'utilisateur MailTrap
-            $mail->Password = "f24cb7d97b6076"; // Votre mot de passe MailTrap
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Sécurisation via STARTTLS
-            $mail->Port = 2525; // Port SMTP (vous pouvez utiliser 25, 465, 587 ou 2525)
+            //$mail->isSMTP(); // Utilisation du serveur SMTP
+            //$mail->Host = "sandbox.smtp.mailtrap.io"; // Hôte SMTP de MailTrap
+            //$mail->SMTPAuth = true; // Activation de l'authentification SMTP
+            //$mail->Username = "eee6221abfc8ee"; // Votre nom d'utilisateur MailTrap
+            //$mail->Password = "f24cb7d97b6076"; // Votre mot de passe MailTrap
+            //$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Sécurisation via STARTTLS
+            //$mail->Port = 2525; // Port SMTP (vous pouvez utiliser 25, 465, 587 ou 2525)
 
             // ADRESSE DE L'EXPEDITEUR
             $mail->setFrom("support@backoffice.fr", "Support BACK OFFICE");

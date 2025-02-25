@@ -14,7 +14,7 @@ const requirements = {
 };
 
 // SELECTION DES ELEMENTS DU DOM
-const formForgotEmail = document.querySelector("#formForgotEmail");
+const formForgotEmail= document.querySelector("#formForgotEmail");
 const formForgotPassword = document.querySelector("#formForgotPassword");
 const token = document.querySelector("#token");
 const email = document.querySelector("#email");
@@ -28,25 +28,27 @@ import { showError, eraseError } from "../module/modalFormError.js";
 //----------------------------------------//
 // VALIDATION DU CHAMP MAIL DU FORMULAIRE //
 //----------------------------------------//
-formForgotEmail.addEventListener("submit", function(event) {
-   
-    // EMPECHER L'ENVOI CLASSIQUE DU FORMULAIRE
-    event.preventDefault();
-    let isValid = true;
+if (formForgotEmail) {
+    formForgotEmail.addEventListener("submit", function (event) {
 
-    // VALIDATION DE L'EMAIL
-    if (!emailRegex.test(email.value)) {
-        showError(emailError, "L'email n'est pas valide.");
-        isValid = false;
-    } else {
-        eraseError(emailError);
-    }
+        // EMPECHER L'ENVOI CLASSIQUE DU FORMULAIRE
+        event.preventDefault();
+        let isValid = true;
 
-    // SI LE FORMULAIRE EST VALIDE, ON LANCE LA VERIFICATION DU MAIL
-    if (isValid) {
-        ctrlMail(token.value, email.value);
-    }
-});
+        // VALIDATION DE L'EMAIL
+        if (!emailRegex.test(email.value)) {
+            showError(emailError, "L'email n'est pas valide.");
+            isValid = false;
+        } else {
+            eraseError(emailError);
+        }
+
+        // SI LE FORMULAIRE EST VALIDE, ON LANCE LA VERIFICATION DU MAIL
+        if (isValid) {
+            ctrlMail(token.value, email.value);
+        }
+    });
+}
 
 
 //----------------------------------------//
@@ -88,34 +90,38 @@ function ctrlMail(token, email) {
 //----------------------------------------------//
 // VALIDATION DES CHAMPS PASSWORD DU FORMULAIRE //
 //----------------------------------------------//
-formForgotPassword.addEventListener("submit", function(event) {
-   
-    // EMPECHER L'ENVOI CLASSIQUE DU FORMULAIRE
-    event.preventDefault();
-    let isValid = true;
+if (formForgotPassword) {
+    formForgotPassword.addEventListener("submit", function (event) {
 
-    // VALIDATION DU PASSWORD
-    if (!passwordRegex.test(password.value)) {
-        showError(passwordError, "Le mot de passe n'est pas valide.");
-        isValid = false;
-    } else {
-        eraseError(passwordError);
-    }
+        // EMPECHER L'ENVOI CLASSIQUE DU FORMULAIRE
+        event.preventDefault();
+        let isValid = true;
 
-    // SI LE FORMULAIRE EST VALIDE, ON LANCE LA VERIFICATION DU MAIL
-    if (isValid) {
-        ctrlMail(token.value, email.value);
-    }
-});
+        // VALIDATION DU PASSWORD
+        if (!passwordRegex.test(password.value)) {
+            showError(passwordError, "Le mot de passe n'est pas valide.");
+            isValid = false;
+        } else {
+            eraseError(passwordError);
+        }
+
+        // SI LE FORMULAIRE EST VALIDE, ON LANCE LA VERIFICATION DU MAIL
+        if (isValid) {
+            ctrlMail(token.value, email.value);
+        }
+    });
+}
 
 //-----------------------------------------------//
 // VALIDATION DES CHAMPS DU FORMULAIRE EN ERREUR //
 //-----------------------------------------------//
 
 // VALIDATION DE L'EMAIL
-email.addEventListener("input", () => {
-    eraseError(loginError);
-    if (emailRegex.test(email.value)) {
-        eraseError(emailError);
-    }
-});
+if (email) {
+    email.addEventListener("input", () => {
+        eraseError(loginError);
+        if (emailRegex.test(email.value)) {
+            eraseError(emailError);
+        }
+    });
+}
