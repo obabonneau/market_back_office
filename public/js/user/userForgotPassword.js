@@ -17,17 +17,20 @@ const requirements = {
 const formForgotEmail= document.querySelector("#formForgotEmail");
 const formForgotPassword = document.querySelector("#formForgotPassword");
 const token = document.querySelector("#token");
+const userToken = document.querySelector("#userToken");
 const email = document.querySelector("#email");
+const password = document.querySelector("#password");
 const emailError = document.querySelector("#emailError");
+const passwordError = document.querySelector("#passwordError");
 const message = document.querySelector("#message");
 
 // IMPORT DES MODULES
 import { showError, eraseError } from "../module/modalFormError.js";
 
 
-//----------------------------------------//
-// VALIDATION DU CHAMP MAIL DU FORMULAIRE //
-//----------------------------------------//
+//-----------------------------------------//
+// VALIDATION DU CHAMP EMAIL DU FORMULAIRE //
+//-----------------------------------------//
 if (formForgotEmail) {
     formForgotEmail.addEventListener("submit", function (event) {
 
@@ -43,21 +46,20 @@ if (formForgotEmail) {
             eraseError(emailError);
         }
 
-        // SI LE FORMULAIRE EST VALIDE, ON LANCE LA VERIFICATION DU MAIL
+        // SI LE FORMULAIRE EST VALIDE
         if (isValid) {
-            ctrlMail(token.value, email.value);
+            forgotPasswordMail(token.value, email.value);
         }
     });
 }
 
-
-//----------------------------------------//
-// CONTROLE DES IDENTIFIANTS DE CONNEXION //
-//----------------------------------------//
-function ctrlMail(token, email) {
+//---------------------------------------------------------------//
+// CONTROLE ET ENVOI DU MAIL DE REINITIALISATION DU MOT DE PASSE //
+//---------------------------------------------------------------//
+function forgotPasswordMail(token, email) {
 
     // REQUETE POUR LA CONNEXION DE L'UTILISATEUR
-    fetch("index.php?controller=Utilisateur&action=forgotPassword",
+    fetch("index.php?controller=Utilisateur&action=forgotPasswordEmail",
     {
         method: "POST",
         body: JSON.stringify({
@@ -72,7 +74,7 @@ function ctrlMail(token, email) {
         .then((result) => {
             if (result.data) {
 
-                // REDIRECTION VERS LA PAGE D'ACCUEIL
+                // AFFICHAGE DU MESSAGE DE CONFIRMATION
                 formForgotEmail.classList.add("d-none");
                 message.classList.remove("d-none");
             } else {
@@ -85,7 +87,6 @@ function ctrlMail(token, email) {
             //console.error("Erreur:", error);
         });
 };
-
 
 //----------------------------------------------//
 // VALIDATION DES CHAMPS PASSWORD DU FORMULAIRE //
@@ -105,12 +106,55 @@ if (formForgotPassword) {
             eraseError(passwordError);
         }
 
-        // SI LE FORMULAIRE EST VALIDE, ON LANCE LA VERIFICATION DU MAIL
+        // VALIDATION DE LA CONFIRMATION DU PASSWORD
+        // A développer
+
+        // SI LE FORMULAIRE EST VALIDE
         if (isValid) {
-            ctrlMail(token.value, email.value);
+            forgotPasswordUpdate(token.value, userToken.value, password.value);
         }
     });
 }
+
+//----------------------------------------------------------//
+// CONTROLE ET MISE A JOUR DU MOT DE PASSE DE L'UTILISATEUR //
+//----------------------------------------------------------//
+function forgotPasswordUpdate(token, userToken, password) {
+
+    // REQUETE POUR LA CONNEXION DE L'UTILISATEUR
+    fetch("index.php?controller=Utilisateur&action=forgotPasswordUpdate",
+    {
+        method: "POST",
+        body: JSON.stringify({
+            token: token,
+            userToken: userToken,
+            password: password,
+        }),
+        headers: {
+            "Content-type": "application/json; charset=UTF-8",
+        },
+    })
+        .then((response) => response.json())
+        .then((result) => {
+            if (result.data) {
+                console.log(result.data);
+
+                // AFFICHAGE DU MESSAGE DE CONFIRMATION
+                formForgotPassword.classList.add("d-none");
+                message.classList.remove("d-none");
+                setTimeout(() => {
+                    window.location.href = "index.php";
+                }, 3000); 
+            } else {
+
+                // AFFICHAGE DU MESSAGE D'ERREUR
+                showError(loginError, result.message);
+            }
+        })
+        .catch(error => {
+            //console.error("Erreur:", error);
+        });
+};
 
 //-----------------------------------------------//
 // VALIDATION DES CHAMPS DU FORMULAIRE EN ERREUR //
@@ -122,6 +166,16 @@ if (email) {
         eraseError(loginError);
         if (emailRegex.test(email.value)) {
             eraseError(emailError);
+        }
+    });
+}
+
+// VALIDATION DU PASSWORD
+if (password) {
+    password.addEventListener("input", () => {
+        eraseError(loginError);
+        if (passwordRegex.test(password.value)) {
+            eraseError(passwordError);
         }
     });
 }

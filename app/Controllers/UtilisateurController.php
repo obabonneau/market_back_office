@@ -16,35 +16,9 @@ use App\Models\MailModel as MailModel;
 ///////////////////////////////////////////////
 class UtilisateurController extends Controller
 {
-    ///////////////////////////////////////////////////////////
-    // METHODE POUR CONTROLER L'EXISTENCE D'UN COOKIE "RGPD" //
-    ///////////////////////////////////////////////////////////
-    // public function ctrlCookie()
-    // {
-    //     // RETOUR VERS LE FETCH
-    //     echo json_encode(isset($_COOKIE["ackCookie"]));
-    // }
-
-    //////////////////////////////////////////////////
-    // METHODE POUR DEFINIR l'ETAT DU COOKIE "RGPD" //
-    //////////////////////////////////////////////////
-    // public function validCookie()
-    // {
-    //     // VERIFICATION DU GET
-    //     $valid = $_GET["cookie"] ?? "";
-    //     if ($valid === "accept") {
-    //         setcookie("ackCookie", "yes", time() + 365 * 24 * 3600, "/"); // Expire dans 1 an
-    //     } else {
-    //         setcookie("ackCookie", "no", time() + 365 * 24 * 3600, "/"); // Expire dans 1 an sans acceptation
-    //     }
-
-    //     // RETOUR VERS LE FETCH
-    //     echo json_encode(true);
-    // }
-
-    ///////////////////////////////
+    //---------------------------//
     // METHODE POUR SE CONNECTER //
-    ///////////////////////////////
+    //---------------------------//
     public function logon()
     {
         // VERIFICATION DE LA METHODE POST
@@ -109,9 +83,9 @@ class UtilisateurController extends Controller
         }    
     }
 
-    /////////////////////////////////
+    //-----------------------------//
     // METHODE POUR SE DECONNECTER //
-    /////////////////////////////////
+    //-----------------------------//
     public function logout()
     {
         // DESTRUCTION DES COOKIES UTILISATEUR
@@ -128,10 +102,10 @@ class UtilisateurController extends Controller
         $this->myJsonEncode(true, "success_logout");
     }
 
-    //////////////////////////////////////////////////////////////////
-    // METHODE POUR ENVOYER UN MAIL DE REINITIALISATION DU PASSWORD //
-    //////////////////////////////////////////////////////////////////
-    public function forgotPassword()
+    //------------------------------------------------------------------//
+    // METHODE POUR ENVOYER UN MAIL DE REINITIALISATION DU MOT DE PASSE //
+    //------------------------------------------------------------------//
+    public function forgotPasswordEmail()
     {
         // VERIFICATION DE LA METHODE POST
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -197,9 +171,9 @@ class UtilisateurController extends Controller
         }
     }
 
-    ////////////////////////////////////////////////////////////////////
-    // METHODE POUR CONTROLER LE LIEN DE REINITIALISATION DU PASSWORD //
-    ////////////////////////////////////////////////////////////////////
+    //--------------------------------------------------------------------//
+    // METHODE POUR CONTROLER LE LIEN DE REINITIALISATION DU MOT DE PASSE //
+    //--------------------------------------------------------------------//
     public function forgotPasswordCtrl()
     {
         // HEADER JSON
@@ -213,9 +187,6 @@ class UtilisateurController extends Controller
 
             // VERIFICATION DU GET
             if ($_GET["token"] ?? null) {
-
-                // CREATION D'UN TOKEN CSRF
-                //$this->generateToken();
 
                 // LECTURE DE L'UTILISATEUR AVEC LE TOKEN
                 $readUtilisateur = new Utilisateur();
@@ -245,69 +216,83 @@ class UtilisateurController extends Controller
         }
     }
 
-    //////////////////////////////////
-    // METHODE POUR REINITIALISER MDP //
-    //////////////////////////////////
-    // public function updatePassword()
+    //--------------------------------------------//
+    // METHODE POUR REINITIALISER LE MOT DE PASSE //
+    //--------------------------------------------//
+    public function forgotPasswordUpdate()
+    {
+        // VERIFICATION DE LA METHODE POST
+        if ($_SERVER["REQUEST_METHOD"] === "POST") {
+            $input = json_decode(file_get_contents("php://input"), true);
+
+            // VERIFICATION DU TOKEN
+            $token = $input["token"] ?? "";
+            if ((hash_equals($_SESSION["token"]["id"], $token)) && (time() < $_SESSION["token"]["token_expiration"])) {
+
+                // VERIFICATION DES CHAMPS
+                $userToken = $input["userToken"] ?? null;
+                $password = $input["password"] ?? null;
+                if ($token && $password) {
+
+                    // SUPPRESSION DU TOKEN
+                    unset($_SESSION["token"]);
+
+                    // LECTURE DE L'UTILISATEUR AVEC LE TOKEN
+                    $majUtilisateur = new Utilisateur();
+                    $majUtilisateur->setToken($userToken);
+                    $majUtilisateurModel = new UtilisateurModel();
+                    $utilisateur = $majUtilisateurModel->readByToken($majUtilisateur);
+  
+                    // MISE A JOUR DU PASSWORD
+                    $majUtilisateur->setEmail($utilisateur->email);
+                    $majUtilisateur->setPassword($password);
+                    $majUtilisateur->setToken(null); // Réinitialisation du token
+                    $majUtilisateur->setToken_expire(null); // Réinitialisation de la date d'expiration
+                    $success = $majUtilisateurModel->updatePassword($majUtilisateur);
+
+                    // VERIFICATION DE L'ACCUSE DE TRAITEMENT
+                    // ENVOI VERS LE CONTROLEUR PRINCIPAL "ASYNCHRONE"
+                    $success
+                    ? $this->myJsonEncode(true, "success_updateMdp")
+                    : $this->myJsonEncode(false, "error_request");
+
+                } else {
+
+                    // ENVOI VERS LE CONTROLEUR PRINCIPAL "ASYNCHRONE"
+                    $this->myJsonEncode(false, "error_input");
+                }
+            } else {
+
+                // ENVOI VERS LE CONTROLEUR PRINCIPAL "ASYNCHRONE"
+                $this->myJsonEncode(false, "error_token");
+            }
+        }
+    }
+
+
+    ///////////////////////////////////////////////////////////
+    // METHODE POUR CONTROLER L'EXISTENCE D'UN COOKIE "RGPD" //
+    ///////////////////////////////////////////////////////////
+    // public function ctrlCookie()
     // {
-    //     // VERIFICATION DE LA METHODE POST
-    //     if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    //     // RETOUR VERS LE FETCH
+    //     echo json_encode(isset($_COOKIE["ackCookie"]));
+    // }
 
-    //         // VERIFICATION DU TOKEN
-    //         $token = $_POST["token"] ?? "";
-    //         if ((hash_equals($_SESSION["token"]["id"], $token)) && (time() < $_SESSION["token"]["token_expiration"])) {
-
-    //             // SUPPRESSION DU TOKEN
-    //             unset($_SESSION["token"]);
-
-    //             // VERIFICATION DES CHAMPS
-    //             $token = $_POST["token"] ?? null;
-    //             $mdp = $_POST["mdp"] ?? null;
-    //             if ($token && $mdp) {
-
-    //                 // LECTURE DE L'UTILISATEUR AVEC LE TOKEN
-    //                 $majUtilisateur = new Utilisateur();
-    //                 $majUtilisateur->setToken($token);
-    //                 $majUtilisateurModel = new UtilisateurModel();
-    //                 $utilisateur = $majUtilisateurModel->readByToken($majUtilisateur);
-
-    //                 if ($utilisateur) {
-
-    //                     // MISE A JOUR DU MDP
-    //                     $majUtilisateur->setEmail($utilisateur->email);
-    //                     $majUtilisateur->setMdp($mdp);
-    //                     $majUtilisateur->setToken(null); // Réinitialisation du token
-    //                     $majUtilisateur->setToken_expire(null); // Réinitialisation de la date d'expiration
-    //                     $success = $majUtilisateurModel->updateMdp($majUtilisateur);
-
-    //                     // VERIFICATION DE L'ACCUSE DE TRAITEMENT
-    //                     // ENVOI VERS LE CONTROLEUR PRINCIPAL "ASYNCHRONE"
-    //                     $success
-    //                     ? $this->myJsonEncode(true, "success_updateMdp")
-    //                     : $this->myJsonEncode(false, "error_request");
-
-    //                 } else {
-
-    //                     // ENVOI VERS LE CONTROLEUR PRINCIPAL "ASYNCHRONE"
-    //                     $this->myJsonEncode(false, "error_link");
-    //                 }
-
-    //                 // VERIFICATION DE L'ACCUSE DE TRAITEMENT
-    //                 // ENVOI VERS LE CONTROLEUR PRINCIPAL "ASYNCHRONE"
-    //                 $success
-    //                 ? $this->myHeader("Utilisateur", "formLogon", "success_updateMdp")
-    //                 : $this->myHeader("Utilisateur", "formUpdateMdp", "error_request");
-
-    //             } else {
-
-    //                 // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
-    //                 $this->myHeader("Utilisateur", "formUpdateMdp", "error_input");
-    //             }
-    //         } else {
-
-    //             // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
-    //             $this->myHeader("Utilisateur", "formUpdateMdp", "error_link");
-    //         }
+    //////////////////////////////////////////////////
+    // METHODE POUR DEFINIR l'ETAT DU COOKIE "RGPD" //
+    //////////////////////////////////////////////////
+    // public function validCookie()
+    // {
+    //     // VERIFICATION DU GET
+    //     $valid = $_GET["cookie"] ?? "";
+    //     if ($valid === "accept") {
+    //         setcookie("ackCookie", "yes", time() + 365 * 24 * 3600, "/"); // Expire dans 1 an
+    //     } else {
+    //         setcookie("ackCookie", "no", time() + 365 * 24 * 3600, "/"); // Expire dans 1 an sans acceptation
     //     }
+
+    //     // RETOUR VERS LE FETCH
+    //     echo json_encode(true);
     // }
 }

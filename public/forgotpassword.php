@@ -75,16 +75,19 @@
                                             <a class="small" href="login.php">Vous avez déjà un compte ?</a>
                                         </div>
 
-                                    <?php else :
+                                        <?php else :
                                         //$url = "http://app.local/CEFii_Market/market_back_office/public/index.php?controller=Utilisateur&action=forgotPasswordCtrl&token=" . $_GET["token"];
                                         $url = "https://www.cefii-developpements.fr/olivier1422/cefii_market/market_back_office/public/index.php?controller=Utilisateur&action=forgotPasswordCtrl&token=" . $_GET["token"];
                                         $result = json_decode(file_get_contents($url));
 
                                         if ($result->data) : ?>
-                                            <form id="formForgotPassword<?php isset($_GET["token"]) ? "Active" : "" ?>" class="user" method="post" novalidate>
+                                            <form id="formForgotPassword" class="user" method="post" novalidate>
 
                                                 <!-- TOKEN -->
                                                 <input id="token" type="hidden" name="token" value="">
+
+                                                <!-- TOKEN -->
+                                                <input id="userToken" type="hidden" name="userToken" value="<?php echo htmlspecialchars($_GET["token"], ENT_QUOTES, "UTF-8"); ?>">
 
                                                 <!-- PASSWORD -->
                                                 <div class="form-group mb-0">
@@ -107,17 +110,22 @@
                                                 </div>
                                             </form>
 
+                                            <div id="message" class="alert alert-success d-none">
+                                                <p class="mb-0 text-center">Votre mot de passe<br> a été modifié avec succès.</p>
+                                            </div>
+
                                         <?php else : ?>
 
 
                                             <div id="message" class="alert alert-danger">
                                                 <p class="mb-0 text-center"><?php echo $result->message; ?></p>
                                             </div>
-                                        <?php endif; ?>
 
-                                        <div class="text-center mt-3">
-                                            <a class="small" href="forgotpassword.php">Mot de passe oublié ?</a>
-                                        </div>
+
+                                            <div class="text-center mt-3">
+                                                <a class="small" href="forgotpassword.php">Mot de passe oublié ?</a>
+                                            </div>
+                                        <?php endif; ?>
                                     <?php endif; ?>
                                 </div>
                             </div>
@@ -130,7 +138,7 @@
     <script type="module">
         import { tokenCreate } from "../public/js/module/tokenCreate.js";
         document.addEventListener("DOMContentLoaded", () => {
-            tokenCreate().then((token) => {
+               tokenCreate().then((token) => {
                 document.querySelector("#token").value = token;
             });
         });
