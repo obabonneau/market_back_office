@@ -6,7 +6,10 @@ namespace App\Models;
 // IMPORT DE CLASSES
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-use App\Entities\Mail as Mail;
+use App\Entities\Mail;
+
+require "PHPMailer/src/Exception.php";
+require "PHPMailer/src/PHPMailer.php";
 
 
 //////////////////////////
@@ -17,7 +20,7 @@ class MailModel
     ///////////////////////////////////////////////////////
     // METHODE POUR ENVOYER UN MAIL DE REINITIAILISATION //
     ///////////////////////////////////////////////////////
-    public function mdpForget(Mail $majMdpMail)
+    public function mdpForgot(Mail $majMdpMail)
     {
         try {
             // INSTANCIATION D'UN OBJET PHP MAILER (true pour l'activation des exceptions)
@@ -37,7 +40,7 @@ class MailModel
             $mail->Subject = "Ma Bibliothèque - Réinitialisation de votre mot de passe";
 
             // IMAGE DANS LE CORPS DU MAIL
-            $mail->AddEmbeddedImage("../public/images/mail/font.jpg", "font");
+            $mail->AddEmbeddedImage("../public/img/mail/font.jpg", "font");
 
             // CORPS DU MAIL
             $prenomNom = $majMdpMail->getPrenom() . " " . $majMdpMail->getNom();
@@ -52,8 +55,8 @@ class MailModel
             return $mail->send();
 
         } catch (Exception $e) {
-            //echo $mail->ErrorInfo;
-            //die;
+            echo $mail->ErrorInfo;
+            die;
             return false;
         }
     }

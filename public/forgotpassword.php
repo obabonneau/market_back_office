@@ -16,7 +16,7 @@
     <!-- ADMIN -->
 
     <!-- SCRIPTS GENERALE-->
-    <script type="module" src="../public/js/user/userLogin.js" defer></script>
+    <script type="module" src="../public/js/user/userForgotPassword.js" defer></script>
     <script type="module" src="../public/js/module/modalFormError.js" defer></script>
 </head>
 
@@ -46,15 +46,15 @@
                                     </div>
 
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-2">Mot de passe oublié ?</h1>
-                                        <p class="mb-4">Entrez votre email, nous vous enverrons<br> un lien de réinitialisation</p>
+                                        <p class="mb-3">Entrez votre email pour réinitialiser<br> votre mot de passe</p>
                                     </div>
                                     
-                                    <form id="formLogin" class="user" method="post" action="index.php?controller=Utilisateur&action=logon" novalidate>
+                                    <form id="formLogin" class="user" method="post" novalidate>
 
                                         <!-- TOKEN -->
                                         <input id="token" type="hidden" name="token" value="">
 
+                                        <!-- EMAIL -->
                                         <div class="form-group">
                                             <label for="email" hidden></label>
                                             <input id="email" class="form-control form-control-user" type="email"  name="email" placeholder="Votre adresse email">

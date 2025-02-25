@@ -42,7 +42,7 @@
                                     <div class="text-center">
                                         <h1 class="text-gray-900 mb-4">BACK OFFICE</h1>
                                     </div>
-                                    <form id="formLogin" class="user" method="post" action="index.php?controller=Utilisateur&action=logon" novalidate>
+                                    <form id="formLogin" class="user" method="post" novalidate>
 
                                         <!-- TOKEN -->
                                         <input id="token" type="hidden" name="token" value="">

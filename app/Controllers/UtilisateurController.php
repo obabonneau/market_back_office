@@ -128,85 +128,74 @@ class UtilisateurController extends Controller
         $this->myJsonEncode(true, "success_logout");
     }
 
-    /////////////////////////////////////////////////////////////
-    // METHODE POUR AFFICHER UN FORMULAIRE DE REINISIALISATION //
-    /////////////////////////////////////////////////////////////
-    // public function formForgetMdp()
-    // {
-    //     // CREATION D'UN TOKEN CSRF
-    //     $this->generateToken();
-
-    //     // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR L'AFFICHAGE
-    //     $this->render("utilisateur/formForgetMdp");
-    // }
-
     //////////////////////////////////////////
     // METHODE POUR REINITIALISATION UN MDP //
     //////////////////////////////////////////
-    // public function forgetMdp()
-    // {
-    //     // VERIFICATION DE LA METHODE POST
-    //     if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    public function forgotPassword()
+    {
+        // VERIFICATION DE LA METHODE POST
+        if ($_SERVER["REQUEST_METHOD"] === "POST") {
+            $input = json_decode(file_get_contents("php://input"), true);
 
-    //         // VERIFICATION DU TOKEN
-    //         $token = $_POST["token"] ?? "";
-    //         if ((hash_equals($_SESSION["token"]["id"], $token)) && (time() < $_SESSION["token"]["token_expiration"])) {
+            // VERIFICATION DU TOKEN
+            $token = $input["token"] ?? "";
+            if ((hash_equals($_SESSION["token"]["id"], $token)) && (time() < $_SESSION["token"]["token_expiration"])) {
 
-    //             // SUPPRESSION DU TOKEN
-    //             unset($_SESSION["token"]);
+                // VERIFICATION DU CHAMP EMAIL
+                if ($input["email"] ?? null) {
 
-    //             // VERIFICATION DU CHAMP EMAIL
-    //             if ($_POST["email"] ?? null) {
+                    // LECTURE DE L'UTILISATEUR
+                    $majUtilisateur = new Utilisateur();
+                    $majUtilisateur->setEmail($input["email"]);
+                    $majUtilisateurModel = new UtilisateurModel();
+                    $utilisateur = $majUtilisateurModel->readByEmail($majUtilisateur);
 
-    //                 // LECTURE DE L'UTILISATEUR
-    //                 $majUtilisateur = new Utilisateur();
-    //                 $majUtilisateur->setEmail($_POST["email"]);
-    //                 $majUtilisateurModel = new UtilisateurModel();
-    //                 $utilisateur = $majUtilisateurModel->readByEmail($majUtilisateur);
+                    if ($utilisateur) {
+                        
+                        // SUPPRESSION DU TOKEN
+                        unset($_SESSION["token"]);
 
-    //                 if ($utilisateur) {
+                        // GENERATION D'UN TOKEN ET D'UNE DATE D'EXPIRATION
+                        $token = bin2hex(random_bytes(32)); // 64 caractères
+                        $date = date("Y-m-d H:i:s", strtotime("+1 hour"));
 
-    //                     // GENERATION D'UN TOKEN ET D'UNE DATE D'EXPIRATION
-    //                     $token = bin2hex(random_bytes(32)); // 64 caractères
-    //                     $date = date("Y-m-d H:i:s", strtotime("+1 hour"));
+                        // MISE A JOUR DE L'UTILISATEUR AVEC LE TOKEN ET LA DATE D'EXPIRATION
+                        $majUtilisateur->setToken($token);
+                        $majUtilisateur->setToken_expire($date);
+                        $success1 = $majUtilisateurModel->updateToken($majUtilisateur);
 
-    //                     // MISE A JOUR DE L'UTILISATEUR AVEC LE TOKEN ET LA DATE D'EXPIRATION
-    //                     $majUtilisateur->setToken($token);
-    //                     $majUtilisateur->setToken_expire($date);
-    //                     $success1 = $majUtilisateurModel->updateToken($majUtilisateur);
+                        // ENVOI D'UN MAIL DE REINITIALISATION
+                        $majMdpMail = new Mail();
+                        $majMdpMail->setPrenom($utilisateur->prenom);
+                        $majMdpMail->setNom($utilisateur->nom);
+                        $majMdpMail->setEmail($utilisateur->email);
+                        $majMdpMail->setToken($token);
+                        $majMdpMailModel = new MailModel();
+                        $success2 = $majMdpMailModel->mdpForgot($majMdpMail);
 
-    //                     // ENVOI D'UN MAIL DE REINITIALISATION
-    //                     $majMdpMail = new Mail();
-    //                     $majMdpMail->setPrenom($utilisateur->prenom);
-    //                     $majMdpMail->setNom($utilisateur->nom);
-    //                     $majMdpMail->setEmail($utilisateur->email);
-    //                     $majMdpMail->setToken($token);
-    //                     $majMdpMailModel = new MailModel();
-    //                     $success2 = $majMdpMailModel->mdpForget($majMdpMail);
+                        // VERIFICATION DES ACCUSES DE TRAITEMENT
+                        // ENVOI VERS LE CONTROLEUR PRINCIPAL "ASYNCHRONE"
+                        $success1 && $success2
+                        ? $this->myJsonEncode(true, "success_email")
+                        : $this->myJsonEncode(false, "error_email");
 
-    //                     // VERIFICATION DES ACCUSES DE TRAITEMENT
-    //                     // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
-    //                     $success1 && $success2
-    //                     ? $this->myHeader("Home", "home", "success_email")
-    //                     : $this->myHeader("Utilisateur", "formForgetMdp", "error_email");
+                    } else {
 
-    //                 } else {
+                        // ENVOI VERS LE CONTROLEUR PRINCIPAL "ASYNCHRONE"
+                        $this->myJsonEncode(false, "error_noEmail");
+                    }
+                } else {
 
-    //                     // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
-    //                     $this->myHeader("Utilisateur", "formCreate", "error_noEmail");
-    //                 }
-    //             } else {
-
-    //                 // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
-    //                 $this->myHeader("Utilisateur", "formForgetMdp", "error_inputEmail");
-    //             }
-    //         } else {
+                    // ENVOI VERS LE CONTROLEUR PRINCIPAL "ASYNCHRONE"
+                    $this->myJsonEncode(false, "error_inputEmail");
+                }
+            } else {
             
-    //         // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
-    //         $this->myHeader("Utilisateur", "formForgetMdp", "error_token");          
-    //         }
-    //     }
-    // }
+                // ENVOI VERS LE CONTROLEUR PRINCIPAL "ASYNCHRONE"
+                $this->myJsonEncode(false, "error_token");
+            }
+        }
+    }
 
     /////////////////////////////////////////////////////////////
     // METHODE POUR AFFICHER UN FORMULAIRE DE REINITIALISATION //
