@@ -128,9 +128,9 @@ class UtilisateurController extends Controller
         $this->myJsonEncode(true, "success_logout");
     }
 
-    //////////////////////////////////////////
-    // METHODE POUR REINITIALISATION UN MDP //
-    //////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////
+    // METHODE POUR ENVOYER UN MAIL DE REINITIALISATION DU PASSWORD //
+    //////////////////////////////////////////////////////////////////
     public function forgotPassword()
     {
         // VERIFICATION DE LA METHODE POST
@@ -197,46 +197,58 @@ class UtilisateurController extends Controller
         }
     }
 
-    /////////////////////////////////////////////////////////////
-    // METHODE POUR AFFICHER UN FORMULAIRE DE REINITIALISATION //
-    /////////////////////////////////////////////////////////////
-    // public function formUpdateMdp()
-    // {
-    //     // VERIFICATION DU GET
-    //     if ($_GET["token"] ?? null) {
+    ////////////////////////////////////////////////////////////////////
+    // METHODE POUR CONTROLER LE LIEN DE REINITIALISATION DU PASSWORD //
+    ////////////////////////////////////////////////////////////////////
+    public function forgotPasswordCtrl()
+    {
+        // HEADER JSON
+        header("Access-Control-Allow-Origin: *");
+        header("Content-Type: application/json; charset=UTF-8");
+        header("Access-Control-Allow-Methods: GET");
+        header("Access-Control-Max-Age: 3600");
+        header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-    //         // CREATION D'UN TOKEN CSRF
-    //         $this->generateToken();
+        if ($_SERVER["REQUEST_METHOD"] === "GET") {
 
-    //         // LECTURE DE L'UTILISATEUR AVEC LE TOKEN
-    //         $readUtilisateur = new Utilisateur();
-    //         $readUtilisateur->setToken($_GET["token"]);
-    //         $readUtilisateurModel = new UtilisateurModel();
-    //         $utilisateur = $readUtilisateurModel->readByToken($readUtilisateur);
-    //         if ($utilisateur && ($_GET["token"] === $utilisateur->token)) {
+            // VERIFICATION DU GET
+            if ($_GET["token"] ?? null) {
 
-    //             // VERIFICATION DE LA DATE D'EXPIRATION
-    //             // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR L'AFFICHAGE OU LE RECHARGEMENT
-    //             strtotime($utilisateur->token_expire) > time()
-    //             ? $this->render("utilisateur/formUpdateMdp")
-    //             : $this->myHeader("Utilisateur", "formForgetMdp", "error_expire");
+                // CREATION D'UN TOKEN CSRF
+                //$this->generateToken();
 
-    //         } else {
+                // LECTURE DE L'UTILISATEUR AVEC LE TOKEN
+                $readUtilisateur = new Utilisateur();
+                $readUtilisateur->setToken($_GET["token"]);
+                $readUtilisateurModel = new UtilisateurModel();
+                $utilisateur = $readUtilisateurModel->readByToken($readUtilisateur);
+                if ($utilisateur && ($_GET["token"] === $utilisateur->token)) {
 
-    //             // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
-    //             $this->myHeader("Utilisateur", "formForgetMdp", "error_link");
-    //         }
-    //     } else {
+                    // VERIFICATION DE LA DATE D'EXPIRATION
+                    // ENVOI VERS LE CONTROLEUR PRINCIPAL "ASYNCHRONE"
+                    strtotime($utilisateur->token_expire) > time()
+                    ? $this->myJsonEncode(true, "success_expire")
+                    : $this->myJsonEncode(false, "error_expire");
+                } else {
 
-    //         // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
-    //         $this->myHeader("Home", "home", "error_id");
-    //     }
-    // }
+                    // ENVOI VERS LE CONTROLEUR PRINCIPAL "ASYNCHRONE"
+                    $this->myJsonEncode(false, "error_link");
+                }
+            } else {
 
-    ////////////////////////////////// A OPTIMISER //////////////////////////////////
-    // METHODE POUR MODIFIER LE MDP //
+                // ENVOI VERS LE CONTROLEUR PRINCIPAL "ASYNCHRONE"
+                $this->myJsonEncode(false, "error_id");
+            }
+        } else {
+            http_response_code(405); // 405 Method Not Allowed
+            echo json_encode("ERREUR : Méthode non autorisée !");
+        }
+    }
+
     //////////////////////////////////
-    // public function updateMdp()
+    // METHODE POUR REINITIALISER MDP //
+    //////////////////////////////////
+    // public function updatePassword()
     // {
     //     // VERIFICATION DE LA METHODE POST
     //     if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -259,15 +271,29 @@ class UtilisateurController extends Controller
     //                 $majUtilisateurModel = new UtilisateurModel();
     //                 $utilisateur = $majUtilisateurModel->readByToken($majUtilisateur);
 
-    //                 // MISE A JOUR DU MDP
-    //                 $majUtilisateur->setEmail($utilisateur->email);
-    //                 $majUtilisateur->setMdp($mdp);
-    //                 $majUtilisateur->setToken(null); // Réinitialisation du token
-    //                 $majUtilisateur->setToken_expire(null); // Réinitialisation de la date d'expiration
-    //                 $success = $majUtilisateurModel->updateMdp($majUtilisateur);
+    //                 if ($utilisateur) {
+
+    //                     // MISE A JOUR DU MDP
+    //                     $majUtilisateur->setEmail($utilisateur->email);
+    //                     $majUtilisateur->setMdp($mdp);
+    //                     $majUtilisateur->setToken(null); // Réinitialisation du token
+    //                     $majUtilisateur->setToken_expire(null); // Réinitialisation de la date d'expiration
+    //                     $success = $majUtilisateurModel->updateMdp($majUtilisateur);
+
+    //                     // VERIFICATION DE L'ACCUSE DE TRAITEMENT
+    //                     // ENVOI VERS LE CONTROLEUR PRINCIPAL "ASYNCHRONE"
+    //                     $success
+    //                     ? $this->myJsonEncode(true, "success_updateMdp")
+    //                     : $this->myJsonEncode(false, "error_request");
+
+    //                 } else {
+
+    //                     // ENVOI VERS LE CONTROLEUR PRINCIPAL "ASYNCHRONE"
+    //                     $this->myJsonEncode(false, "error_link");
+    //                 }
 
     //                 // VERIFICATION DE L'ACCUSE DE TRAITEMENT
-    //                 // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
+    //                 // ENVOI VERS LE CONTROLEUR PRINCIPAL "ASYNCHRONE"
     //                 $success
     //                 ? $this->myHeader("Utilisateur", "formLogon", "success_updateMdp")
     //                 : $this->myHeader("Utilisateur", "formUpdateMdp", "error_request");
@@ -280,8 +306,8 @@ class UtilisateurController extends Controller
     //         } else {
 
     //             // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR LE RECHARGEMENT
-    //             $this->myHeader("Utilisateur", "formUpdateMdp", "error_token");
+    //             $this->myHeader("Utilisateur", "formUpdateMdp", "error_link");
     //         }
     //     }
-    // }            
+    // }
 }

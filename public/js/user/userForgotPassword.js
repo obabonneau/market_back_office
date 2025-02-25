@@ -4,21 +4,31 @@
 
 // DEFINITION DES REGEX
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+const passwordRegex = /^(?=(.*[a-z]))(?=(.*[A-Z]))(?=(.*[0-9]))(?=(.*[!@#$%^&*(),.?":{}|<>[\]\\\/+=~`'_;-]))(?=.{8,}).*$/;
+const requirements = {
+    length: { regex: /.{8,}/, element: 'length' },
+    lowercase: { regex: /[a-z]/, element: 'lowercase' },
+    uppercase: { regex: /[A-Z]/, element: 'uppercase' },
+    number: { regex: /[0-9]/, element: 'number' },
+    special: { regex: /[!@#$%^&*(),.?":{}|<>[\]\\\/+=~`'_;-]/, element: 'special' }
+};
 
 // SELECTION DES ELEMENTS DU DOM
-const formLogin = document.querySelector("#formLogin");
+const formForgotEmail = document.querySelector("#formForgotEmail");
+const formForgotPassword = document.querySelector("#formForgotPassword");
 const token = document.querySelector("#token");
 const email = document.querySelector("#email");
 const emailError = document.querySelector("#emailError");
+const message = document.querySelector("#message");
 
 // IMPORT DES MODULES
 import { showError, eraseError } from "../module/modalFormError.js";
 
 
-//-------------------------------------//
-// VALIDATION DES CHAMPS DU FORMULAIRE //
-//-------------------------------------//
-formLogin.addEventListener("submit", function(event) {
+//----------------------------------------//
+// VALIDATION DU CHAMP MAIL DU FORMULAIRE //
+//----------------------------------------//
+formForgotEmail.addEventListener("submit", function(event) {
    
     // EMPECHER L'ENVOI CLASSIQUE DU FORMULAIRE
     event.preventDefault();
@@ -61,7 +71,8 @@ function ctrlMail(token, email) {
             if (result.data) {
 
                 // REDIRECTION VERS LA PAGE D'ACCUEIL
-                showError(loginError, result.message);
+                formForgotEmail.classList.add("d-none");
+                message.classList.remove("d-none");
             } else {
 
                 // AFFICHAGE DU MESSAGE D'ERREUR
@@ -73,6 +84,29 @@ function ctrlMail(token, email) {
         });
 };
 
+
+//----------------------------------------------//
+// VALIDATION DES CHAMPS PASSWORD DU FORMULAIRE //
+//----------------------------------------------//
+formForgotPassword.addEventListener("submit", function(event) {
+   
+    // EMPECHER L'ENVOI CLASSIQUE DU FORMULAIRE
+    event.preventDefault();
+    let isValid = true;
+
+    // VALIDATION DU PASSWORD
+    if (!passwordRegex.test(password.value)) {
+        showError(passwordError, "Le mot de passe n'est pas valide.");
+        isValid = false;
+    } else {
+        eraseError(passwordError);
+    }
+
+    // SI LE FORMULAIRE EST VALIDE, ON LANCE LA VERIFICATION DU MAIL
+    if (isValid) {
+        ctrlMail(token.value, email.value);
+    }
+});
 
 //-----------------------------------------------//
 // VALIDATION DES CHAMPS DU FORMULAIRE EN ERREUR //

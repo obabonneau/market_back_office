@@ -4,7 +4,7 @@
 
             <!-- MODAL HEADER -->
             <div class="modal-header">
-                <h5 class="modal-title">Déconnexion ?</h5>
+                <h5 class="modal-title">Déconnexion</h5>
                 <button class="close" type="button" data-bs-dismiss="modal">
                     <span>×</span>
                 </button>

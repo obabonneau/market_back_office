@@ -8,7 +8,7 @@
         <p>Nous avons reçu une demande pour réinitialiser votre mot de passe. Si vous êtes à l'origine de cette demande, veuillez cliquer sur le lien ci-dessous pour créer un nouveau mot de passe :</p>
         <p style="text-align: center;">
             <a style="display: inline-block; padding: 10px 20px; font-size: 16px; color: #fff; background-color: #3B62D1; text-decoration: none; border-radius: 5px;"
-                href="https://www.cefii-developpements.fr/olivier1422/ecf/ecf2/public/index.php?controller=Utilisateur&action=formUpdateMdp&token=<?php echo htmlspecialchars($token, ENT_QUOTES, "UTF-8"); ?>">
+                href="https://www.cefii-developpements.fr/olivier1422/cefii_market/market_back_office/public/forgotpassword.php?token=<?php echo htmlspecialchars($token, ENT_QUOTES, "UTF-8"); ?>">
                 Réinitialiser mon mot de passe
             </a>
         </p>

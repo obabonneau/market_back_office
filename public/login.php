@@ -37,7 +37,7 @@
                                 <img class="img-fluid" src="../public/img/login.jpg" alt="Photo de connexion">
                             </div>
 
-                            <div class="card col-lg-6 p-0">
+                            <div class="col-lg-6 p-0">
                                 <div class="p-4 d-flex flex-column justify-content-center" style="flex: 1;">
                                     <div class="text-center">
                                         <h1 class="text-gray-900 mb-4">BACK OFFICE</h1>

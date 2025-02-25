@@ -44,13 +44,13 @@ class MessageModel {
             "error_inputEmail" => "Veuillez saisir un email !",
             "error_login" => "Identifiant ou mot de passe incorrect !",
             "error_email" => "Une erreur s'est produite lors de l'envoi du mail !",
-            "error_noEmail" => "Votre email est inconnu, merci de créer un compte !",
+            "error_noEmail" => "Votre email est erroné ou inconnu !",
             "error_userFound" => "Votre adresse e-mail est déjà enregistré, merci de vous connecter ou de réinitialiser votre mot de passe !",
             "error_adminFound" => "Un compte avec cette adresse e-mail est déjà enregistré !",            
             "error_expire" => "Le lien a expiré, merci de refaire une demande !",
-            "error_link" => "Le lien de réinitialisation est incorrect ou obselète !",
+            "error_link" => "Le lien de réinitialisation<br> est incorrect ou obselète !",
         ];
 
-        return $messages[$key] ?? "Une erreur inconnue est survenue.";
+        return $messages[$key] ?? "Message non géré";
     }
 }
