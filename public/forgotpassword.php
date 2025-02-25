@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BACK OFFICE - Login</title>
 
     <!--FAVICON -->
     <link rel="icon" type="image/png" href="../public/img/favicon.png">
+    <title>BACK OFFICE - MDP oublié</title>
 
     <!-- ADMIN -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -35,13 +35,21 @@
                         <div class="row">
                             <div class="col-lg-6 p-0">
                                 <img class="img-fluid" src="../public/img/login.jpg" alt="Photo de connexion">
+
                             </div>
+
 
                             <div class="card col-lg-6 p-0">
                                 <div class="p-4 d-flex flex-column justify-content-center" style="flex: 1;">
                                     <div class="text-center">
                                         <h1 class="text-gray-900 mb-4">BACK OFFICE</h1>
                                     </div>
+
+                                    <div class="text-center">
+                                        <h1 class="h4 text-gray-900 mb-2">Mot de passe oublié ?</h1>
+                                        <p class="mb-4">Entrez votre email, nous vous enverrons<br> un lien de réinitialisation</p>
+                                    </div>
+                                    
                                     <form id="formLogin" class="user" method="post" action="index.php?controller=Utilisateur&action=logon" novalidate>
 
                                         <!-- TOKEN -->
@@ -53,21 +61,15 @@
                                             <small id="emailError" class="form-text text-danger"></small>
                                         </div>
 
-                                        <div class="form-group">
-                                            <label for="password" hidden></label>
-                                            <input id="password" class="form-control form-control-user" type="password" name="password" placeholder="Votre mot de passe">
-                                            <small id="passwordError" class="form-text text-danger"></small>
-                                        </div>
-
                                         <div class="d-grid">
-                                            <button class="btn btn-primary btn-user btn-block" type="submit">Se connecter</button>
+                                            <button class="btn btn-primary btn-user btn-block" type="submit">Réinitialiser</button>
                                             <small id="loginError" class="form-text text-danger text-center mt-2"></small>
                                         </div>
 
                                     </form>
 
                                     <div class="text-center mt-3">
-                                        <a class="small" href="forgotpassword.php">Mot de passe oublié ?</a>
+                                        <a class="small" href="login.php">Vous avez déjà un compte ?</a>
                                     </div>
                                 </div>
                             </div>
