@@ -31,13 +31,13 @@ class MailModel
             $mail->CharSet = "UTF-8"; // Définit l'encodage en UTF-8
 
             // ADRESSE DE L'EXPEDITEUR
-            $mail->setFrom("support@cefii-developpements.fr", "Support CEFII");
+            $mail->setFrom("support@backoffice.fr", "Support BACK OFFICE");
 
             // ADRESSE DU DESTINATAIRE
             $mail->addAddress($majMdpMail->getEmail());
 
             // SUJET DE MAIL
-            $mail->Subject = "Ma Bibliothèque - Réinitialisation de votre mot de passe";
+            $mail->Subject = "BACK OFFICE - Réinitialisation de votre mot de passe";
 
             // IMAGE DANS LE CORPS DU MAIL
             $mail->AddEmbeddedImage("../public/img/mail/font.jpg", "font");
@@ -46,7 +46,7 @@ class MailModel
             $prenomNom = $majMdpMail->getPrenom() . " " . $majMdpMail->getNom();
             $token = $majMdpMail->getToken();
             ob_start();
-            include "../views/email/mailNewMDP.php";
+            include "../app/views/email/mailNewMDP.php";
             $html = ob_get_clean();
 
             $mail->Body = $html;            
