@@ -9,17 +9,17 @@ namespace App\Entities;
 /////////////////
 class Mail
 {
-    ///////////////
+    //-----------//
     // ATTRIBUTS //
-    ///////////////
+    //-----------//
     private $nom;
     private $prenom;
     private $email;
     private $token;
 
-    ///////////////////////////////
+    //---------------------------//
     // METHODES GETTER ET SETTER //
-    ///////////////////////////////
+    //---------------------------//
 
     public function getNom()
     {
@@ -29,7 +29,6 @@ class Mail
     public function setNom($nom)
     {
         $this->nom = $nom;
-
         return $this;
     }
 
@@ -41,7 +40,6 @@ class Mail
     public function setPrenom($prenom)
     {
         $this->prenom = $prenom;
-
         return $this;
     }
 
@@ -53,7 +51,6 @@ class Mail
     public function setEmail($email)
     {
         $this->email = $email;
-
         return $this;
     }
 
@@ -65,7 +62,6 @@ class Mail
     public function setToken($token)  
     {
         $this->token = $token;
-
         return $this;
     }
 }

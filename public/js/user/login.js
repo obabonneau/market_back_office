@@ -57,7 +57,7 @@ formLogin.addEventListener("submit", function(event) {
 function ctrlUser(token, email, password) {
 
     // REQUETE POUR LA CONNEXION DE L'UTILISATEUR
-    fetch("index.php?controller=Utilisateur&action=logon",
+    fetch("index.php?controller=User&action=logon",
     {
         method: "POST",
         body: JSON.stringify({

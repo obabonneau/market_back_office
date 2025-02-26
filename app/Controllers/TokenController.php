@@ -9,9 +9,9 @@ namespace App\Controllers;
 /////////////////////////////
 class TokenController
 {
-    ////////////////////////////////////////
+    //------------------------------------//
     // METHODE POUR GENERER UN TOKEN CSRF //
-    ////////////////////////////////////////
+    //------------------------------------//
     public function create()
     {
         $token_expiration = time() + 900; // 15 minutes (900 secondes)

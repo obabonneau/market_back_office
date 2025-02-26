@@ -55,7 +55,8 @@ menuItems.forEach(menuItem => {
     }
 });
 
-if (currentUrl !== "http://app.local/CEFii_Market/market_back_office/public/index.php") {
+if (currentUrl !== "https://www.cefii-developpements.fr/olivier1422/cefii_market/market_back_office/public/index.php") {
+// if (currentUrl !== "http://app.local/CEFii_Market/market_back_office/public/index.php") {
     menuItems[0].classList.remove("active");
     sidebarIcons[0].style.color = "#ffffff";
     sidebarLabels[0].style.color = "#ffffff";
@@ -99,7 +100,7 @@ window.addEventListener("scroll", () => {
 
 
 // // CONTROLE DE L'EXISTENCE D'UN COOKIE D'ACCEPTATION
-// fetch("index.php?controller=Utilisateur&action=ctrlCookie")
+// fetch("index.php?controller=User&action=ctrlCookie")
 //     .then((response) => response.json()) // On récupère la réponse et on la transforme en objet JSON
 //     .then((data) => // On récupère les données
 //     {
@@ -111,7 +112,7 @@ window.addEventListener("scroll", () => {
 
 // // ACCEPTATION DES COOKIES
 // btnCookieAccept.addEventListener("click", () => {
-//     fetch("index.php?controller=Utilisateur&action=validCookie&cookie=accept")
+//     fetch("index.php?controller=User&action=validCookie&cookie=accept")
 //     .then((response) => response.json()) // On récupère la réponse et on la transforme en objet JSON
 //     .then((data) => // On récupère les données
 //     {
@@ -124,7 +125,7 @@ window.addEventListener("scroll", () => {
 
 // REFUS DES COOKIES
 // btnCookieRefuse.addEventListener("click", () => {
-//     fetch("index.php?controller=Utilisateur&action=validCookie")
+//     fetch("index.php?controller=User&action=validCookie")
 //     .then((response) => response.json()) // On récupère la réponse et on la transforme en objet JSON
 //     .then((data) => // On récupère les données
 //     {

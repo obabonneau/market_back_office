@@ -18,9 +18,9 @@ require "PHPMailer/src/PHPMailer.php";
 //////////////////////////
 class MailModel
 {
-    ///////////////////////////////////////////////////////
+    //---------------------------------------------------//
     // METHODE POUR ENVOYER UN MAIL DE REINITIAILISATION //
-    ///////////////////////////////////////////////////////
+    //---------------------------------------------------//
     public function mdpForgot(Mail $majMdpMail)
     {
         try {

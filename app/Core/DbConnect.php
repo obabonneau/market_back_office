@@ -13,23 +13,23 @@ use PDOException;
 //////////////////////////////////////////////
 abstract class DbConnect
 {
-    ///////////////
+    //-----------//
     // ATTRIBUTS //
-    ///////////////
+    //-----------//
     protected $connection;
     protected $request;
 
-    //////////////////////////////////////////////////
+    //----------------------------------------------//
     // CONSTANTES DE CONNEXION A LA BASE DE DONNEES //
-    //////////////////////////////////////////////////
+    //----------------------------------------------//
     const SERVER = "localhost";
     const USER = "root";
     const PASSWORD = "";
     const BASE = "commerce";
 
-    ////////////////////////////////////////////////
+    //--------------------------------------------//
     // CONSTRUCTEUR POUR INITIALISER LA CONNEXION //
-    ////////////////////////////////////////////////
+    //--------------------------------------------//
     public function __construct()
     {
         try {

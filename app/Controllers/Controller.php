@@ -12,9 +12,9 @@ use App\Models\MessageModel;
 /////////////////////////////////
 abstract class Controller
 {
-    //////////////////////////////////////
+    //----------------------------------//
     // METHODE POUR LE RENDU DANS VIEWS //
-    //////////////////////////////////////
+    //----------------------------------//
     public function render($view, $data = [])
     {
         extract($data); // Les clés du tableau deviennent des noms de variables.
@@ -29,9 +29,9 @@ abstract class Controller
         //exit();
     }
 
-    /////////////////////////////////////
+    //---------------------------------//
     // METHODE POUR RECHARGER UNE PAGE //
-    /////////////////////////////////////
+    //---------------------------------//
     public function myHeader($controller, $action, $messageKey, $data = [])
     {
         // CONSTRUCTION DE L'URL
@@ -60,9 +60,9 @@ abstract class Controller
         //exit();  
     }
 
-    //////////////////////////////////////
+    //----------------------------------//
     // METHODE POUR LE RENDU DANS VIEWS //
-    //////////////////////////////////////
+    //----------------------------------//
     public function myJsonEncode($data, $messageKey)
     {
         $messageModel = new MessageModel();

@@ -16,7 +16,7 @@
     <!-- ADMIN -->
 
     <!-- SCRIPTS GENERALE-->
-    <script type="module" src="../public/js/user/userForgotPassword.js" defer></script>
+    <script type="module" src="../public/js/user/forgotPassword.js" defer></script>
     <script type="module" src="../public/js/module/modalFormError.js" defer></script>
 </head>
 
@@ -67,7 +67,7 @@
 
                                         </form>
 
-                                        <div id="message" class="alert alert-success d-none">
+                                        <div id="message" class="alert alert-success d-none mt-5">
                                             <p class="mb-0 text-center">Un email vous a été envoyé<br> avec les instructions à suivre.</p>
                                         </div>
 
@@ -76,8 +76,8 @@
                                         </div>
 
                                         <?php else :
-                                        //$url = "http://app.local/CEFii_Market/market_back_office/public/index.php?controller=Utilisateur&action=forgotPasswordCtrl&token=" . $_GET["token"];
-                                        $url = "https://www.cefii-developpements.fr/olivier1422/cefii_market/market_back_office/public/index.php?controller=Utilisateur&action=forgotPasswordCtrl&token=" . $_GET["token"];
+                                        //$url = "http://app.local/CEFii_Market/market_back_office/public/index.php?controller=User&action=forgotPasswordCtrl&token=" . $_GET["token"];
+                                        $url = "https://www.cefii-developpements.fr/olivier1422/cefii_market/market_back_office/public/index.php?controller=User&action=forgotPasswordCtrl&token=" . $_GET["token"];
                                         $result = json_decode(file_get_contents($url));
 
                                         if ($result->data) : ?>
@@ -110,7 +110,7 @@
                                                 </div>
                                             </form>
 
-                                            <div id="message" class="alert alert-success d-none">
+                                            <div id="message" class="alert alert-success d-none mt-5">
                                                 <p class="mb-0 text-center">Votre mot de passe<br> a été modifié avec succès.</p>
                                             </div>
 

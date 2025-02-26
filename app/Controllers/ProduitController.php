@@ -9,14 +9,14 @@ use App\Entities\Produit as Produit;
 use App\Models\ProduitModel as ProduitModel;
 
 
-/////////////////////////////////////////
+///////////////////////////////////////////
 // CLASSE CONTROLEUR DE L'ENTITE PRODUIT //
-/////////////////////////////////////////
+///////////////////////////////////////////
 class ProduitController extends Controller
 {
-    //////////////////////////////////////
+    //------------------------------------//
     // METHODE POUR CHERCHER DES PRODUITS //
-    //////////////////////////////////////
+    //------------------------------------//
     // public function search()
     // {
     //     // VERIFICATION DE LA METHODE POST

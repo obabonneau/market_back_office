@@ -9,25 +9,16 @@ namespace App\Models;
 /////////////////////////////
 class MessageModel {
 
-    ///////////////////////////////////////
+    //-----------------------------------//
     // METHODE POUR RECUPERER UN MESSAGE //
-    ///////////////////////////////////////
+    //-----------------------------------//
     public function getMessage($key)
     {
         $messages = [
-            "success_createEmprunt" => "L'emprunt est validé, merci de venir retirer votre livre à la bibliothèque !",
-            "success_returnEmprunt" => "L'emprunt est cloturé !",
-            "success_updateEmprunt" => "L'emprunt a été mis à jour !",
-            "success_deleteEmprunt" => "L'emprunt a été supprimé !",
-            "success_livreCreate" => "Le livre a été ajouté !",
-            "success_livreUpdate" => "Le livre a été mis à jour !",
-            "success_livreDelete" => "Le livre a été supprimé !",
             "success_login" => "Bienvenue sur votre espace personnel !",
             "success_logout" => "Vous êtes déconnecté. A bientôt !",
             "success_email" => "Un email de réinitialisation vous a été envoyé !",
-            "success_createUserByUser" => "Votre compte est enregistré, vous pouvez à présent vous connecter !",
             "success_createUserByAdmin" => "L'utilisateur a été ajouté !",
-            "success_updateUserByUser" => "Votre compte a été mis à jour !",
             "success_updateUserByAdmin" => "L'utilisateur a été mis à jour !",
             "success_updateMdp" => "Votre mot de passe a été mis à jour, vous pouvez à présent vous connecter !",
             "success_deleteUser" => "L'utilisateur a été supprimé !",       
@@ -36,10 +27,7 @@ class MessageModel {
             "error_token" => "Une erreur s'est produite : Token !",
             "error_request" => "Une erreur s'est produite : Requete !",
             "error_rights" => "Vous n'avez pas les droits pour accéder à cette page !",
-            "error_search" => "Merci de saisir un titre, un auteur ou un genre !",
-            "error_isEmprunt" => "Le livre ne peut pas être supprimé tant qu'un emprunt est en cours !",
-            "error_haveEmprunt" => "L'utilisateur ne peut pas être supprimé tant qu'un emprunt est en cours !",            
-            "error_limitEmprunt" => "L'emprunt est limité à 3 livres !",            
+            "error_search" => "Merci de saisir un titre, un auteur ou un genre !",                  
             "error_input" => "Veuillez remplir tous les champs !",
             "error_inputEmail" => "Veuillez saisir un email !",
             "error_login" => "Identifiant ou mot de passe incorrect !",

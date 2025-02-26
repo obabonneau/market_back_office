@@ -16,7 +16,7 @@
     <!-- ADMIN -->
 
     <!-- SCRIPTS GENERALE-->
-    <script type="module" src="../public/js/user/userLogin.js" defer></script>
+    <script type="module" src="../public/js/user/login.js" defer></script>
     <script type="module" src="../public/js/module/modalFormError.js" defer></script>
 </head>
 

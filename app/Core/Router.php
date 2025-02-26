@@ -12,15 +12,15 @@ use App\Controllers\ErrorController;
 ///////////////////////
 class Router
 {
-    ///////////////
+    //-----------//
     // ATTRIBUTS //
-    ///////////////
+    //-----------//
     private $controller;
     private $action;
 
-    ////////////////////
+    //----------------//
     // METHODE ROUTES //
-    ////////////////////
+    //----------------//
     public function routes()
     {
         // RECUPERATION DE LA ROUTE (Par défaut, HomeControler->homeAction)
@@ -66,9 +66,9 @@ class Router
     }
 
 
-    //////////////////////////
+    //----------------------//
     // REDIRECTION VERS 404 //
-    //////////////////////////
+    //----------------------//
     private function redirectTo404()
     {
         if (file_exists("../app/Controllers/ErrorController.php")) {

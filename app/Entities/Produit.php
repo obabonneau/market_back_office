@@ -8,9 +8,9 @@ namespace App\Entities;
 // ---------------------
 class Produit
 {
-    // ---------
-    // ATTRIBUTS
-    // ---------
+    // ----------//
+    // ATTRIBUTS //
+    // ----------//
     private $id_produit;
     private $id_categorie;
     private $produit;
@@ -19,9 +19,9 @@ class Produit
     private $prix;
     private $image;
 
-    // -------------------------
-    // METHODES GETTER ET SETTER
-    // -------------------------
+    // --------------------------//
+    // METHODES GETTER ET SETTER //
+    // --------------------------//
     public function getId_produit()
     {
         return $this->id_produit;
@@ -30,7 +30,6 @@ class Produit
     public function setId_produit($id_produit)
     {
         $this->id_produit = $id_produit;
-
         return $this;
     }
 
@@ -43,7 +42,6 @@ class Produit
     public function setId_categorie($id_categorie)
     {
         $this->id_categorie = $id_categorie;
-
         return $this;
     }
 
@@ -55,7 +53,6 @@ class Produit
     public function setProduit($produit)
     {
         $this->produit = $produit;
-
         return $this;
     }
 
@@ -67,7 +64,6 @@ class Produit
     public function setMarque($marque)
     {
         $this->marque = $marque;
-
         return $this;
     }
 
@@ -79,7 +75,6 @@ class Produit
     public function setDescription($description)
     {
         $this->description = $description;
-
         return $this;
     }
 
@@ -91,7 +86,6 @@ class Produit
     public function setPrix($prix)
     {
         $this->prix = $prix;
-
         return $this;
     }
 
@@ -103,7 +97,6 @@ class Produit
     public function setImage($image)
     {
         $this->image = $image;
-
         return $this;
     }
 }

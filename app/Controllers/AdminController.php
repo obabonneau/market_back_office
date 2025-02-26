@@ -6,9 +6,7 @@ namespace App\Controllers;
 // IMPORT DE CLASSES
 use App\Controllers\Controller as Controller;
 use App\Entities\Utilisateur as Utilisateur;
-use App\Entities\Mail as Mail;
 use App\Models\UtilisateurModel as UtilisateurModel;
-use App\Models\MailModel as MailModel;
 
 
 ///////////////////////////////////////////////
@@ -16,10 +14,9 @@ use App\Models\MailModel as MailModel;
 ///////////////////////////////////////////////
 class AdminController extends Controller
 {
-
-    ////////////////////////////////////////////
+    //----------------------------------------//
     // METHODE POUR AFFICHER LES UTILISATEURS //
-    ////////////////////////////////////////////
+    //----------------------------------------//
     public function listUser()
     {
         // VERIFICATION DES DROITS D'ACCES
@@ -37,10 +34,10 @@ class AdminController extends Controller
                     "type='module' src='../public/js/module/tokenCreate.js'",
                     "type='module' src='../public/js/module/modalForm.js'",
                     "type='module' src='../public/js/module/modalFormError.js'",
-                    "type='module' src='../public/js/user/userFormCtrl.js'",
-                    "type='module' src='../public/js/user/userCreate.js'",
-                    "type='module' src='../public/js/user/userUpdate.js'",
-                    "type='module' src='../public/js/user/userDelete.js'"
+                    "type='module' src='../public/js/admin/userFormCtrl.js'",
+                    "type='module' src='../public/js/admin/userCreate.js'",
+                    "type='module' src='../public/js/admin/userUpdate.js'",
+                    "type='module' src='../public/js/admin/userDelete.js'"
                 ]
             ];
             $this->render("utilisateur/list", $data);
@@ -52,9 +49,9 @@ class AdminController extends Controller
         }
     }
     
-    ///////////////////////////////////////////////
-    // METHODE POUR LIRE UN UTILISATEUR VIA JSON //
-    ///////////////////////////////////////////////
+    //----------------------------------//
+    // METHODE POUR LIRE UN UTILISATEUR //
+    //----------------------------------//
     public function readUserById()
     {
         // VERIFICATION DES DROITS D'ACCES
@@ -92,9 +89,9 @@ class AdminController extends Controller
         }
     }
 
-    ///////////////////////////////////////
+    //-----------------------------------//
     // METHODE POUR CREER UN UTILISATEUR //
-    ///////////////////////////////////////
+    //-----------------------------------//
     public function createUser()
     {
         // VERIFICATION DES DROITS D'ACCES
@@ -162,9 +159,9 @@ class AdminController extends Controller
         }
     }
 
-    //////////////////////////////////////////
+    //--------------------------------------//
     // METHODE POUR MODIFIER UN UTILISATEUR //
-    //////////////////////////////////////////
+    //--------------------------------------//
     public function updateUser()
     {
         // VERIFICATION DES DROITS D'ACCES
@@ -225,9 +222,9 @@ class AdminController extends Controller
         }
     }
 
-    /////////////////////////////////////////////////////////
-    // METHODE POUR SUPPRIMER UN UTILISATEUR EN ASYNCHRONE //
-    /////////////////////////////////////////////////////////
+    //---------------------------------------//
+    // METHODE POUR SUPPRIMER UN UTILISATEUR //
+    //---------------------------------------//
     public function deleteUser()
     {
         // VERIFICATION DES DROITS D'ACCES

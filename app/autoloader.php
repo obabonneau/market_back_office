@@ -9,17 +9,17 @@ namespace App;
 ///////////////////////
 class Autoloader
 {
-    //////////////////////
+    //------------------//
     // METHODE REGISTER //
-    //////////////////////
+    //------------------//
     static function register()
     {
         spl_autoload_register([__CLASS__, 'autoload']); // __CLASS__ renvoie le nom de la classe courante
     }
 
-    //////////////////
+    //--------------//
     // METHODE LOAD //
-    //////////////////
+    //--------------//
     static function autoload($class)
     {
         $class = str_replace(__NAMESPACE__ . '\\', '', $class); // On retire le namespace App, on obtient Controllers\HomeController

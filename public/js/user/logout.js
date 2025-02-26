@@ -12,7 +12,7 @@ const modalLogoutBtn = document.querySelector("#modalLogoutBtn");
 modalLogoutBtn.addEventListener("click", () => {
 
     // REQUETE POUR LA DECONNEXION DE L'UTILISATEUR
-    fetch("index.php?controller=Utilisateur&action=logout")
+    fetch("index.php?controller=User&action=logout")
         .then((response) => response.json())
         .then((result) => {
             if (result.data) { // Si la requête est true

@@ -15,9 +15,9 @@ use PDOException;
 //////////////////////////////////////////
 class UtilisateurModel extends DbConnect
 {
-    //////////////////////////////////////
+    //----------------------------------//
     // METHODE POUR LIRE UN UTILISATEUR //
-    //////////////////////////////////////
+    //----------------------------------//
     public function readByID(Utilisateur $readUtilisateur)
     {
         try {
@@ -40,9 +40,9 @@ class UtilisateurModel extends DbConnect
         }
     }
 
-    //////////////////////////////////////
+    //----------------------------------//
     // METHODE POUR LIRE UN UTILISATEUR //
-    //////////////////////////////////////
+    //----------------------------------//
     public function readByEmail(Utilisateur $readUtilisateur)
     {
         try {
@@ -65,9 +65,9 @@ class UtilisateurModel extends DbConnect
         }
     }
 
-    //////////////////////////////////////
+    //----------------------------------//
     // METHODE POUR LIRE UN UTILISATEUR //
-    //////////////////////////////////////
+    //----------------------------------//
     public function readByToken(Utilisateur $readUtilisateur)
     {
         try {
@@ -90,9 +90,9 @@ class UtilisateurModel extends DbConnect
         }
     }
 
-    ////////////////////////////////////////
+    //------------------------------------//
     // METHODE POUR LIRE LES UTILISATEURS //
-    ////////////////////////////////////////
+    //------------------------------------//
     public function readAll()
     {
         try {
@@ -114,9 +114,9 @@ class UtilisateurModel extends DbConnect
         }
     }
 
-    ///////////////////////////////////////
+    //-----------------------------------//
     // METHODE POUR CREER UN UTILISATEUR //
-    ///////////////////////////////////////
+    //-----------------------------------//
     public function create(Utilisateur $addUtilisateur)
     {
         try {
@@ -141,9 +141,9 @@ class UtilisateurModel extends DbConnect
         }
     }
 
-    //////////////////////////////////////////
+    //--------------------------------------//
     // METHODE POUR MODIFIER UN UTILISATEUR //
-    //////////////////////////////////////////
+    //--------------------------------------//
     public function update(Utilisateur $majUtilisateur)
     {
         try {
@@ -188,9 +188,9 @@ class UtilisateurModel extends DbConnect
         }
     }
 
-    ///////////////////////////////////////
-    // METHODE POUR MODIFIER UN PASSWORD //
-    ///////////////////////////////////////
+    //---------------------------------------//
+    // METHODE POUR MODIFIER UN MOT DE PASSE //
+    //---------------------------------------//
     public function updateToken(Utilisateur $majUtilisateur)
     {
         try {
@@ -214,9 +214,9 @@ class UtilisateurModel extends DbConnect
         }
     }
 
-    //////////////////////////////////
-    // METHODE POUR MODIFIER UN password //
-    //////////////////////////////////
+    //---------------------------------------//
+    // METHODE POUR MODIFIER UN MOT DE PASSE //
+    //---------------------------------------//
     public function updatePassword(Utilisateur $majUtilisateur)
     {
         try {
@@ -242,9 +242,9 @@ class UtilisateurModel extends DbConnect
         }
     }
 
-    ///////////////////////////////////////////
+    //---------------------------------------//
     // METHODE POUR SUPPRIMER UN UTILISATEUR //
-    ///////////////////////////////////////////
+    //---------------------------------------//
     public function delete(Utilisateur $delUtilisateur)
     {
         try {

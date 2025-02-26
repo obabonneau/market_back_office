@@ -14,7 +14,7 @@ use App\Models\MailModel as MailModel;
 ///////////////////////////////////////////////
 // CLASSE CONTROLEUR DE L'ENTITE UTILISATEUR //
 ///////////////////////////////////////////////
-class UtilisateurController extends Controller
+class UserController extends Controller
 {
     //---------------------------//
     // METHODE POUR SE CONNECTER //
@@ -177,11 +177,11 @@ class UtilisateurController extends Controller
     public function forgotPasswordCtrl()
     {
         // HEADER JSON
-        header("Access-Control-Allow-Origin: *");
-        header("Content-Type: application/json; charset=UTF-8");
-        header("Access-Control-Allow-Methods: GET");
-        header("Access-Control-Max-Age: 3600");
-        header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+        //header("Access-Control-Allow-Origin: *");
+        //header("Content-Type: application/json; charset=UTF-8");
+        //header("Access-Control-Allow-Methods: GET");
+        //header("Access-Control-Max-Age: 3600");
+        //header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
         if ($_SERVER["REQUEST_METHOD"] === "GET") {
 

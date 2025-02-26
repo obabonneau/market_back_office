@@ -14,95 +14,14 @@ use PDOException;
 ////////////////////////////////////
 class ProduitModel extends DbConnect
 {
-    //////////////////////////////////////
-    // METHODE POUR RECHERCHER UN PRODUIT //
-    //////////////////////////////////////
-    // public function search($search)
-    // {
-    //     try {
-    //         // PREPARATION DE LA REQUETE SQL
-    //         $this->request= $this->connection->prepare("SELECT id_produit, titre, auteur, genre, annee, statut
-    //             FROM produit
-    //             WHERE produit.titre LIKE :search
-    //             OR produit.auteur LIKE :search
-    //             OR produit.genre LIKE :search
-    //             OR produit.annee LIKE :search
-    //             ORDER BY titre ASC");
-    //         $this->request->bindParam(':search', $search);
-
-    //         // EXECUTION DE LA REQUETE SQL
-    //         $this->request->execute();
-
-    //         // FORMATAGE DU RESULTAT DE LA REQUETE
-    //         $produits = $this->request->fetchAll();
-
-    //         // RETOUR DES RESULTATS
-    //         return $produits;
-            
-    //     } catch (PDOException $e) {
-    //         //echo $e->getMessage();
-    //         //die;
-    //     }
-    // }
-
-    ///////////////////////////////////////
-    // METHODE POUR LIRE UN PRODUIT VIA ID //
-    ///////////////////////////////////////
-    // public function readById(Produit $readProduit)
-    // {
-    //     try {
-    //         // PREPARATION DE LA REQUETE SQL
-    //         $this->request = $this->connection->prepare("SELECT * FROM produit WHERE id_produit = :id_produit");
-    //         $this->request->bindValue(":id_produit", $readProduit->getId_produit(), PDO::PARAM_INT);
-
-    //         // EXECUTION DE LA REQUETE SQL
-    //         $this->request->execute();
-
-    //         // FORMATAGE DU RESULTAT DE LA REQUETE
-    //         $produit = $this->request->fetch();
-
-    //         // RETOUR DES RESULTATS
-    //         return $produit;
-            
-    //     } catch (PDOException $e) {
-    //         //echo $e->getMessage();
-    //         //die;
-    //     }
-    // }
-
-    ///////////////////////////////////////////
-    // METHODE POUR LIRE UN PRODUIT VIA STATUT //
-    ///////////////////////////////////////////
-    // public function readByStatut(Produit $readProduit)
-    // {
-    //     try {
-    //         // PREPARATION DE LA REQUETE SQL
-    //         $this->request = $this->connection->prepare("SELECT * FROM produit WHERE statut = :statut");
-    //         $this->request->bindValue(":statut", $readProduit->getStatut(), PDO::PARAM_BOOL);
-
-    //         // EXECUTION DE LA REQUETE SQL
-    //         $this->request->execute();
-
-    //         // FORMATAGE DU RESULTAT DE LA REQUETE
-    //         $produits = $this->request->fetchAll();
-
-    //         // RETOUR DES RESULTATS
-    //         return $produits;
-            
-    //     } catch (PDOException $e) {
-    //         //echo $e->getMessage();
-    //         //die;
-    //     }
-    // }
-
-    /////////////////////////////////////////
+    //-------------------------------------//
     // METHODE POUR LIRE TOUS LES PRODUITS //
-    /////////////////////////////////////////
+    //-------------------------------------//
     public function readAll()
     {
         try {
             // PREPARATION DE LA REQUETE SQL
-            $this->request = $this->connection->prepare("SELECT com_produit.*, com_categorie.categorie AS categorie
+            $this->request = $this->connection->prepare("SELECT com_produit.*, com_categorie.categorie
                 FROM com_produit
                 INNER JOIN com_categorie ON com_produit.id_categorie = com_categorie.id_categorie");
 
@@ -121,9 +40,9 @@ class ProduitModel extends DbConnect
         }
     }
 
-    /////////////////////////////////
+    //-------------------------------//
     // METHODE POUR CREER UN PRODUIT //
-    /////////////////////////////////
+    //-------------------------------//
     public function create(Produit $addProduit)
     {
         try {

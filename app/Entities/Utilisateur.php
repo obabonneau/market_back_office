@@ -9,9 +9,9 @@ namespace App\Entities;
 ///////////////////////////////
 class Utilisateur
 {
-    ///////////////
+    //-----------//
     // ATTRIBUTS //
-    ///////////////
+    //-----------//
     private $id_utilisateur;
     private $prenom;
     private $nom;
@@ -21,9 +21,9 @@ class Utilisateur
     private $token;
     private $token_expire;
 
-    ///////////////////////////////
+    //---------------------------//
     // METHODES GETTER ET SETTER //
-    ///////////////////////////////
+    //---------------------------//
     public function getId_utilisateur()
     {
         return $this->id_utilisateur;
@@ -32,7 +32,6 @@ class Utilisateur
     public function setId_utilisateur($id_utilisateur)
     {
         $this->id_utilisateur = $id_utilisateur;
-
         return $this;
     }
 
@@ -44,7 +43,6 @@ class Utilisateur
     public function setPrenom($prenom)
     {
         $this->prenom = $prenom;
-
         return $this;
     }
 
@@ -56,7 +54,6 @@ class Utilisateur
     public function setNom($nom)
     {
         $this->nom = $nom;
-
         return $this;
     }
 
@@ -68,7 +65,6 @@ class Utilisateur
     public function setEmail($email)
     {
         $this->email = $email;
-
         return $this;
     }
 
@@ -80,7 +76,6 @@ class Utilisateur
     public function setPassword($password)
     {
         $this->password = $password;
-
         return $this;
     }
 
@@ -92,7 +87,6 @@ class Utilisateur
     public function setStatut($statut)
     {
         $this->statut = $statut;
-
         return $this;
     }
 
@@ -104,7 +98,6 @@ class Utilisateur
     public function setToken($token)
     {
         $this->token = $token;
-
         return $this;
     }
 
@@ -116,7 +109,6 @@ class Utilisateur
     public function setToken_expire($token_expire)
     {
         $this->token_expire = $token_expire;
-
         return $this;
     }
 }

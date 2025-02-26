@@ -59,7 +59,7 @@ if (formForgotEmail) {
 function forgotPasswordMail(token, email) {
 
     // REQUETE POUR LA CONNEXION DE L'UTILISATEUR
-    fetch("index.php?controller=Utilisateur&action=forgotPasswordEmail",
+    fetch("index.php?controller=User&action=forgotPasswordEmail",
     {
         method: "POST",
         body: JSON.stringify({
@@ -122,7 +122,7 @@ if (formForgotPassword) {
 function forgotPasswordUpdate(token, userToken, password) {
 
     // REQUETE POUR LA CONNEXION DE L'UTILISATEUR
-    fetch("index.php?controller=Utilisateur&action=forgotPasswordUpdate",
+    fetch("index.php?controller=User&action=forgotPasswordUpdate",
     {
         method: "POST",
         body: JSON.stringify({
@@ -137,7 +137,6 @@ function forgotPasswordUpdate(token, userToken, password) {
         .then((response) => response.json())
         .then((result) => {
             if (result.data) {
-                console.log(result.data);
 
                 // AFFICHAGE DU MESSAGE DE CONFIRMATION
                 formForgotPassword.classList.add("d-none");

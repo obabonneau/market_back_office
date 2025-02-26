@@ -13,15 +13,15 @@ use App\Controllers\Controller as Controller;
 class HomeController extends Controller
 {
 
-    ////////////////////////////////////////
-    // METHODE POUR AFFICHER LA PAGE HOME //
-    ////////////////////////////////////////
+    //------------------------------------//
+    // METHODE POUR AFFICHER LA PAGE HOME // --> Tableau de bord
+    //------------------------------------//
     public function home()
     {
         if (isset($_SESSION["user"]["id_utilisateur"])) {
             $this->render("home/home", ["title" => "Tableau de bord"]);
         } else {
-            header("Location: login.php");
+            header("Location: index.php");
         }
     }
 }

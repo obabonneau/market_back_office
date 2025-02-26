@@ -29,7 +29,7 @@
 
     <!-- SCRIPTS GENERALS -->
     <script src="../public/js/main.js" defer></script>
-    <script src="../public/js/user/userLogout.js" defer></script>  
+    <script src="../public/js/user/logout.js" defer></script>  
 </head>
 
 <body id="page-top">
