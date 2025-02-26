@@ -4,9 +4,9 @@
 namespace App\Controllers;
 
 // IMPORT DE CLASSES
-use App\Controllers\Controller as Controller;
-use App\Entities\Utilisateur as Utilisateur;
-use App\Models\UtilisateurModel as UtilisateurModel;
+use App\Controllers\Controller;
+use App\Entities\User;
+use App\Models\UserModel;
 
 
 ///////////////////////////////////////////////
@@ -23,7 +23,7 @@ class AdminController extends Controller
         if (($_SESSION["user"]["statut"] ?? "") === "admin") {
 
             // LECTURE DE TOUS LES UTILISATEURS
-            $readUtilisateurModel = new UtilisateurModel();        
+            $readUtilisateurModel = new UserModel();        
             $utilisateurs = $readUtilisateurModel->readAll();
 
             // ENVOI VERS LE CONTROLEUR PRINCIPAL POUR L'AFFICHAGE
@@ -62,9 +62,9 @@ class AdminController extends Controller
             if ($input["id_utilisateur"] ?? null) {
 
                 // LECTURE DE L'UTILISATEUR
-                $readUtilisateur = new Utilisateur();
+                $readUtilisateur = new User();
                 $readUtilisateur->setId_utilisateur($input["id_utilisateur"]);
-                $readUtilisateurModel = new UtilisateurModel();
+                $readUtilisateurModel = new UserModel();
                 $utilisateur = $readUtilisateurModel->readById($readUtilisateur);
 
                 // VERIFICATION DE L'EXISTENCE DE L'UTILISATEUR
@@ -116,13 +116,13 @@ class AdminController extends Controller
                     if ($prenom && $nom && $email && $password) {
 
                         // CREATION D'UN UTILISATEUR
-                        $addUtilisateur = new Utilisateur();
+                        $addUtilisateur = new User();
                         $addUtilisateur->setPrenom($prenom);
                         $addUtilisateur->setNom($nom);
                         $addUtilisateur->setEmail($email);
                         $addUtilisateur->setPassword($password);
                         $addUtilisateur->setStatut($statut);
-                        $addUtilisateurModel = new UtilisateurModel();
+                        $addUtilisateurModel = new UserModel();
                         $success = $addUtilisateurModel->create($addUtilisateur);
 
                         // VERIFICATION DE L'ACCUSE DE TRAITEMENT
@@ -187,7 +187,7 @@ class AdminController extends Controller
                     if ($id_utilisateur && $prenom && $nom && $email) {
 
                         // MISE A JOUR DE L'UTILISATEUR
-                        $majUtilisateur = new Utilisateur();
+                        $majUtilisateur = new User();
                         $majUtilisateur->setId_utilisateur($id_utilisateur);
                         $majUtilisateur->setPrenom($prenom);
                         $majUtilisateur->setNom($nom);
@@ -195,7 +195,7 @@ class AdminController extends Controller
                         $majUtilisateur->setPassword($password);
                         $majUtilisateur->setStatut($statut);
 
-                        $majUtilisateurModel = new UtilisateurModel();
+                        $majUtilisateurModel = new UserModel();
                         $success = $majUtilisateurModel->update($majUtilisateur);
 
                         // VERIFICATION DE L'ACCUSE DE TRAITEMENT
@@ -242,9 +242,9 @@ class AdminController extends Controller
                 if ($input["id"] ?? null) {
 
                     // CONTROLE DE L'EXISTENCE D'UN EMPRUNT
-                    $delUtilisateur = new utilisateur();
+                    $delUtilisateur = new User();
                     $delUtilisateur->setId_utilisateur($input["id"]);
-                    $delUtilisateurModel = new utilisateurModel();
+                    $delUtilisateurModel = new UserModel();
                     $success = $delUtilisateurModel->delete($delUtilisateur);
 
                     // VERIFICATION DE L'ACCUSE DE TRAITEMENT

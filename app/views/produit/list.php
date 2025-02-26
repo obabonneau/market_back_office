@@ -13,9 +13,9 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-hover table-bordered border-3" id="dataTable" width="100%" cellspacing="0">
                     <thead>
-                        <tr>
+                        <tr class="table-primary">
                             <th scope="col">Image</th>
                             <th scope="col">Catégorie</th>
                             <th scope="col">Produit</th>
@@ -29,7 +29,7 @@
                         <?php foreach ($produits as $produit) : ?>
                             <tr id="listTr<?php echo htmlspecialchars($produit->id_produit, ENT_QUOTES, "UTF-8"); ?>">
                                 <td class="text-start ps-3">
-                                    <img class="rounded-3" style="max-width: 100px; max-height: 100px;" src="../public/img/produit.jpg" alt="Image du produit">
+                                    <img class="rounded-3" style="max-width: 100px; max-height: 100px;" src="../public/img/produit/<?php echo htmlspecialchars($produit->image, ENT_QUOTES, "UTF-8"); ?>" alt="Image du produit">
                                 </td>
                                 <td class="text-start ps-3">
                                     <span class="badge bg-secondary"><?php echo htmlspecialchars($produit->categorie, ENT_QUOTES, "UTF-8"); ?></span>

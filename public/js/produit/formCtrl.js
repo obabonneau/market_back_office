@@ -8,19 +8,20 @@ const produit = document.querySelector("#produit");
 const marque = document.querySelector("#marque");
 const description = document.querySelector("#description");
 const prix = document.querySelector("#prix");
+const image = document.querySelector("#image");
 
 const id_categorieError = document.querySelector("#id_categorieError");
 const produitError = document.querySelector("#produitError");
 const marqueError = document.querySelector("#marqueError");
 const descriptionError = document.querySelector("#descriptionError");
 const prixError = document.querySelector("#prixError");
+const imageError = document.querySelector("#imageError");
 
 // IMPORT DES MODULES
 import { modalForm, modalFormId } from "../module/modalForm.js";
 import { showError, eraseError } from "../module/modalFormError.js";
-import { produitCreate } from "./produitCreate.js";
-//import { userUpdate } from "./userUpdate.js";
-
+import { imageCtrl } from "./image.js";
+import { create } from "./create.js";
 
 //-----------------------------------------------//
 // VALIDATION DES CHAMPS DU FORMULAIRE AU SUBMIT //
@@ -39,6 +40,7 @@ document.querySelector("#form").addEventListener("submit", function(event) {
         eraseError(id_categorieError);
     }    
 
+    
     // VALIDATION DU PRODUIT
     if (produit.value.length < 2) {
         showError(produitError, "Le produit doit contenir au moins 2 caractères.");
@@ -54,7 +56,7 @@ document.querySelector("#form").addEventListener("submit", function(event) {
     } else {
         eraseError(marqueError);
     }
-
+    
     // VALIDATION DE LA DESCRIPTION
     if (description.value.length < 2) {
         showError(descriptionError, "La description doit contenir au moins 2 caractères.");
@@ -62,21 +64,36 @@ document.querySelector("#form").addEventListener("submit", function(event) {
     } else {
         eraseError(descriptionError);
     }
-
+    
     // VALIDATION DU PRIX
-    if (isNaN(prix.value)) {
-        showError(prixError, "Le prix doit être un nombre.");
+    if (isNaN(prix.value) || prix.value === "") {
+        showError(prixError, "Le prix est vide.");
         isValid = false;
     } else {
         eraseError(prixError);
     }
 
+    // VALIDATION DE L'IMAGE
+    if (image.files.length === 0) {
+        showError(imageError, "Veuillez sélectionner une image.");
+        isValid = false;
+     } else {
+     
+         //SI FICHIER EXISTANT, ON VERIFIE QU'IL S'AGIT D'UNE IMAGE
+        if (imageCtrl(image) !== "OK") {
+            showError(imageError, imageCtrl(image));
+            isValid = false;
+        } else {
+            eraseError(imageError);
+        }
+     }
+    
     // SI LE FORMULAIRE EST VALIDE, ON LANCE LA VERIFICATION DU USER ET DU MDP
     if (isValid) {
-
+        
         // ENVOI DU FORMULAIRE
         if (modalFormId.value === "") {
-            produitCreate(this);
+            create(this);
         } else {
             //userUpdate(this);
         }
@@ -126,4 +143,30 @@ prix.addEventListener("input", () => {
     if (!isNaN(prix.value)) {
         eraseError(prixError);
     }
+});
+
+// VALIDATION DE L'IMAGE
+image.addEventListener("input", () => {
+    if (imageCtrl(image) === "OK") {
+        eraseError(imageError);
+    }
+});
+
+
+
+
+
+prix.addEventListener("input", function () {
+    // Remplace le point par une virgule
+    prix.value = prix.value.replace(".", ",");
+    
+    // Supprime tous les caractères qui ne sont pas des chiffres ou une virgule
+    prix.value = prix.value.replace(/[^0-9,]/g, "");
+
+    // Limite à deux décimales après la virgule
+    let parts = prix.value.split(",");
+    if (parts[1] && parts[1].length > 2) {
+        parts[1] = parts[1].slice(0, 2); // garde seulement 2 décimales
+    }
+    prix.value = parts.join(",");
 });

@@ -62,8 +62,6 @@ if (currentUrl !== "https://www.cefii-developpements.fr/olivier1422/cefii_market
     sidebarLabels[0].style.color = "#ffffff";
 }
 
-
-
 ////////////////////
 // FLECHE SCROLL  //
 ////////////////////

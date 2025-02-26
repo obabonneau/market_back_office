@@ -12,9 +12,9 @@ const listBtnCreate = document.querySelector("#listBtnCreate");
 const idCategorie = document.querySelector("#id_categorie");
 
 
-//-----------------------------------------------//
-// AFFICHAGE DE LA MODAL DE CREATION D'UN PODUIT //
-//-----------------------------------------------//
+//------------------------------------------------//
+// AFFICHAGE DE LA MODAL DE CREATION D'UN PRODUIT //
+//------------------------------------------------//
 listBtnCreate.addEventListener("click", () => {
 
     // REQUETE DE LECTURE DE L'UTILISATEUR
@@ -49,10 +49,10 @@ listBtnCreate.addEventListener("click", () => {
         modalForm.show();
 });
 
-//-----------------------------------------//
-// CREATION D'UN UTILISATEUR EN ASYNCHRONE //
-//-----------------------------------------//
-export function produitCreate(form) {
+//-----------------------//
+// CREATION D'UN PRODUIT //
+//-----------------------//
+export function create(form) {
     
     // SELECTION DU TABLEAU
     const tableBody = document.querySelector("#tableBody");
@@ -64,6 +64,7 @@ export function produitCreate(form) {
     const marque = form.marque.value;
     const description = form.description.value;
     const prix = form.prix.value;
+    const image = form.image.value;
 
     // REQUETE DE CREATION
     fetch("index.php?controller=Produit&action=create",
@@ -75,11 +76,12 @@ export function produitCreate(form) {
         .then((result) =>
         {
             if (result.data) {
-                console.log(result.data);
 
                 // AJOUT DE LA NOUVELLE LIGNE DANS LE TABLEAU
                 const tr = document.createElement("tr");
-                tr.innerHTML = `<td class="text-start ps-3">${"image"}</td>
+                tr.innerHTML = `<td class="text-start ps-3">
+                                    <img class="rounded-3" style="max-width: 100px; max-height: 100px;" src="../public/img/produit/${result.data}" alt="Image du produit">
+                                </td>
                                 <td class="text-start ps-3">
                                     <span class="badge bg-secondary">${categorie}</span>
                                 </td>

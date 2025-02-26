@@ -4,7 +4,7 @@
 namespace App\Controllers;
 
 // IMPORT DE CLASSES
-use App\Controllers\Controller as Controller;
+use App\Controllers\Controller;
 
 
 /////////////////////////////

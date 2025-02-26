@@ -32,9 +32,9 @@
                         </div>
                     </div>
                 </div> -->
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered table-hover border-3" id="dataTable" width="100%" cellspacing="0">
                     <thead>
-                        <tr>
+                        <tr class="table-primary">
                             <th scope="col">Prénom</th>
                             <th scope="col">Nom</th>
                             <th scope="col">Email</th>

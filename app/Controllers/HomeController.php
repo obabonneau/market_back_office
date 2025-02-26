@@ -21,7 +21,7 @@ class HomeController extends Controller
         if (isset($_SESSION["user"]["id_utilisateur"])) {
             $this->render("home/home", ["title" => "Tableau de bord"]);
         } else {
-            header("Location: index.php");
+            header("Location: login.php");
         }
     }
 }

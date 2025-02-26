@@ -4,9 +4,10 @@
 namespace App\Controllers;
 
 // IMPORT DE CLASSES
-use App\Controllers\Controller as Controller;
-use App\Entities\Produit as Produit;
-use App\Models\ProduitModel as ProduitModel;
+use App\Controllers\Controller;
+use App\Core\Picture;
+use App\Entities\Produit;
+use App\Models\ProduitModel;
 
 
 ///////////////////////////////////////////
@@ -64,10 +65,11 @@ class ProduitController extends Controller
                 "type='module' src='../public/js/module/tokenCreate.js'",
                 "type='module' src='../public/js/module/modalForm.js'",
                 "type='module' src='../public/js/module/modalFormError.js'",
-                "type='module' src='../public/js/produit/produitFormCtrl.js'",
-                "type='module' src='../public/js/produit/produitCreate.js'",
+                "type='module' src='../public/js/produit/formCtrl.js'",
+                "type='module' src='../public/js/produit/create.js'",
                 // "type='module' src='../public/js/produit/produitUpdate.js'",
-                "type='module' src='../public/js/produit/produitDelete.js'"
+                "type='module' src='../public/js/produit/delete.js'",
+                "type='module' src='../public/js/produit/image.js'"	
             ]
         ];
         $this->render("produit/list", $data);
@@ -88,31 +90,56 @@ class ProduitController extends Controller
                 $token = $_POST["token"] ?? "";
                 if ((hash_equals($_SESSION["token"]["id"], $token)) && (time() < $_SESSION["token"]["token_expiration"])) {
 
-                    // SUPPRESSION DU TOKEN
-                    unset($_SESSION["token"]);
-
                     // VERIFICATION DES CHAMPS
                     $id_categorie = $_POST["id_categorie"] ?? null;
                     $produit = $_POST["produit"] ?? null;
                     $marque = $_POST["marque"] ?? null;
                     $description = $_POST["description"] ?? null;
                     $prix = $_POST["prix"] ?? null;
-                    if ($id_categorie && $produit && $marque && $description && $prix) {
+                    $picture = $_FILES["image"] ?? null;
+                    if ($id_categorie && $produit && $marque && $description && $prix && ($picture["error"] == UPLOAD_ERR_OK)) {
 
-                        // CREATION DU PRODUIT
-                        $addProduit = new Produit();
-                        $addProduit->setId_categorie($id_categorie);
-                        $addProduit->setProduit($produit);
-                        $addProduit->setMarque($marque);
-                        $addProduit->setDescription($description);
-                        $addProduit->setPrix($prix);
-                        $addProduitModel = new ProduitModel();
-                        $success = $addProduitModel->create($addProduit);
+                        // SUPPRESSION DU TOKEN
+                        unset($_SESSION["token"]);
 
-                        // VERIFICATION DE L'ACCUSE DE TRAITEMENT
-                        // ENVOI VERS LE CONTROLEUR PRINCIPAL "ASYNCHRONE"
-                        $success ? $this->myJsonEncode(true, "") : $this->myJsonEncode(false, "error_request");
+                        // CONTROLE DE L'IMAGE
+                        $addPicture = new Picture();
+                        $pictureCtrl = $addPicture->controle($picture);
+                        if ($pictureCtrl == "OK") {
 
+                            // GENERATION D'UN NOM UNIQUE POUR L'IMAGE
+                            $pictureExt = strtolower(pathinfo($picture["name"], PATHINFO_EXTENSION));
+                            $pictureName = bin2hex(random_bytes(16)) . "." . $pictureExt;                       
+
+                            // ENVOI DE L'IMAGE
+                            $imageUpload = $addPicture->upload("../public/img/produit/", $pictureName, $picture);
+                    
+                            // CONTROLE DE L'ENVOI DE L'IMAGE
+                            if ($imageUpload === "OK") {
+                                $addProduit = new Produit();
+                                $addProduit->setId_categorie($id_categorie);
+                                $addProduit->setProduit($produit);
+                                $addProduit->setMarque($marque);
+                                $addProduit->setDescription($description);
+                                $addProduit->setPrix($prix);
+                                $addProduit->setImage($pictureName);    
+                                $addProduitModel = new ProduitModel();
+                                $success = $addProduitModel->create($addProduit); // A OPTIMISER - SUPPRESSION IMAGE SI KO //
+                                           
+                                // VERIFICATION DE L'ACCUSE DE TRAITEMENT
+                                // ENVOI VERS LE CONTROLEUR PRINCIPAL "ASYNCHRONE"
+                                $success ? $this->myJsonEncode($pictureName, "") : $this->myJsonEncode(false, "error_request");
+
+                            } else {
+
+                                // ENVOI VERS LE CONTROLEUR PRINCIPAL "ASYNCHRONE"
+                                $this->myJsonEncode(false, $imageUpload);
+                            }
+                        } else {
+
+                            // ENVOI VERS LE CONTROLEUR PRINCIPAL "ASYNCHRONE"
+                            $this->myJsonEncode(false, $pictureCtrl);
+                        }
                     } else {
 
                         // ENVOI VERS LE CONTROLEUR PRINCIPAL "ASYNCHRONE"

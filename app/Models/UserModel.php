@@ -5,7 +5,7 @@ namespace App\Models;
 
 // IMPORT DE CLASSES
 use App\Core\DbConnect;
-use App\Entities\Utilisateur;
+use App\Entities\User;
 use PDO;
 use PDOException;
 
@@ -13,12 +13,12 @@ use PDOException;
 //////////////////////////////////////////
 // CLASSE MODEL DE L'ENTITE UTILISATEUR //
 //////////////////////////////////////////
-class UtilisateurModel extends DbConnect
+class UserModel extends DbConnect
 {
     //----------------------------------//
     // METHODE POUR LIRE UN UTILISATEUR //
     //----------------------------------//
-    public function readByID(Utilisateur $readUtilisateur)
+    public function readByID(User $readUtilisateur)
     {
         try {
             // PREPARATION DE LA REQUETE SQL
@@ -43,7 +43,7 @@ class UtilisateurModel extends DbConnect
     //----------------------------------//
     // METHODE POUR LIRE UN UTILISATEUR //
     //----------------------------------//
-    public function readByEmail(Utilisateur $readUtilisateur)
+    public function readByEmail(User $readUtilisateur)
     {
         try {
             // PREPARATION DE LA REQUETE SQL
@@ -68,7 +68,7 @@ class UtilisateurModel extends DbConnect
     //----------------------------------//
     // METHODE POUR LIRE UN UTILISATEUR //
     //----------------------------------//
-    public function readByToken(Utilisateur $readUtilisateur)
+    public function readByToken(User $readUtilisateur)
     {
         try {
             // PREPARATION DE LA REQUETE SQL
@@ -117,7 +117,7 @@ class UtilisateurModel extends DbConnect
     //-----------------------------------//
     // METHODE POUR CREER UN UTILISATEUR //
     //-----------------------------------//
-    public function create(Utilisateur $addUtilisateur)
+    public function create(User $addUtilisateur)
     {
         try {
             // PREPARATION DE LA REQUETE SQL
@@ -144,7 +144,7 @@ class UtilisateurModel extends DbConnect
     //--------------------------------------//
     // METHODE POUR MODIFIER UN UTILISATEUR //
     //--------------------------------------//
-    public function update(Utilisateur $majUtilisateur)
+    public function update(User $majUtilisateur)
     {
         try {
             // CONSTRUCTION DE LA REQUETE EN FONCTION DU PASSWORD
@@ -191,7 +191,7 @@ class UtilisateurModel extends DbConnect
     //---------------------------------------//
     // METHODE POUR MODIFIER UN MOT DE PASSE //
     //---------------------------------------//
-    public function updateToken(Utilisateur $majUtilisateur)
+    public function updateToken(User $majUtilisateur)
     {
         try {
             // PREPARATION DE LA REQUETE SQL
@@ -217,7 +217,7 @@ class UtilisateurModel extends DbConnect
     //---------------------------------------//
     // METHODE POUR MODIFIER UN MOT DE PASSE //
     //---------------------------------------//
-    public function updatePassword(Utilisateur $majUtilisateur)
+    public function updatePassword(User $majUtilisateur)
     {
         try {
             // PREPARATION DE LA REQUETE SQL
@@ -245,7 +245,7 @@ class UtilisateurModel extends DbConnect
     //---------------------------------------//
     // METHODE POUR SUPPRIMER UN UTILISATEUR //
     //---------------------------------------//
-    public function delete(Utilisateur $delUtilisateur)
+    public function delete(User $delUtilisateur)
     {
         try {
             // PREPARATION DE LA REQUETE SQL

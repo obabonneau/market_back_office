@@ -7,7 +7,7 @@ namespace App\Entities;
 ///////////////////////////////
 // CLASSE ET BDD UTILISATEUR //
 ///////////////////////////////
-class Utilisateur
+class User
 {
     //-----------//
     // ATTRIBUTS //

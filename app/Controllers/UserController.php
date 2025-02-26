@@ -4,11 +4,11 @@
 namespace App\Controllers;
 
 // IMPORT DE CLASSES
-use App\Controllers\Controller as Controller;
-use App\Entities\Utilisateur as Utilisateur;
-use App\Entities\Mail as Mail;
-use App\Models\UtilisateurModel as UtilisateurModel;
-use App\Models\MailModel as MailModel;
+use App\Controllers\Controller;
+use App\Entities\User;
+use App\Entities\Mail;
+use App\Models\UserModel;
+use App\Models\MailModel;
 
 
 ///////////////////////////////////////////////
@@ -35,9 +35,9 @@ class UserController extends Controller
                 if ($email && $password) {
 
                     // LECTURE DE L'UTILISATEUR
-                    $readUtilisateur = new Utilisateur();
+                    $readUtilisateur = new User();
                     $readUtilisateur->setEmail($email);
-                    $readUtilisateurModel = new UtilisateurModel();
+                    $readUtilisateurModel = new UserModel();
                     $utilisateur = $readUtilisateurModel->readByEmail($readUtilisateur);
 
                     // VERIFICATION DE L'EXISTENCE DE L'UTILISATEUR ET DU PASSWORD
@@ -119,9 +119,9 @@ class UserController extends Controller
                 if ($input["email"] ?? null) {
 
                     // LECTURE DE L'UTILISATEUR
-                    $majUtilisateur = new Utilisateur();
+                    $majUtilisateur = new User();
                     $majUtilisateur->setEmail($input["email"]);
-                    $majUtilisateurModel = new UtilisateurModel();
+                    $majUtilisateurModel = new UserModel();
                     $utilisateur = $majUtilisateurModel->readByEmail($majUtilisateur);
 
                     if ($utilisateur) {
@@ -189,9 +189,9 @@ class UserController extends Controller
             if ($_GET["token"] ?? null) {
 
                 // LECTURE DE L'UTILISATEUR AVEC LE TOKEN
-                $readUtilisateur = new Utilisateur();
+                $readUtilisateur = new User();
                 $readUtilisateur->setToken($_GET["token"]);
-                $readUtilisateurModel = new UtilisateurModel();
+                $readUtilisateurModel = new UserModel();
                 $utilisateur = $readUtilisateurModel->readByToken($readUtilisateur);
                 if ($utilisateur && ($_GET["token"] === $utilisateur->token)) {
 
@@ -238,9 +238,9 @@ class UserController extends Controller
                     unset($_SESSION["token"]);
 
                     // LECTURE DE L'UTILISATEUR AVEC LE TOKEN
-                    $majUtilisateur = new Utilisateur();
+                    $majUtilisateur = new User();
                     $majUtilisateur->setToken($userToken);
-                    $majUtilisateurModel = new UtilisateurModel();
+                    $majUtilisateurModel = new UserModel();
                     $utilisateur = $majUtilisateurModel->readByToken($majUtilisateur);
   
                     // MISE A JOUR DU PASSWORD

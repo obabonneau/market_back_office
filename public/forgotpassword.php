@@ -117,7 +117,7 @@
                                         <?php else : ?>
 
 
-                                            <div id="message" class="alert alert-danger">
+                                            <div id="message" class="alert alert-danger mt-5">
                                                 <p class="mb-0 text-center"><?php echo $result->message; ?></p>
                                             </div>
 
