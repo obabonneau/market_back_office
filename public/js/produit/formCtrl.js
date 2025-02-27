@@ -66,7 +66,7 @@ document.querySelector("#form").addEventListener("submit", function(event) {
     }
     
     // VALIDATION DU PRIX
-    if (isNaN(prix.value) || prix.value === "") {
+    if (prix.value === "") {
         showError(prixError, "Le prix est vide.");
         isValid = false;
     } else {
@@ -140,7 +140,7 @@ description.addEventListener("input", () => {
 
 // VALIDATION DU PRIX
 prix.addEventListener("input", () => {
-    if (!isNaN(prix.value)) {
+    if (prix.value !== "") {
         eraseError(prixError);
     }
 });

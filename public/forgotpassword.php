@@ -76,8 +76,7 @@
                                         </div>
 
                                         <?php else :
-                                        //$url = "http://app.local/CEFii_Market/market_back_office/public/index.php?controller=User&action=forgotPasswordCtrl&token=" . $_GET["token"];
-                                        $url = "https://www.cefii-developpements.fr/olivier1422/cefii_market/market_back_office/public/index.php?controller=User&action=forgotPasswordCtrl&token=" . $_GET["token"];
+                                        $url = "index.php?controller=User&action=forgotPasswordCtrl&token=" . $_GET["token"];
                                         $result = json_decode(file_get_contents($url));
 
                                         if ($result->data) : ?>

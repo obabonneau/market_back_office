@@ -43,9 +43,10 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center">
                 <div class="sidebar-brand-icon">
-                    <i class="bi bi-clipboard-data"></i>
+                    <!-- <i class="bi bi-clipboard-data"></i> -->
+                    <img src="../public/img/favicon.png" alt="Logo" width="50" height="50">
                 </div>
-                <div class="sidebar-brand-text mx-3">BACK OFFICE</div>
+                <div class="sidebar-brand-text ms-3">BACK OFFICE</div>
             </a>
 
             <!-- Divider -->
@@ -167,15 +168,15 @@
                     <ul class="navbar-nav ml-auto">
 
                         <!-- Nav Item - Alerts -->
-                        <li class="nav-item dropdown no-arrow mx-1">
+                        <!-- <li class="nav-item dropdown no-arrow mx-1">
                             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-bell fa-fw"></i>
+                                <i class="fas fa-bell fa-fw"></i> -->
                                 <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">3+</span>
-                            </a>
+                                <!-- <span class="badge badge-danger badge-counter">3+</span>
+                            </a> -->
                             <!-- Dropdown - Alerts -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                            <!-- <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="alertsDropdown">
                                 <h6 class="dropdown-header">
                                     Alerts Center
@@ -193,7 +194,7 @@
                                 </a>
                                 <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
                             </div>
-                        </li>
+                        </li> -->
 
                         <div class="topbar-divider d-none d-sm-block"></div>
 

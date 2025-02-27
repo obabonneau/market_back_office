@@ -88,7 +88,7 @@ export function create(form) {
                                 <td class="text-start ps-3">${produit}</td>
                                 <td class="text-start ps-3">${marque}</td>
                                 <td class="text-start ps-3">${description}</td>
-                                <td class="text-start ps-3">${prix}</td>
+                                <td class="text-start ps-3">${prix} €</td>
                                 <td class="text-center p-2">
                                     <button id="listBtnUpdate" class="btn btn-sm btn-warning text-white" data-id=""
                                         title="Modifier">
